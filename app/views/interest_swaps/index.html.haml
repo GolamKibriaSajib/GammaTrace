@@ -1,0 +1,43 @@
+.container
+.col-md-10
+  .row
+    .bhoechie-tab-container
+      .col-lg-2.col-md-2.col-sm-2.col-xs-2.bhoechie-tab-menu
+        .list-group
+          %a.list-group-item.active.text-center{href: "#"}
+            = image_tag("scatterplot.png")
+            = succeed "Time Series" do
+              %br/
+          %a.list-group-item.text-center{href: "#"}
+            %i.icon-line-graph
+            = succeed "Term Structure" do
+              %br/
+          %a.list-group-item.text-center{href: "#"}
+            %i.fa.fa-bar-chart-o.fa-2x
+            = succeed "Delta Bucket" do
+              %br/
+      .col-md-10.borderall.bhoechie-tab
+        / flight section
+        .bhoechie-tab-content.active
+          %center
+            = high_chart("some_id", @chart)
+        / train section
+        .bhoechie-tab-content
+          %center
+            %h1.glyphicon.glyphicon-road{style: "font-size:12em;color:#55518a"}
+            %h2{style: "margin-top: 0;color:#55518a"} Cooming Soon
+            %h3{style: "margin-top: 0;color:#55518a"} Train Reservation
+        / hotel search
+        .bhoechie-tab-content
+          %center
+            %h1.glyphicon.glyphicon-home{style: "font-size:12em;color:#55518a"}
+            %h2{style: "margin-top: 0;color:#55518a"} Cooming Soon
+            %h3{style: "margin-top: 0;color:#55518a"} Hotel Directory
+  / #container{style: "min-width: 310px; height: 400px; margin: 0 auto"}
+  
+
+  - @fixedfloatswaps.each do |a|
+    .container
+      = a.taxonomy
+      = number_to_percentage(a.price_notation)
+      = Time.at(a.execution_timestamp)

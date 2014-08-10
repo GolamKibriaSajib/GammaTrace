@@ -1,0 +1,30 @@
+
+.navbar-inverse {
+  background-color: black;
+  border-color: #090909;
+  }
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+  background-color: white;
+  color: black;
+  border-left-color: transparent;
+  }
+
+.navbar-inverse .navbar-brand {
+  color: white;
+  font-size: 26px;
+  }
+
+.navbar-inverse .navbar-nav > li > a {
+  color: white;
+  }
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+  color: black;
+  background-color: white;
+  height:100%;
+  }
+
+.navbar-inverse .navbar-nav > .open > .dropdown-menu {
+  background-color: black;
+  }
