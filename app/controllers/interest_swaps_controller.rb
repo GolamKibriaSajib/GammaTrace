@@ -2,8 +2,7 @@ class InterestSwapsController < ApplicationController
 
 
   def index
-    a = InterestSwap.find(:all, :conditions => { :taxonomy => 'InterestRate:IRSwap:FixedFloat'})
-    @fixedfloatswaps = a.find(:all, :conditions => [ :action => 'NEW'])
+    @fixedfloatswaps = InterestSwap.find(:all, :conditions => { :taxonomy => 'InterestRate:IRSwap:FixedFloat'})
     @chart = LazyHighCharts::HighChart.new('graph') do |f|
       f.title(:text => "Time Series")
       f.subtitle(:text => "Click and drag in the plot area to zoom in. Pinch the chart to zoom in")
