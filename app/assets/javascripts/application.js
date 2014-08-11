@@ -17,6 +17,8 @@
 //= require highcharts
 //= require highcharts/highcharts-more
 //= require highcharts/themes/grid-light
+//= require highstocks
+
 
 //= require turbolinks
 //= require_tree .

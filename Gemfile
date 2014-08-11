@@ -14,7 +14,9 @@ gem 'jquery-ui-rails'
 
 gem 'rickshaw_rails'
 gem 'highcharts-rails', '~> 4.0.1'
+gem "highstocks-rails"    
 gem 'lazy_high_charts'
+gem 'jquery-datetimepicker-rails'
 
 gem 'jquery-turbolinks'
 gem 'turbolinks' # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
