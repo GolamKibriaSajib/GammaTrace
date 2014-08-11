@@ -23,7 +23,7 @@ class InterestSwapsController < ApplicationController
       f.series(:color => "red",:data => @fixedfloatswaps2.map {|x| [((((x.end_date)- Time.now.to_i)/ 31556926)), x.price_notation]})
       f.tooltip(:valueSuffix => "%")
       f.yAxis [
-        {:title => {:text => "Price Notation in %", :margin => 1}, }
+        {:title => {:text => "Price Notation in %", :margin => 1}, :ceiling => 6, :floor => 0}
       ]
       f.rangeSelector(:selected => 1)
 
