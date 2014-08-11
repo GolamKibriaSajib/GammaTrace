@@ -19,8 +19,8 @@ class InterestSwapsController < ApplicationController
     @chart2 = LazyHighCharts::HighChart.new('graph') do |f|
       f.title(:text => "Scatter Plot")
       f.subtitle(:text => "Click and drag in the plot area to zoom in. Pinch the chart to zoom in")
-      f.xAxis(:gridLineWidth=> 0, :type => "linear", :floor => 0, :title => {:text=>"(END_DATE - today) in years"})
-      f.series(:color => "red",:data => @fixedfloatswaps2.map {|x| [((((x.end_date)- Time.now.to_i)/ 31556926)), x.price_notation]})
+      f.xAxis(:gridLineWidth=> 0, :floor => 0, :title => {:text=>"(END_DATE - today) in years"})
+      f.series(:color => "red",:data => @fixedfloatswaps2.map {|x| [((((x.end_date)- Time.now.to_i)/ 31556926.00000)), x.price_notation]})
       f.tooltip(:valueSuffix => "%")
       f.yAxis [
         {:title => {:text => "Price Notation in %", :margin => 1}, :ceiling => 6, :floor => 0}
