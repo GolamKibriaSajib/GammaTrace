@@ -8,10 +8,20 @@
 
 /   #page-content-wrapper
 .container
+  
   .row
     .bhoechie-tab-container.bordernone
-      .col-lg-2.col-md-2.col-sm-2.col-xs-2.bhoechie-tab-menu
-        .list-group{style: "margin-top: 80px;"}
+      .col-md-12.col-xs-12
+        %h3
+          / %i.fa.fa-bank
+          InterestRate:IRSwap:FixedFloat
+        %h4
+          = Date.parse(Time.now.to_s)
+        %hr
+      .col-lg-2.col-md-2.col-sm-2.col-xs-12.bhoechie-tab-menu
+        %h4
+          %strong Chart Type:
+        .list-group
           %a.list-group-item.active.text-center{href: "#"}
             = image_tag("scatterplot.png")
             = succeed "Time Series" do
