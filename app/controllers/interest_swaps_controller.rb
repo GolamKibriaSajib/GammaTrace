@@ -3,6 +3,7 @@ before_action :authenticate_user!
 layout 'trace';
 
   def index
+    @user = current_user
     @fixedfloatswaps = InterestSwap.irfixedfloat.search(params[:search]).sort_by {|x| x.execution_timestamp}
     @chart = LazyHighCharts::HighChart.new('graph') do |f|
       f.title(:text => "Time Series")

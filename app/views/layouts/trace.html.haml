@@ -31,7 +31,7 @@
         .container
           %ul.nav.navbar-nav.back2
             %li
-              %a{:href => "#"} Search
+              = link_to 'Search', new_user_search_path(@user), {remote: true}
             %li
               %a{:href => "#"} Term Structure
             %li
