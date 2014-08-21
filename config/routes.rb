@@ -1,7 +1,16 @@
 Quantapp::Application.routes.draw do
-  resources :data
 
-  resources :interest_swaps
+  devise_for :users
+
+  resources :users do
+    resources :interest_swaps
+    resources :searches
+  end
+
+  resources :searches
+
+
+  
   root 'interest_swaps#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

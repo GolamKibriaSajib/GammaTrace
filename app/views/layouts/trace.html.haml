@@ -1,0 +1,57 @@
+!!!
+%html
+  %head
+    %title Quantapp
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = javascript_include_tag :highcharts
+    = javascript_include_tag :highstock
+    = csrf_meta_tags
+
+  %body
+    %header.navbar.navbar-inverse.navbar-fixed-top.bs-docs-nav{role: "banner"}
+      .container.topbottom10
+        .navbar-header
+          %button.navbar-toggle{"data-target" => ".bs-navbar-collapse", "data-toggle" => "collapse", type: "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          / .navbar-brand.custom
+          = image_tag("gammatrace.png",class: "navbar-brand", style: "padding-top:15px;padding-bottom:15px")
+        %nav.collapse.navbar-collapse.bs-navbar-collapse{role: "navigation"}
+          %ul.nav.navbar-nav.floatright
+            %li
+              - if user_signed_in?
+                = link_to "Sign out", destroy_user_session_path, method: :delete
+              - else
+                = link_to "Sign in", new_user_session_path
+
+      #bs-example-navbar-collapse-1.collapse.navbar-collapse.back2
+        .container
+          %ul.nav.navbar-nav.back2
+            %li
+              %a{:href => "#"} Search
+            %li
+              %a{:href => "#"} Term Structure
+            %li
+              %a{:href => "#", id: "timeseries"} Time Series
+            %li
+              %a{:href => "#"} Data Table
+            %li
+              %a{:href => "#"} Details
+            %li
+              %a{:href => "#"} OIS
+            %li
+              %a{:href => "#"} CCY
+            %li
+              %a{:href => "#"} Vega
+            %li
+              %a{:href => "#"} Vol Term
+            %li
+              %a{:href => "#"} Vol Tail
+            %li
+              %a{:href => "#"} Time Series
+            %li
+              %a{:href => "#"} Data Table
+    = yield

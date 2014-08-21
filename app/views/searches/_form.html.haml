@@ -1,0 +1,38 @@
+= simple_form_for [@user, @search] do |f|
+  = f.input :name
+  = f.input :cleared
+  = f.input :indication_of_collateralization
+
+  = f.input :indication_of_end_user_exception
+
+  = f.input :execution_venue
+
+  = f.input :effective_date
+  = f.input :end_date
+  = f.input :settlement_currency
+  = f.input :notional_currency_1
+
+  = f.input :notional_currency_2
+
+  = f.input :rounded_notional_amount_1
+
+
+  = f.input :rounded_notional_amount_2
+
+
+  = f.input :option_strike_price
+
+
+  = f.input :option_type
+
+  = f.input :option_premium
+
+  = f.input :option_expiration_date
+
+
+  = f.input :floating_leg_reset
+
+  = f.input :user
+  .actions
+    = f.submit 'Save'
+

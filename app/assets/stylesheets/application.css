@@ -11,6 +11,8 @@
  *= require rickshaw
  *= require bootstrap_and_overrides
  *= require font-awesome
+ *= require jquery-ui
+ *= require jspanel
  *= require entypo
  *= require_self
  *= require_tree .

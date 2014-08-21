@@ -12,12 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require bootstrap
 //= require rickshaw_with_d3
 //= require highcharts
 //= require highcharts/highcharts-more
 //= require highcharts/themes/grid-light
-//= require highstocks
+//= jquery.jspanel.bs-1.4.0.min
 
 
 //= require turbolinks

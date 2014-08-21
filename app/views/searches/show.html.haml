@@ -1,0 +1,57 @@
+%p#notice= notice
+
+%p
+  %b Cleared:
+  = @search.cleared
+%p
+  %b Indication of collateralization:
+  = @search.indication_of_collateralization
+%p
+  %b Indication of end user exception:
+  = @search.indication_of_end_user_exception
+%p
+  %b Execution venue:
+  = @search.execution_venue
+%p
+  %b Effective date:
+  = @search.effective_date
+%p
+  %b End date:
+  = @search.end_date
+%p
+  %b Settlement currency:
+  = @search.settlement_currency
+%p
+  %b Notional currency 1:
+  = @search.notional_currency_1
+%p
+  %b Notional currency 2:
+  = @search.notional_currency_2
+%p
+  %b Rounded notional amount 1:
+  = @search.rounded_notional_amount_1
+%p
+  %b Rounded notional amount 2:
+  = @search.rounded_notional_amount_2
+%p
+  %b Option strike price:
+  = @search.option_strike_price
+%p
+  %b Option type:
+  = @search.option_type
+%p
+  %b Option premium:
+  = @search.option_premium
+%p
+  %b Option expiration date:
+  = @search.option_expiration_date
+%p
+  %b Floating leg reset:
+  = @search.floating_leg_reset
+%p
+  %b User:
+  = @search.user
+
+= link_to 'Edit', edit_search_path(@search)
+\|
+= link_to 'Back', searches_path

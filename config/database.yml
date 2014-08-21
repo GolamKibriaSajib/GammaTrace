@@ -19,8 +19,8 @@ development:
   encoding: unicode
   database: QuantDB
   pool: 5
-  username: ro_tester
-  password: 3dZGg27y
+  username: tester
+  password: yZ678J65
   host: quantdb.cjwcpyuxpq0k.us-west-2.rds.amazonaws.com 
   port: 5432
 
@@ -58,7 +58,7 @@ production:
   encoding: unicode
   database: QuantDB
   pool: 5
-  username: ro_tester
-  password: 3dZGg27y
+  username: tester
+  password: yZ678J65
   host: quantdb.cjwcpyuxpq0k.us-west-2.rds.amazonaws.com 
   port: 5432

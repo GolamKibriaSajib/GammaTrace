@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140804235322) do
+ActiveRecord::Schema.define(version: 20140821010349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,5 +72,48 @@ ActiveRecord::Schema.define(version: 20140804235322) do
     t.string  "price_notation3_type",                               limit: nil
     t.float   "price_notation3"
   end
+
+  create_table "searches", force: true do |t|
+    t.string   "cleared"
+    t.string   "indication_of_collateralization"
+    t.string   "indication_of_end_user_exception"
+    t.string   "execution_venue"
+    t.integer  "effective_date"
+    t.integer  "end_date"
+    t.string   "settlement_currency"
+    t.string   "notional_currency_1"
+    t.string   "notional_currency_2"
+    t.integer  "rounded_notional_amount_1"
+    t.integer  "rounded_notional_amount_2"
+    t.integer  "option_strike_price"
+    t.string   "option_type"
+    t.string   "option_premium"
+    t.integer  "option_expiration_date"
+    t.string   "floating_leg_reset"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+  end
+
+  add_index "searches", ["user_id"], name: "index_searches_on_user_id", using: :btree
+
+  create_table "users", force: true do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

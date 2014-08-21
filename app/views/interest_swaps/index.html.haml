@@ -7,56 +7,21 @@
 /   / Page Content
 
 /   #page-content-wrapper
-.container
-  
-  .row
-    .bhoechie-tab-container.bordernone
-      .col-md-12.col-xs-12
-        %h3
-          / %i.fa.fa-bank
-          InterestRate:IRSwap:FixedFloat
-        %h4
-          = Date.parse(Time.now.to_s)
-        %hr
-      .col-lg-2.col-md-2.col-sm-2.col-xs-12.bhoechie-tab-menu
-        %h4
-          %strong Chart Type:
-        .list-group
-          %a.list-group-item.active.text-center{href: "#"}
-            = image_tag("scatterplot.png")
-            = succeed "Time Series" do
-              %br/
-          %a.list-group-item.text-center{href: "#"}
-            %i.icon-line-graph
-            = succeed "Term Structure" do
-              %br/
-          %a.list-group-item.text-center{href: "#"}
-            %i.fa.fa-bar-chart-o.fa-2x
-            = succeed "Delta Bucket" do
-              %br/
-      .col-md-10.bordernone.bhoechie-tab
-        / flight section
-        .bhoechie-tab-content.active
-          %center
-            = high_chart "s", @chart
-            = form_tag interest_swaps_path, :method => 'get', :id => "search" do
-              %h4
-                Insert end date in epoch
-                = number_field_tag :search, params[:search], :size => 18
-                = submit_tag
-        / train section
-        .bhoechie-tab-content
-          %center
-            = high_chart "s2", @chart2
-        / hotel search
-        .bhoechie-tab-content
-          %center
-            / = high_chart "s222", @chart3
-  / #container{style: "min-width: 310px; height: 400px; margin: 0 auto"}
+.container-fluid.nopad
+  .col-md-4.nopad
+    .panel.panel-default
+      .panel-heading
+        Time Series
+      .panel-body
+        = high_chart "s", @chart
+  .col-md-4.nopad
+    .panel.panel-default
+      .panel-heading
+        Scatter Plot
+      .panel-body
+        = high_chart "s2", @chart2
 
-
-  / - @fixedfloatswaps.each do |a|
-  /   .container
-  /     = a.taxonomy
-  /     = number_to_percentage(a.price_notation)
-  /     = Time.at(a.execution_timestamp)
+:javascript
+  $( "#timeseries" ).click(function() {
+    $("body").jsPanel({position:  "center"});
+  });
