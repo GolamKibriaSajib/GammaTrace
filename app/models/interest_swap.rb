@@ -1,5 +1,5 @@
 class InterestSwap < ActiveRecord::Base
-
+  belongs_to :user
   # Table connectors
   self.table_name = "interest_swap"
   self.primary_key = "dissemination_id"

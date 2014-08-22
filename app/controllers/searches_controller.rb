@@ -5,6 +5,9 @@ class SearchesController < ApplicationController
   # GET /searches.json
   def index
     @searches = current_user.searches.all
+    respond_to do |format|
+      format.js
+    end
   end
 
   # GET /searches/1
@@ -15,6 +18,9 @@ class SearchesController < ApplicationController
   # GET /searches/new
   def new
     @search = Search.new
+    respond_to do |format|
+      format.js
+    end
   end
 
   # GET /searches/1/edit
@@ -24,15 +30,15 @@ class SearchesController < ApplicationController
   # POST /searches
   # POST /searches.json
   def create
+    @searches = current_user.searches.all
     @search = Search.new(search_params)
-
+    @search.user = current_user
     respond_to do |format|
       if @search.save
-        format.html { redirect_to @search, notice: 'Search was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @search }
+        format.html
+        format.js
       else
-        format.html { render action: 'new' }
-        format.json { render json: @search.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -63,12 +69,13 @@ class SearchesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_search
-      @search = Search.find(params[:id])
-    end
+  def set_search
+    @search = Search.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def search_params
-      params.require(:search).permit(:cleared, :indication_of_collateralization, :indication_of_end_user_exception, :execution_venue, :effective_date, :end_date, :settlement_currency, :notional_currency_1, :notional_currency_2, :rounded_notional_amount_1, :rounded_notional_amount_2, :option_strike_price, :option_type, :option_premium, :option_expiration_date, :floating_leg_reset, :user_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def search_params
+    params.require(:search).permit(:name, :taxonomy, :cleared, :indication_of_collateralization, :indication_of_end_user_exception, :execution_venue, :effective_date, :end_date, :settlement_currency, :notional_currency_1, :notional_currency_2, :rounded_notional_amount_1, :rounded_notional_amount_2, :option_strike_price, :option_type, :option_premium, :option_expiration_date, :floating_leg_reset)
+  end
+
 end

@@ -3,8 +3,10 @@ before_action :authenticate_user!
 layout 'trace';
 
   def index
+    @searches = current_user.searches.all
     @user = current_user
     @fixedfloatswaps = InterestSwap.irfixedfloat.search(params[:search]).sort_by {|x| x.execution_timestamp}
+    
     @chart = LazyHighCharts::HighChart.new('graph') do |f|
       f.title(:text => "Time Series")
       f.subtitle(:text => "Click and drag in the plot area to zoom in. Pinch the chart to zoom in")
@@ -31,9 +33,12 @@ layout 'trace';
       f.rangeSelector(:selected => 1)
 
       # f.legend(:align => 'right', :verticalAlign => 'top', :y => 5, :x => -10, :layout => 'vertical',)
-      f.chart({:type =>"scatter", :zoomType => 'xy', :animation => true, :height => "400"})
+      f.chart({:type =>"scatter", :zoomType => 'xy', :width => "400"})
     end
 
   end
+
+  private
+
 
 end

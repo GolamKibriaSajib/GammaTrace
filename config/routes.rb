@@ -7,9 +7,7 @@ Quantapp::Application.routes.draw do
     resources :searches
   end
 
-  resources :searches
-
-
+ resources :searches
   
   root 'interest_swaps#index'
 

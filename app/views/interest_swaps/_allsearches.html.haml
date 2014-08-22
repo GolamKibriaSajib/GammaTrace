@@ -1,0 +1,55 @@
+.panel.panel-default{style: "margin-bottom:0px;"}
+  .panel-heading
+    All Searches
+  .panel-body{style: "overflow:scroll;height:200px;"}
+    %table.table.table-condensed
+      %thead
+        %tr
+          %strong
+            %th
+            %th Search Name
+            %th Taxonomy
+            %th Cleared
+            %th Indication of collateralization
+            %th Indication of end user exception
+            %th Execution venue
+            %th Effective date
+            %th End date
+            %th Settlement currency
+            %th Notional currency 1
+            %th Notional currency 2
+            %th Rounded notional amount 1
+            %th Rounded notional amount 2
+            %th Option strike price
+            %th Option type
+            %th Option premium
+            %th Option expiration date
+            %th Floating leg reset
+            %th
+            %th
+      %tbody
+        - @searches.each_with_index do |s, i|
+          %tr
+            %th= i+1
+            %td= s.name
+            %td= s.taxonomy
+            %td= s.cleared
+            %td= s.indication_of_collateralization
+            %td= s.indication_of_end_user_exception
+            %td= s.execution_venue
+            %td= s.effective_date
+            %td= s.end_date
+            %td= s.settlement_currency
+            %td= s.notional_currency_1
+            %td= s.notional_currency_2
+            %td= s.rounded_notional_amount_1
+            %td= s.rounded_notional_amount_2
+            %td= s.option_strike_price
+            %td= s.option_type
+            %td= s.option_premium
+            %td= s.option_expiration_date
+            %td= s.floating_leg_reset
+            %td Edit
+            %td Delete
+  }
+

@@ -30,11 +30,17 @@
       #bs-example-navbar-collapse-1.collapse.navbar-collapse.back2
         .container
           %ul.nav.navbar-nav.back2
-            %li
-              = link_to 'Search', new_user_search_path(@user), {remote: true}
-            %li
+            %li.dropdown
+              %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
+                Search
+                %b.caret
+              %ul.dropdown-menu
+                %li#showsearches 
+                  %a All Searches
+                %li= link_to 'New Search', new_user_search_path(@user), { remote: true, "data-toggle" => "modal", "data-target" => "#tablemodal"}
+            %li#showscatter
               %a{:href => "#"} Term Structure
-            %li
+            %li#showts
               %a{:href => "#", id: "timeseries"} Time Series
             %li
               %a{:href => "#"} Data Table
@@ -52,6 +58,11 @@
               %a{:href => "#"} Vol Tail
             %li
               %a{:href => "#"} Time Series
-            %li
-              %a{:href => "#"} Data Table
+            %li.dropdown
+              %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
+                Views
+                %b.caret
+              %ul.dropdown-menu
+                - current_user.searches.each do |s|
+                  %li=link_to s.name, user_search_path(@user.id, s)
     = yield

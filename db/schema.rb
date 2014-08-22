@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140821010349) do
+ActiveRecord::Schema.define(version: 20140821211413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,7 +71,10 @@ ActiveRecord::Schema.define(version: 20140821010349) do
     t.float   "price_notation2"
     t.string  "price_notation3_type",                               limit: nil
     t.float   "price_notation3"
+    t.integer "user_id"
   end
+
+  add_index "interest_swap", ["user_id"], name: "index_interest_swap_on_user_id", using: :btree
 
   create_table "searches", force: true do |t|
     t.string   "cleared"
@@ -90,10 +93,11 @@ ActiveRecord::Schema.define(version: 20140821010349) do
     t.string   "option_premium"
     t.integer  "option_expiration_date"
     t.string   "floating_leg_reset"
-    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
+    t.integer  "user_id"
+    t.string   "taxonomy"
   end
 
   add_index "searches", ["user_id"], name: "index_searches_on_user_id", using: :btree

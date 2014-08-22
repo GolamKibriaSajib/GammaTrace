@@ -1,38 +1,36 @@
-= simple_form_for [@user, @search] do |f|
-  = f.input :name
-  = f.input :cleared
-  = f.input :indication_of_collateralization
-
-  = f.input :indication_of_end_user_exception
-
-  = f.input :execution_venue
-
-  = f.input :effective_date
-  = f.input :end_date
-  = f.input :settlement_currency
-  = f.input :notional_currency_1
-
-  = f.input :notional_currency_2
-
-  = f.input :rounded_notional_amount_1
-
-
-  = f.input :rounded_notional_amount_2
-
-
-  = f.input :option_strike_price
-
-
-  = f.input :option_type
-
-  = f.input :option_premium
-
-  = f.input :option_expiration_date
-
-
-  = f.input :floating_leg_reset
-
-  = f.input :user
-  .actions
+= simple_form_for [@user, @search], remote: true do |f|
+  .modal-body
+    .form-horizontal
+      = f.input :name, :input_html => {class: "form-control"}
+      = f.input :taxonomy,:as => :select, collection: ["InterestRate:IRSwap:FixedFloat","OIS Swap: InterestRate:IRSwap:OIS","CCY Swap: InterestRate:CrossCurrency:Basis ||  InterestRate:CrossCurrency:FixedFloat || InterestRate:CrossCurrency:FixedFixed", "Swaption: InterestRate:Option:Swaption", "Cap/Floor: InterestRate:CapFloor"], :input_html => {id: "market", class: "form-control"}
+      = f.input :cleared, :input_html => {class: "form-control"}
+      = f.input :indication_of_collateralization, :input_html => {class: "form-control"}
+      = f.input :indication_of_end_user_exception, :input_html => {class: "form-control"}
+      = f.input :execution_venue, :input_html => {class: "form-control"}
+      = f.input :effective_date, :input_html => {class: "form-control"}
+      = f.input :end_date, :input_html => {class: "form-control"}
+      = f.input :settlement_currency, :input_html => {class: "form-control"}
+      = f.input :notional_currency_1, :input_html => {class: "form-control"}
+      = f.input :notional_currency_2, :input_html => {class: "form-control"}
+      = f.input :rounded_notional_amount_1, :input_html => {class: "form-control"}
+      = f.input :rounded_notional_amount_2, :input_html => {class: "form-control"}
+      = f.input :option_strike_price, :input_html => {class: "form-control"}
+      = f.input :option_type, :input_html => {class: "form-control"}
+      = f.input :option_premium, :input_html => {class: "form-control"}
+      = f.input :option_expiration_date, :input_html => {class: "form-control"}
+      = f.input :floating_leg_reset, :input_html => {class: "form-control"}
+  .modal-footer
     = f.submit 'Save'
 
+/ / :javascript
+/ /   $(document).ready(function (){
+/ /     $("#market").change(function() {
+/ /         if ($(this).val() == "InterestRate:IRSwap:FixedFloat") {
+/ /             if ( $("#cleared, #indcol, #indexec, #execven, #effdate, #enddate, #setcur, #notcur1, #rnot1, #floatleg").hasClass(")) {$("#cleared, #indcol, #indexec, #execven, #effdate, #enddate, #setcur, #notcur1, #rnot1, #floatleg").toggleClass("hidden")};            
+/ /         }
+
+/ /         else if ($(this).val() == "OIS Swap: InterestRate:IRSwap:OIS") {
+/ /             $("#cleared, #indcol, #indexec, #execven, #effdate, #enddate, #setcur, #notcur1, #rnot1").toggleClass("hidden");
+/ /         } 
+/ /     });
+/   });

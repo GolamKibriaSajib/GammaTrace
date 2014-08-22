@@ -17,7 +17,6 @@ class CreateSearches < ActiveRecord::Migration
       t.string :option_premium
       t.integer :option_expiration_date
       t.string :floating_leg_reset
-      t.references :user, index: true
 
       t.timestamps
     end
