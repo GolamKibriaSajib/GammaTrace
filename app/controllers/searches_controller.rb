@@ -1,5 +1,5 @@
 class SearchesController < ApplicationController
-  before_action :set_search, only: [:show, :edit, :update, :destroy]
+  before_action :set_search, only: [:show, :show_timeseries, :edit, :update, :destroy]
   # before_action :authenticate_user!
   # GET /searches
   # GET /searches.json
@@ -15,11 +15,23 @@ class SearchesController < ApplicationController
   def show
   end
 
+  def show_timeseries
+    @interestswaps = InterestSwap.all
+    @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
+    return @scopedsearch
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def showchart
+  end
+
   # GET /searches/new
   def new
     @search = Search.new
     respond_to do |format|
-      format.js
+      format.js 
     end
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140821211413) do
+ActiveRecord::Schema.define(version: 20140824065807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 20140821211413) do
     t.string   "settlement_currency"
     t.string   "notional_currency_1"
     t.string   "notional_currency_2"
-    t.integer  "rounded_notional_amount_1"
+    t.string   "rounded_notional_amount_1"
     t.integer  "rounded_notional_amount_2"
     t.integer  "option_strike_price"
     t.string   "option_type"

@@ -1,0 +1,32 @@
+#showtime
+
+
+
+:javascript
+  $(function () {
+      $('#showtime').highcharts({
+          chart: {
+            type: "spline",
+            zoomType: 'xy'
+          },
+          xAxis: {
+              gridLineWidth: 0,
+              type: "datetime", 
+              floor: "2014"
+          },
+          yAxis: {
+              gridLineWidth: 0,
+              type: "linear" , 
+
+          },
+          tooltip: {
+            formatter: function() {
+                           return 'Extra data: <b>'+ this.point.c +'</b>';
+                 }
+          },
+          series: [{
+              color: 'red',
+              data: #{@scopedsearch.map {|x| [((x.execution_timestamp)*1000), x.price_notation, x.dissemination_id]}}
+          }]
+      });
+  });

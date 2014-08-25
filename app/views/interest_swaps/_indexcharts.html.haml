@@ -1,0 +1,42 @@
+:javascript
+  $("#showsearches").click(function() {
+      $("#testpanel").toggle();
+  });
+
+  $("#showts").click(function() {
+      $("#timeser").toggle();
+  });
+
+  $("#showscatter").click(function() {
+      $("#scatterplot").toggle();
+  });
+
+  $('#charter').resizable();
+  $('#charter').draggable();
+  $(function () {
+      $('#charter').highcharts({
+          chart: {
+            type: "spline",
+            zoomType: 'xy'
+          },
+          xAxis: {
+              gridLineWidth: 0,
+              type: "datetime", 
+              floor: "2014"
+          },
+          yAxis: {
+              gridLineWidth: 0,
+              type: "linear" , 
+
+          },
+          tooltip: {
+            formatter: function() {
+                           return 'Extra data: <b>'+ this.point.c +'</b>';
+                 }
+          },
+          series: [{
+              color: 'red',
+              data: #{@fixedfloatswaps.map {|x| [((x.execution_timestamp)*1000), x.price_notation, x.dissemination_id]}}
+          }]
+      });
+  });

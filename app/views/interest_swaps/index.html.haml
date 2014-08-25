@@ -1,33 +1,16 @@
 .container-fluid.nopad
-  #timeser
-    .col-md-4.nopad
-      .panel.panel-default
-        .panel-heading
-          Time Series
-        .panel-body
-          = high_chart "s", @chart
-  #scatterplot
-    .col-md-4.nopad
-      .panel.panel-default
-        .panel-heading
-          Scatter Plot
-        .panel-body
-          .container-fluid
-            = high_chart "s2", @chart2
 
+  / #charter.col-md-4.nopad
+  /   .panel.panel-default
+  /     .panel-heading
+  /       Scatter Plot
+  /     .panel-body
+  /       #charts
+
+  #hello.col-md-4
+    #showtime
 =render "/searches/tablemodal"
 #testpanel.navbar.navbar-default.navbar-fixed-bottom{style: "display:none;"}
   =render "allsearches"
 
-:javascript
-  $("#showsearches").click(function() {
-      $("#testpanel").toggle();
-  });
-
-  $("#showts").click(function() {
-      $("#timeser").toggle();
-  });
-
-  $("#showscatter").click(function() {
-      $("#scatterplot").toggle();
-  });
+=render "indexcharts"

@@ -1,36 +1,71 @@
 = simple_form_for [@user, @search], remote: true do |f|
   .modal-body
     .form-horizontal
-      = f.input :name, :input_html => {class: "form-control"}
+      = f.input :name, :input_html => {id: "name", class: "form-control"}
       = f.input :taxonomy,:as => :select, collection: ["InterestRate:IRSwap:FixedFloat","OIS Swap: InterestRate:IRSwap:OIS","CCY Swap: InterestRate:CrossCurrency:Basis ||  InterestRate:CrossCurrency:FixedFloat || InterestRate:CrossCurrency:FixedFixed", "Swaption: InterestRate:Option:Swaption", "Cap/Floor: InterestRate:CapFloor"], :input_html => {id: "market", class: "form-control"}
-      = f.input :cleared, :input_html => {class: "form-control"}
-      = f.input :indication_of_collateralization, :input_html => {class: "form-control"}
-      = f.input :indication_of_end_user_exception, :input_html => {class: "form-control"}
-      = f.input :execution_venue, :input_html => {class: "form-control"}
-      = f.input :effective_date, :input_html => {class: "form-control"}
-      = f.input :end_date, :input_html => {class: "form-control"}
-      = f.input :settlement_currency, :input_html => {class: "form-control"}
-      = f.input :notional_currency_1, :input_html => {class: "form-control"}
-      = f.input :notional_currency_2, :input_html => {class: "form-control"}
-      = f.input :rounded_notional_amount_1, :input_html => {class: "form-control"}
-      = f.input :rounded_notional_amount_2, :input_html => {class: "form-control"}
-      = f.input :option_strike_price, :input_html => {class: "form-control"}
-      = f.input :option_type, :input_html => {class: "form-control"}
-      = f.input :option_premium, :input_html => {class: "form-control"}
-      = f.input :option_expiration_date, :input_html => {class: "form-control"}
-      = f.input :floating_leg_reset, :input_html => {class: "form-control"}
+      #cleared
+        = f.input :cleared, :input_html => {class: "form-control"}
+      #indcol
+        = f.input :indication_of_collateralization, :input_html => {class: "form-control"}
+      #indexec
+        = f.input :indication_of_end_user_exception, :input_html => {class: "form-control"}
+      #execven
+        = f.input :execution_venue, :input_html => {class: "form-control"}
+      #effdate
+        = f.input :effective_date, :input_html => {class: "form-control"}
+      #enddate
+        = f.input :end_date, :input_html => {class: "form-control"}
+      #setcur
+        = f.input :settlement_currency, :input_html => {class: "form-control"}
+      #notcur1
+        = f.input :notional_currency_1, :input_html => {class: "form-control"}
+      #notcur2
+        = f.input :notional_currency_2, :input_html => {class: "form-control"}
+      #rnot1
+        = f.input :rounded_notional_amount_1, :input_html => {class: "form-control"}
+      #rnot2
+        = f.input :rounded_notional_amount_2, :input_html => {class: "form-control"}
+      #optstr
+        = f.input :option_strike_price, :input_html => {class: "form-control"}
+      #optype
+        = f.input :option_type, :input_html => {class: "form-control"}
+      #optprem
+        = f.input :option_premium, :input_html => {class: "form-control"}
+      #optexp
+        = f.input :option_expiration_date, :input_html => {class: "form-control"}
+      #floatleg
+        = f.input :floating_leg_reset, :input_html => {class: "form-control"}
   .modal-footer
     = f.submit 'Save'
 
-/ / :javascript
-/ /   $(document).ready(function (){
-/ /     $("#market").change(function() {
-/ /         if ($(this).val() == "InterestRate:IRSwap:FixedFloat") {
-/ /             if ( $("#cleared, #indcol, #indexec, #execven, #effdate, #enddate, #setcur, #notcur1, #rnot1, #floatleg").hasClass(")) {$("#cleared, #indcol, #indexec, #execven, #effdate, #enddate, #setcur, #notcur1, #rnot1, #floatleg").toggleClass("hidden")};            
-/ /         }
+:javascript
+  $(document).ready(function (){
+    $("#market").change(function() {
+        if ($(this).val() == "InterestRate:IRSwap:FixedFloat") {
+        $("#cleared, #indcol, #indexec, #execven, #effdate, #enddate, #setcur, #notcur1, #notcur2, #rnot1, #rnot2, #optstr, #optype, #optprem, #optexp, #floatleg").toggle("hide");
+        $("#cleared, #indcol, #indexec, #execven, #effdate, #enddate, #setcur, #notcur1, #rnot1, #floatleg").toggle("show");
+        }
 
-/ /         else if ($(this).val() == "OIS Swap: InterestRate:IRSwap:OIS") {
-/ /             $("#cleared, #indcol, #indexec, #execven, #effdate, #enddate, #setcur, #notcur1, #rnot1").toggleClass("hidden");
-/ /         } 
-/ /     });
-/   });
+        else if ($(this).val() == "OIS Swap: InterestRate:IRSwap:OIS") {
+        $("#cleared, #indcol, #indexec, #execven, #effdate, #enddate, #setcur, #notcur1, #notcur2, #rnot1, #rnot2, #optstr, #optype, #optprem, #optexp, #floatleg").toggle("hide");
+        $("#cleared, #indcol, #indexec, #execven, #effdate, #enddate, #setcur, #notcur1, #rnot1").toggle("show");
+        } 
+
+        else if ($(this).val() == "CCY Swap: InterestRate:CrossCurrency:Basis ||  InterestRate:CrossCurrency:FixedFloat || InterestRate:CrossCurrency:FixedFixed") {
+        $("#cleared, #indcol, #indexec, #execven, #effdate, #enddate, #setcur, #notcur1, #notcur2, #rnot1, #rnot2, #optstr, #optype, #optprem, #optexp, #floatleg").toggle("hide");
+        $("#cleared, #indcol, #indexec, #execven, #effdate, #enddate, #setcur, #notcur1, #notcur2, #rnot1, #rnot2, #floatleg").toggle("show");
+        } 
+
+        else if ($(this).val() == "Swaption: InterestRate:Option:Swaption") {
+        $("#cleared, #indcol, #indexec, #execven, #effdate, #enddate, #setcur, #notcur1, #notcur2, #rnot1, #rnot2, #optstr, #optype, #optprem, #optexp, #floatleg").toggle("hide");
+        $("#cleared, #indcol, #indexec, #execven, #effdate, #enddate, #setcur, #notcur1, #rnot1, #floatleg").toggle("show");
+        } 
+
+        else if ($(this).val() == "Cap/Floor: InterestRate:CapFloor") {
+        $("#cleared, #indcol, #indexec, #execven, #effdate, #enddate, #setcur, #notcur1, #notcur2, #rnot1, #rnot2, #optstr, #optype, #optprem, #optexp, #floatleg").toggle("hide");
+        $("#cleared, #indcol, #indexec, #execven, #effdate, #enddate, #setcur, #notcur1, #rnot1, #floatleg").toggle("show");
+        } 
+    });
+  });
+
+
