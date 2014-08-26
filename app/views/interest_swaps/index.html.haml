@@ -1,16 +1,74 @@
-.container-fluid.nopad
+#mainpage.container-fluid.nopad
+  .gridster
+    %ul{:style => "width: 10%; position: relative; height: 325px;"}
 
-  / #charter.col-md-4.nopad
-  /   .panel.panel-default
-  /     .panel-heading
-  /       Scatter Plot
-  /     .panel-body
-  /       #charts
-
-  #hello.col-md-4
-    #showtime
 =render "/searches/tablemodal"
 #testpanel.navbar.navbar-default.navbar-fixed-bottom{style: "display:none;"}
   =render "allsearches"
 
 =render "indexcharts"
+
+:javascript
+  $(function(){
+    gridster = $(".gridster ul").gridster({
+                widget_base_dimensions: [100, 100],
+                widget_margins: [5, 5],
+                draggable: {
+                    handle: '.dragDiv'
+                }
+    }).data('gridster');   
+    i = 0;
+
+
+
+    $("#addtimeseries").click(function(e) {
+      e.preventDefault();
+      gridster.add_widget('<li class="droppable panel panel-default" id="timeseries'+i+'"><div class="panel-heading dragDiv">Time Series</div><div class="panel-body">Hello</div></li>', 3, 3).resizable();
+      i++;
+    });
+
+    $("#addtermstructure").click(function(e) {
+      e.preventDefault();
+      gridster.add_widget('<li class="droppable panel panel-default" id="termstructure'+i+'"><div class="panel-heading">Term Structure</div><div class="panel-body">Hello</div></li>', 3, 3);
+      i++;
+    });
+
+    $("#adddatatable").click(function(e) {
+      e.preventDefault();
+      gridster.add_widget('<li class="droppable panel panel-default" id="datatable'+i+'"><div class="panel-heading">Data Table</div><div class="panel-body">Hello</div></li>', 3, 3);
+      i++;
+    });
+
+    $("#adddetails").click(function(e) {
+      e.preventDefault();
+      gridster.add_widget('<li class="droppable panel panel-default" id="details'+i+'"><div class="panel-heading">Details</div><div class="panel-body">Hello</div></li>', 4, 4);
+      i++;
+    });
+
+
+    $(".draggable").draggable({
+        helper: 'clone',
+        drag: function(event, ui) {
+        $(".droppable").droppable({
+          accept: '.draggable',
+          hoverClass: "drop-hover",
+          drop: function(event, ui) {
+              droppableDiv = $(event.target).attr('id');
+              alert(droppableDiv); 
+              searchId = ui.draggable.attr("id");
+              alert(searchId);
+              $.ajax({
+                url: "/users/#{@user.id}/searches/" +searchId+ "/show_timeseries"
+              });
+        }
+      });
+      }
+    });
+
+  });
+
+
+
+
+
+

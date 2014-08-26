@@ -38,23 +38,23 @@
                 %li#showsearches 
                   %a All Searches
                 %li= link_to 'New Search', new_user_search_path(@user), { remote: true, "data-toggle" => "modal", "data-target" => "#tablemodal"}
-            %li#showscatter
+            %li#addtermstructure
               %a{:href => "#"} Term Structure
-            %li#showts
+            %li#addtimeseries
               %a{:href => "#", id: "timeseries"} Time Series
-            %li
+            %li#adddatatable
               %a{:href => "#"} Data Table
-            %li
+            %li#adddetails
               %a{:href => "#"} Details
-            %li
+            %li#addois
               %a{:href => "#"} OIS
-            %li
+            %li#addccy
               %a{:href => "#"} CCY
-            %li
+            %li#addvega
               %a{:href => "#"} Vega
-            %li
+            %li#addvolterm
               %a{:href => "#"} Vol Term
-            %li
+            %li#addvoltail
               %a{:href => "#"} Vol Tail
             %li
               %a{:href => "#"} Time Series

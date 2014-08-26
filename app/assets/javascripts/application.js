@@ -18,7 +18,12 @@
 //= require highcharts
 //= require highcharts/highcharts-more
 //= require highcharts/themes/grid-light
-//= jquery.jspanel.bs-1.4.0.min
+//= require jquery.draggable
+//= require jquery.gridster.extras
+//= require jquery.gridster
+//= require jquery.collision
+//= require jquery.coords
+//= require utils
 
 
 //= require turbolinks

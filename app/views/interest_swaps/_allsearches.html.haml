@@ -48,7 +48,7 @@
           %td= s.option_expiration_date
           %td= s.floating_leg_reset
           %td= link_to 's',show_timeseries_user_search_path(@user, s), remote: true 
-          %td Delete
+          %td.draggable{:id => "#{s.id}"} Delete
 :javascript
   // Change the selector if needed
   var $table = $('table.scroll'),
