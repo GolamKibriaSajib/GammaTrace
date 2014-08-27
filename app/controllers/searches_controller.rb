@@ -18,9 +18,15 @@ class SearchesController < ApplicationController
   def show_timeseries
     @interestswaps = InterestSwap.all
     @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
-    return @scopedsearch
+    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    Rails.logger.info ">>>>>>>>>>> #{@scopedsearch} >>>>>>>>>>>>>"
+    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     respond_to do |format|
-      format.js
+      if @scopedsearch.length == 0
+        format.js { render "searches/show_nodata" }
+      else
+        format.js
+      end
     end
   end
 

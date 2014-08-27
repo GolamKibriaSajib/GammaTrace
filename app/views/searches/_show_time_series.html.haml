@@ -1,9 +1,17 @@
 :javascript
   $(function () {
-      $("#"+ droppableDiv +" .panel-body").highcharts({
+
+      var $container =  $("#"+ droppableDiv +" .panel-body .container-fluid")
+
+       chart1 = new Highcharts.Chart({
           chart: {
-            type: "spline",
+            renderTo: $container[0],
+            type: 'line',
+            marginBottom: 5,
             zoomType: 'xy'
+          },
+          title: {
+              text: '#{@search.name}'
           },
           xAxis: {
               gridLineWidth: 0,
@@ -25,4 +33,5 @@
               data: #{@scopedsearch.map {|x| [((x.execution_timestamp)*1000), x.price_notation, x.dissemination_id]}}
           }]
       });
+
   });
