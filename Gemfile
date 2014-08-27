@@ -15,7 +15,7 @@ gem 'jquery-ui-rails'
 
 gem 'rickshaw_rails'
 gem 'highcharts-rails', '~> 4.0.1'
-gem "highstocks-rails" 
+gem 'underscore-rails'
 
 gem 'lazy_high_charts'
 gem 'jquery-datetimepicker-rails'

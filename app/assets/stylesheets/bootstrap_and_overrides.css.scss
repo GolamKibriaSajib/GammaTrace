@@ -23,6 +23,11 @@ ul {
 
 body {
   margin-top: 104px;
+/*  background: image-url("background.jpg") no-repeat;
+  webkit-background-size: 100%;
+  moz-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: cover;*/
 }
 .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
   border-color: gray

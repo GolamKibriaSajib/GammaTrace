@@ -24,8 +24,8 @@
 //= require jquery.collision
 //= require jquery.coords
 //= require utils
-
-
+//= require gridster-bootstrap.min
+//= require underscore
 //= require turbolinks
 //= require_tree .
 

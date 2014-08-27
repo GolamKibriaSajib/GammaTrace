@@ -20,17 +20,23 @@
                 helper: 'clone',
                 resize: {
                   enabled: true,
+                  resize: function(e, ui, $widget) {
+                    window.dispatchEvent(new Event('resize'))
+                  },
                   max_size: [12, 12],
-                  min_size: [3, 5]
+                  min_size: [3, 3]
           }
-    }).data('gridster');  
+    }).data('gridster');
+
+
+
     i = 0;
 
 
 
     $("#addtimeseries").click(function(e) {
       e.preventDefault();
-      gridster.add_widget('<li class="droppable panel panel-default" id="timeseries'+i+'"><div class="panel-heading dragDiv" id="searchname">Time Series</div><div class="panel-body"><div class="container-fluid" style="width:100%;margin: 0 auto"></div></div></li>', 3, 5);
+      gridster.add_widget('<li class="droppable panel panel-default" id="timeseries'+i+'"><div class="panel-heading dragDiv" id="searchname">Time Series</div><div class="panel-body" style="width:100%;height:90%;margin: 0 auto"></div></li>', 3, 3);
       i++;
     });
 
@@ -42,13 +48,13 @@
 
     $("#adddatatable").click(function(e) {
       e.preventDefault();
-      gridster.add_widget('<li class="droppable panel panel-default" id="datatable'+i+'"><div class="panel-heading">Data Table</div><div class="panel-body">Hello</div></li>', 3, 5);
+      gridster.add_widget('<li class="droppable panel panel-default" id="datatable'+i+'"><div class="panel-heading">Data Table</div><div class="panel-body">Hello</div></li>', 3, 3);
       i++;
     });
 
     $("#adddetails").click(function(e) {
       e.preventDefault();
-      gridster.add_widget('<li class="droppable panel panel-default" id="details'+i+'"><div class="panel-heading">Details</div><div class="panel-body">Hello</div></li>', 3, 5);
+      gridster.add_widget('<li class="droppable panel panel-default" id="details'+i+'"><div class="panel-heading">Details</div><div class="panel-body">Hello</div></li>', 3, 3);
       i++;
     });
 

@@ -1,13 +1,15 @@
 :javascript
   $(function () {
 
-      var $container =  $("#"+ droppableDiv +" .panel-body .container-fluid")
+      var $container =  $("#"+ droppableDiv +" .panel-body")
 
        chart1 = new Highcharts.Chart({
+          credits: {
+            enabled: false
+          },
           chart: {
             renderTo: $container[0],
             type: 'line',
-            marginBottom: 5,
             zoomType: 'xy'
           },
           title: {
@@ -29,9 +31,16 @@
                  }
           },
           series: [{
+              showInLegend: false,
               color: 'red',
               data: #{@scopedsearch.map {|x| [((x.execution_timestamp)*1000), x.price_notation, x.dissemination_id]}}
           }]
       });
+
+    $(window).resize(function() {
+    height = chart.height
+    width = $("#chartRow").width() / 2
+    chart1.setSize(width, height, doAnimation = true);
+    });
 
   });
