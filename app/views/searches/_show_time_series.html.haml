@@ -1,46 +1,40 @@
 :javascript
   $(function () {
-
-      var $container =  $("#"+ droppableDiv +" .panel-body")
-
-       chart1 = new Highcharts.Chart({
-          credits: {
-            enabled: false
-          },
-          chart: {
-            renderTo: $container[0],
-            type: 'line',
-            zoomType: 'xy'
-          },
-          title: {
-              text: 'Time Series'
-          },
-          xAxis: {
-              gridLineWidth: 0,
-              type: "datetime", 
-              floor: "2014"
-          },
-          yAxis: {
-              gridLineWidth: 0,
-              type: "linear" , 
-
-          },
-          tooltip: {
-            formatter: function() {
-                           return 'Extra data: <b>'+ this.point.c +'</b>';
-                 }
-          },
-          series: [{
-              showInLegend: false,
-              color: 'red',
-              data: #{@scopedsearch.map {|x| [((x.execution_timestamp)*1000), x.price_notation, x.dissemination_id]}}
-          }]
+    var $container =  $("#"+ droppableDiv +" .panel-body")
+    var data = #{@scopedsearch.map {|a| [((a.execution_timestamp)*1000), a.price_notation, a.dissemination_id]}}
+          $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
+              credits: {
+                enabled: false
+              },
+              title: {
+                text: "Time Series: #{@search.name}"
+              },
+              chart: {
+                renderTo: $container[0],
+                type: 'line',
+                zoomType: 'xy'
+              },
+              rangeSelector : {
+                  selected : 1,
+                  inputEnabled: $("#"+ droppableDiv +"").width() > 480
+              },
+              xAxis: {        
+                  type: 'datetime',
+                  labels: {
+                      formatter: function() {
+                          var dayStr = Highcharts.dateFormat('%d', this.value);
+                          var yearStr = Highcharts.dateFormat('%y', this.value);
+                          var monthStr = Highcharts.dateFormat('%b', this.value);
+                          return monthStr + " " + dayStr + ", " + yearStr;
+                      }
+                  }
+              },
+              series : [{
+                  data : data,
+                  tooltip: {
+                      valueDecimals: 2
+                  }
+              }]
+          });
       });
 
-    $(window).resize(function() {
-    height = chart.height
-    width = $("#chartRow").width() / 2
-    chart1.setSize(width, height, doAnimation = true);
-    });
-
-  });

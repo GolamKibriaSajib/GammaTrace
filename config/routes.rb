@@ -6,6 +6,7 @@ Quantapp::Application.routes.draw do
     resources :interest_swaps
     resources :searches do
         get :show_timeseries, on: :member
+        get :show_termstructure, on: :member
       end
   end
 

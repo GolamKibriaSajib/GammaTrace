@@ -29,7 +29,7 @@
         .container
           %ul.nav.navbar-nav.back2
             %li.dropdown
-              %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
+              %a.dropdown-toggle{"data-toggle" => "dropdown", href: "javascript:void(0)"}
                 Search
                 %b.caret
               %ul.dropdown-menu
@@ -37,30 +37,28 @@
                   %a All Searches
                 %li= link_to 'New Search', new_user_search_path(@user), { remote: true, "data-toggle" => "modal", "data-target" => "#tablemodal"}
             %li#addtermstructure
-              %a{:href => "#"} Term Structure
+              %a{:href => "javascript:void(0)"} Term Structure
             %li#addtimeseries
-              %a{:href => "#", id: "timeseries"} Time Series
+              %a{:href => "javascript:void(0)", id: "timeseries"} Time Series
             %li#adddatatable
-              %a{:href => "#"} Data Table
+              %a{:href => "javascript:void(0)", id: "datatable"} Data Table
             %li#adddetails
-              %a{:href => "#"} Details
+              %a{:href => "javascript:void(0)", id: "details"} Details
             %li#addois
-              %a{:href => "#"} OIS
+              %a{:href => "javascript:void(0)", id: "ois"} OIS
             %li#addccy
-              %a{:href => "#"} CCY
+              %a{:href => "javascript:void(0)", id: "ccy"} CCY
             %li#addvega
-              %a{:href => "#"} Vega
+              %a{:href => "javascript:void(0)", id: "vega"} Vega
             %li#addvolterm
-              %a{:href => "#"} Vol Term
+              %a{:href => "javascript:void(0)", id: "volterm"} Vol Term
             %li#addvoltail
-              %a{:href => "#"} Vol Tail
-            %li
-              %a{:href => "#"} Time Series
+              %a{:href => "javascript:void(0)", id: "voltail"}  Vol Tail
             %li.dropdown
-              %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
+              %a.dropdown-toggle{"data-toggle" => "dropdown", href: "javascript:void(0)"}
                 Views
                 %b.caret
               %ul.dropdown-menu
-                - current_user.searches.each do |s|
-                  %li=link_to s.name, user_search_path(@user.id, s)
+                / - current_user.searches.each do |s|
+                /   %li=link_to s.name, user_search_path(@user.id, s)
     = yield

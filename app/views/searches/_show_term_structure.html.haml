@@ -1,0 +1,18 @@
+:javascript
+  $(function () {
+
+    var data = #{@scopedsearch.map {|a| [((a.execution_timestamp)*1000), a.price_notation, a.dissemination_id]}}
+          $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
+              rangeSelector : {
+                  selected : 1,
+                  inputEnabled: $("#"+ droppableDiv +" .panel-body").width() > 480
+              },
+
+              series : [{
+                  data : data,
+                  tooltip: {
+                      valueDecimals: 2
+                  }
+              }]
+          });
+      });

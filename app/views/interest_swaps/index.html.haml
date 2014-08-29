@@ -10,10 +10,20 @@
 
 :javascript
   $(function(){
+
+  // THE FOLLOWING GENERATES THE GRIDSTER LAYOUT
     gridster = $(".gridster > ul").gridster({
-                max_rows: 4,
-                widget_base_dimensions: [100, 100],
-                widget_margins: [5, 5],
+                min_cols: 15,
+                widget_base_dimensions: [93, 93],
+                widget_margins: [1, 1],
+                serialize_params: function ($w, wgd) {
+                  return {
+                      id: wgd.el[0].id,
+                      col: wgd.col,
+                      row: wgd.row,
+                      htmlContent: $($w).html()
+                  };
+                },
                 draggable: {
                     handle: '.dragDiv'
                 },
@@ -21,47 +31,52 @@
                 resize: {
                   enabled: true,
                   resize: function(e, ui, $widget) {
-                    window.dispatchEvent(new Event('resize'))
+                    window.dispatchEvent(new Event('resize'));
+                    
+                  },
+                  stop: function(e, ui, $widget) {
+                    window.dispatchEvent(new Event('resize'));
                   },
                   max_size: [12, 12],
                   min_size: [3, 3]
           }
     }).data('gridster');
 
+    $(document).on("click", ".closer", function(e) {
+      e.preventDefault();
+      gridster.remove_widget($(this).parent().parent().parent());
+    });
 
 
     i = 0;
 
 
-
+  // THE FOLLOWING GENERATES THE TIMESERIES WIDGET
     $("#addtimeseries").click(function(e) {
       e.preventDefault();
-      gridster.add_widget('<li class="droppable panel panel-default" id="timeseries'+i+'"><div class="panel-heading dragDiv" id="searchname">Time Series<div class="btn-group pull-right"><a href="#" class="btn btn-default btn-xs close">x</a></div></div><div class="panel-body" style="width:100%;height:90%;margin: 0 auto"></div></li>', 3, 3);
+      gridster.add_widget('<li class="droppable panel panel-default timeseries" id="timeseries'+i+'"><div class="panel-heading dragDiv" id="searchname">Time Series<div class="btn-group pull-right"><a href="javascript:void(0)" id="closer" class="closer">x</a></div></div><div class="panel-body" style="width:100%;height:90%;margin: 0 auto"></div></li>', 3, 3);
       i++;
     });
 
-    $(".close").click(function(e) {
-      alert($(this).parent());
-    });
+
 
     $("#addtermstructure").click(function(e) {
       e.preventDefault();
-      gridster.add_widget('<li class="droppable panel panel-default" id="termstructure'+i+'"><div class="panel-heading">Term Structure<div class="btn-group pull-right"><a href="#" class="btn btn-default btn-xs close">X</a></div></div><div class="panel-body">Hello</div></li>', 3, 3);
+      gridster.add_widget('<li class="droppable panel panel-default termstructure" id="termstructure'+i+'"><div class="panel-heading dragDiv" id="searchname">Term Structure<div class="btn-group pull-right"><a href="javascript:void(0)" id="closer" class="closer">x</a></div></div><div class="panel-body" style="width:100%;height:90%;margin: 0 auto"></div></li>', 3, 3);
       i++;
     });
 
     $("#adddatatable").click(function(e) {
       e.preventDefault();
-      gridster.add_widget('<li class="droppable panel panel-default" id="datatable'+i+'"><div class="panel-heading">Data Table</div><div class="panel-body">Hello</div></li>', 3, 3);
+      gridster.add_widget('<li class="droppable panel panel-default datatable" id="datatable'+i+'"><div class="panel-heading dragDiv" id="searchname">Data Table<div class="btn-group pull-right"><a href="javascript:void(0)" id="closer" class="closer">x</a></div></div><div class="panel-body" style="width:100%;height:90%;margin: 0 auto"></div></li>', 3, 3);
       i++;
     });
 
     $("#adddetails").click(function(e) {
       e.preventDefault();
-      gridster.add_widget('<li class="droppable panel panel-default" id="details'+i+'"><div class="panel-heading">Details</div><div class="panel-body">Hello</div></li>', 3, 3);
+      gridster.add_widget('<li class="droppable panel panel-default details" id="details'+i+'"><div class="panel-heading dragDiv" id="searchname">Details<div class="btn-group pull-right"><a href="javascript:void(0)" id="closer" class="closer">x</a></div></div><div class="panel-body" style="width:100%;height:90%;margin: 0 auto"></div></li>', 3, 3);
       i++;
     });
-
 
     $(".draggable").draggable({
         helper: 'clone',
@@ -71,19 +86,43 @@
           hoverClass: "drop-hover",
           drop: function(event, ui) {
               droppableDiv = $(event.target).attr('id');
-              alert(droppableDiv); 
               searchId = ui.draggable.attr("id");
-              alert(searchId);
-              $.ajax({
-                url: "/users/#{@user.id}/searches/" +searchId+ "/show_timeseries"
-              });
-        }
-      });
+              if ( $(event.target).hasClass("timeseries") ){
+                $.ajax({
+                  url: "/users/#{@user.id}/searches/" +searchId+ "/show_timeseries"
+                });
+                }
+              else if ( $(event.target).hasClass("termstructure") ){
+                $.ajax({
+                  url: "/users/#{@user.id}/searches/" +searchId+ "/show_termstructure"
+                });
+                }
+              else if ( $(event.target).hasClass("datatable") ){
+                $.ajax({
+                  url: "/users/#{@user.id}/searches/" +searchId+ "/show_timeseries"
+                });
+                }
+              else if ( $(event.target).hasClass("details") ){
+                $.ajax({
+                  url: "/users/#{@user.id}/searches/" +searchId+ "/show_timeseries"
+                });
+                }
+              else if ( $(event.target).hasClass("termstructure") ){
+                $.ajax({
+                  url: "/users/#{@user.id}/searches/" +searchId+ "/show_timeseries"
+                });
+                }
+
+          }
+        });
       }
     });
 
-  });
 
+
+
+
+  });
 
 
 

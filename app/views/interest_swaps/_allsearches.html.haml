@@ -1,35 +1,35 @@
 
-.panel.panel-default{style: "margin-bottom:0px;height:180px;overflow-y:scroll;"}
-  %table.table.table-condensed.table-bordered
-    %thead.panel-heading
+.container-fluid.nopad{style:"padding-top:5px;"}
+  %table.table.table-bordered.display.compact.datatabler{style:"cellspacing:0;width:100% !important;"}
+    %a{:href => "javascript:void(0)", style:"float:right;", id:"closesearches"} x
+    %br
+    %thead
       %tr
-        %strong
-          %th Id
-          %th Search Name
-          %th Taxonomy
-          %th Cleared
-          %th Indication of collateralization
-          %th Indication of end user exception
-          %th Execution venue
-          %th Effective date
-          %th End date
-          %th Settlement currency
-          %th Notional currency 1
-          %th Notional currency 2
-          %th Rounded notional amount 1
-          %th Rounded notional amount 2
-          %th Option strike price
-          %th Option type
-          %th Option premium
-          %th Option expiration date
-          %th Floating leg reset
-          %th Edit
-          %th Delete
-    %tbody.panel-body.nopadding    
+        %th#id Id
+        %th Search Name
+        %th Taxonomy
+        %th Cleared
+        %th Indication of collateralization
+        %th Indication of end user exception
+        %th Execution venue
+        %th Effective date
+        %th End date
+        %th Settlement currency
+        %th Notional currency 1
+        %th Notional currency 2
+        %th Rounded notional amount 1
+        %th Rounded notional amount 2
+        %th Option strike price
+        %th Option type
+        %th Option premium
+        %th Option expiration date
+        %th Floating leg reset
+    %tbody
       - @searches.each_with_index do |s, i|
         %tr
-          %th= i+1
-          %td= s.name
+          %td= i+1
+          %td.draggable{:id => "#{s.id}"}
+            %strong= s.name
           %td= s.taxonomy
           %td= s.cleared
           %td= s.indication_of_collateralization
@@ -47,24 +47,64 @@
           %td= s.option_premium
           %td= s.option_expiration_date
           %td= s.floating_leg_reset
-          %td= link_to 's',show_timeseries_user_search_path(@user, s), remote: true 
-          %td.draggable{:id => "#{s.id}"} Delete
-:javascript
-  // Change the selector if needed
-  var $table = $('table.scroll'),
-      $bodyCells = $table.find('tbody tr:first').children(),
-      colWidth;  
+  / %table.table.table-condensed.table-bordered
+  /   %thead.panel-heading
+  /     %tr
+  /       %strong
+  /         %th Id
+  /         %th Search Name
+  /         %th Taxonomy
+  /         %th Cleared
+  /         %th Indication of collateralization
+  /         %th Indication of end user exception
+  /         %th Execution venue
+  /         %th Effective date
+  /         %th End date
+  /         %th Settlement currency
+  /         %th Notional currency 1
+  /         %th Notional currency 2
+  /         %th Rounded notional amount 1
+  /         %th Rounded notional amount 2
+  /         %th Option strike price
+  /         %th Option type
+  /         %th Option premium
+  /         %th Option expiration date
+  /         %th Floating leg reset
+  /         %th Edit
+  /         %th Delete
+  /   %tbody.panel-body.nopadding    
+  /     - @searches.each_with_index do |s, i|
+  /       %tr
+  /         %th= i+1
+  /         %td= s.name
+  /         %td= s.taxonomy
+  /         %td= s.cleared
+  /         %td= s.indication_of_collateralization
+  /         %td= s.indication_of_end_user_exception
+  /         %td= s.execution_venue
+  /         %td= s.effective_date
+  /         %td= s.end_date
+  /         %td= s.settlement_currency
+  /         %td= s.notional_currency_1
+  /         %td= s.notional_currency_2
+  /         %td= s.rounded_notional_amount_1
+  /         %td= s.rounded_notional_amount_2
+  /         %td= s.option_strike_price
+  /         %td= s.option_type
+  /         %td= s.option_premium
+  /         %td= s.option_expiration_date
+  /         %td= s.floating_leg_reset
+  /         %td= link_to 's',show_timeseries_user_search_path(@user, s), remote: true 
+  /         %td.draggable{:id => "#{s.id}"} Delete
 
-  // Adjust the width of thead cells when window resizes
-  $(window).resize(function() {
-      // Get the tbody columns width array
-      colWidth = $bodyCells.map(function() {
-          return $(this).width();
-      }).get();
-      
-      // Set the width of thead columns
-      $table.find('thead tr').children().each(function(i, v) {
-          $(v).width(colWidth[i]);
-      });    
-  }).resize(); // Trigger resize handler
+
+:javascript
+  $(document).ready(function() {
+    var table = $('.datatabler').DataTable({
+          "paging": false,
+          "scrollY": "200px",
+          "scrollX": false
+    });
+
+  });
 
