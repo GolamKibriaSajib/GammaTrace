@@ -1,18 +1,43 @@
 :javascript
   $(function () {
+    var $container =  $("#"+ droppableDiv +" .panel-body");
+    var data = #{@scopedsearch.map {|a| [((a.execution_timestamp)*1000), a.price_notation, (a.dissemination_id).to_s]}};
+    $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
+        credits: {
+          enabled: false
+        },
+        title: {
+          text: "Term Structure: #{@search.name}"
+        },
+        chart: {
+          type: 'line',
+          zoomType: 'xy'
+        },
+        rangeSelector: {
+            selected : 1,
+            inputEnabled: $("#"+ droppableDiv +"").width() > 480
+        },
+        xAxis: {        
+            type: 'datetime',
+            labels: {
+                formatter: function() {
+                    var dayStr = Highcharts.dateFormat('%d', this.value);
+                    var yearStr = Highcharts.dateFormat('%y', this.value);
+                    var monthStr = Highcharts.dateFormat('%b', this.value);
+                    return monthStr + " " + dayStr + ", " + yearStr;
+                }
+            }
+        },
+        tooltip: {
+              useHTML: true,
+              formatter: function() {
+                return "f";
+                }
+            },
+        series: [{
 
-    var data = #{@scopedsearch.map {|a| [((a.execution_timestamp)*1000), a.price_notation, a.dissemination_id]}}
-          $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
-              rangeSelector : {
-                  selected : 1,
-                  inputEnabled: $("#"+ droppableDiv +" .panel-body").width() > 480
-              },
-
-              series : [{
-                  data : data,
-                  tooltip: {
-                      valueDecimals: 2
-                  }
-              }]
+            data: data,
+            }]
           });
-      });
+        });
+

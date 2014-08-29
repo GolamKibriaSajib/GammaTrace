@@ -67,8 +67,13 @@ body {
   }
 
 .nopad {
-  padding-left: 2px !important;
-  padding-right: 2px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.nomarg {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
 }
 
 .nopadding {
