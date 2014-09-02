@@ -8,22 +8,21 @@
         %th#id Id
         %th Search Name
         %th Taxonomy
-        %th Cleared
-        %th Indication of collateralization
+        %th Cleared?
+        %th Collateral
         %th Indication of end user exception
-        %th Execution venue
+        %th SEF?
         %th Effective date
         %th End date
-        %th Settlement currency
-        %th Notional currency 1
-        %th Notional currency 2
-        %th Rounded notional amount 1
-        %th Rounded notional amount 2
-        %th Option strike price
-        %th Option type
-        %th Option premium
-        %th Option expiration date
-        %th Floating leg reset
+        %th Currency
+        %th Leg1 Currency
+        %th Leg2 Currency
+        %th Notional 1
+        %th Notional 2
+        %th Strike
+        %th Position
+        %th Expiry
+        %th Libor Basis
     %tbody
       - @searches.each_with_index do |s, i|
         %tr
@@ -46,7 +45,6 @@
           %td= s.option_type
           %td= s.option_premium
           %td= s.option_expiration_date
-          %td= s.floating_leg_reset
   / %table.table.table-condensed.table-bordered
   /   %thead.panel-heading
   /     %tr

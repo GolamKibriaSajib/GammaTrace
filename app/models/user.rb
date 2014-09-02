@@ -5,5 +5,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :interest_swaps
   has_many :searches
+  has_many :views
 end
 

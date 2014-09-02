@@ -1,0 +1,51 @@
+
+%table.datatable.display.compact{style: "width:100%;height:100%;"}
+  %br
+  %thead
+    %tr
+      %th#id Id
+      %th Taxonomy
+      %th Cleared?
+      %th Collateral
+      %th Indication of end user exception
+      %th SEF?
+      %th Effective date
+      %th End date
+      %th Currency
+      %th Leg1 Currency
+      %th Leg2 Currency
+      %th Notional 1
+      %th Notional 2
+      %th Strike
+      %th Position
+      %th Expiry
+      %th Libor Basis
+  %tbody
+    - @scopedsearch.each_with_index do |s, i|
+      %tr
+        %td= i+1
+        %td= s.taxonomy
+        %td= s.cleared
+        %td= s.indication_of_collateralization
+        %td= s.indication_of_end_user_exception
+        %td= s.execution_venue
+        %td= s.effective_date
+        %td= s.end_date
+        %td= s.settlement_currency
+        %td= s.notional_currency_1
+        %td= s.notional_currency_2
+        %td= s.rounded_notional_amount_1
+        %td= s.rounded_notional_amount_2
+        %td= s.option_strike_price
+        %td= s.option_type
+        %td= s.option_premium
+        %td= s.option_expiration_date
+:javascript
+  $(document).ready(function() {
+    var table = $('.datatable').DataTable({
+          "paging": false,
+          "scrollY": "200px",
+          "scrollX": false
+    });
+
+  });

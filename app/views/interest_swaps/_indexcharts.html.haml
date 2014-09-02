@@ -1,10 +1,54 @@
 :javascript
-  $("#showsearches").click(function() {
-      $("#testpanel").toggle();
-      $('#id').trigger('click');
+
+
+
+  $("#showsearches").click(function (e) {
+    $("#testpanel").toggle();
   });
 
+
+  // THIS CLOSES THE WIDGET
   $("#closesearches").click(function() {
       $("#testpanel").toggle();
   });
+
+  // THE FOLLOWING FUNCTION LOADS THE GRAPH
+
+  $("#load").click(function (e) {
+      e.preventDefault();
+      addWidgets();
+      setTimeout(function () { $('#testing').trigger('click'); }, 1000);
+  });
+
+  // THE FOLLOWING LOADS THE GRIDSTER LAYOUT
+  function addWidgets() {
+      gridster.remove_all_widgets();
+      $.each(serialization, function () {
+          gridster.add_widget("<li class='droppable panel panel-default' id=" + this.id + ">" + this.htmlContent + "</li>", this.size_x, this.size_y, this.col, this.row);
+      });
+  }
+
+  // THE FOLLOWING REGENERATES THE GRAPHS
+  $("#testing").click(function () {
+    var listitem = $("#gridlist").children("li");
+    listitem.each(function (i) {
+            if ($(this).children(".panel-heading").hasClass("timeseries") && $.isNumeric($(this).children(".panel-heading").prop("id"))) {
+                idsearch1 = $(this).children(".panel-heading").prop("id");
+                droppableDiv = $(this).prop("id");
+                $.ajax({
+                    async: false,
+                    url: "/users/#{@user.id}/searches/" + idsearch1 + "/show_timeseries"
+                });
+            }
+            else if ( $(this).children(".panel-heading").hasClass("termstructure") && $.isNumeric($(this).children(".panel-heading").prop("id")) ) {
+                idsearch2 = $(this).children(".panel-heading").prop("id");
+                droppableDiv = $(this).prop("id");
+                $.ajax({
+                    async: false,
+                    url: "/users/#{@user.id}/searches/" + idsearch2 + "/show_termstructure"
+                });
+            }
+        });
+    });
+
 

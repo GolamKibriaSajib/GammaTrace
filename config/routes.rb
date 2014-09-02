@@ -1,5 +1,7 @@
 Quantapp::Application.routes.draw do
 
+  
+
   devise_for :users
 
   resources :users do
@@ -7,8 +9,12 @@ Quantapp::Application.routes.draw do
     resources :searches do
         get :show_timeseries, on: :member
         get :show_termstructure, on: :member
+        get :show_datatable, on: :member
+        get :show_details, on: :member
       end
+    resources :views
   end
+  resources :views
 
   resources :searches
 
