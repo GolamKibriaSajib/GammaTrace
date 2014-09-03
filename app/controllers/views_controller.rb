@@ -1,18 +1,7 @@
 class ViewsController < ApplicationController
   before_action :set_view, only: [:show, :edit, :update, :destroy]
 
-  # GET /views
-  # GET /views.json
-  def index
-    @views = View.all
-  end
 
-  # GET /views/1
-  # GET /views/1.json
-  def show
-  end
-
-  # GET /views/new
   def new
     @view = View.new
   end

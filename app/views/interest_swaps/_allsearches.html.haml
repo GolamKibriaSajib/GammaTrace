@@ -1,9 +1,9 @@
 
-.container-fluid.nopad{style:"padding-top:5px;"}
-  %table.table.table-bordered.display.compact.datatabler{style:"cellspacing:0;width:100% !important;"}
+.container-fluid.nopad
+  %table.table.table-condensed#datatabler{:cellspacing => "0px", :width => "100%"}
     %a{:href => "javascript:void(0)", style:"float:right;", id:"closesearches"} x
     %br
-    %thead
+    %thead.centerize
       %tr
         %th#id Id
         %th Search Name
@@ -96,13 +96,26 @@
   /         %td.draggable{:id => "#{s.id}"} Delete
 
 
-:javascript
-  $(document).ready(function() {
-    var table = $('.datatabler').DataTable({
-          "paging": false,
-          "scrollY": "200px",
-          "scrollX": false
-    });
+:coffeescript
+  responsiveHelper = undefined
+  breakpointDefinition =
+    tablet: 1024
+    phone: 480
 
-  });
+  tableElement = $("#datatabler")
+  tableElement.dataTable
+    dom: "C<\"clear\">lfrtip"
+    responsive: true
+    preDrawCallback: ->
 
+      # Initialize the responsive datatables helper once.
+      responsiveHelper = new ResponsiveDatatablesHelper(tableElement, breakpointDefinition)  unless responsiveHelper
+      return
+
+    rowCallback: (nRow) ->
+      responsiveHelper.createExpandIcon nRow
+      return
+
+    drawCallback: (oSettings) ->
+      responsiveHelper.respond()
+      return

@@ -17,6 +17,7 @@ gem 'rickshaw_rails'
 gem "highstock-rails"
 gem 'underscore-rails'
 gem 'jquery-datatables-rails', '~> 2.2.3'
+gem 'lodash-rails'
 
 gem 'lazy_high_charts'
 gem 'jquery-datetimepicker-rails'
