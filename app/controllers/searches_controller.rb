@@ -1,5 +1,5 @@
 class SearchesController < ApplicationController
-  before_action :set_search, only: [:show, :show_timeseries, :show_termstructure, :show_datatable, :edit, :update, :destroy]
+  before_action :set_search, only: [:show, :show_timeseries, :show_termstructure, :show_datatable, :show_delta, :show_ois, :show_ccy, :edit, :update, :destroy]
   # before_action :authenticate_user!
   # GET /searches
   # GET /searches.json
@@ -63,6 +63,51 @@ class SearchesController < ApplicationController
   end
 
   def show_details
+    @interestswaps = InterestSwap.all
+    @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
+    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    Rails.logger.info ">>>>>>>>>>> #{@scopedsearch} >>>>>>>>>>>>>"
+    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    respond_to do |format|
+      if @scopedsearch.length == 0
+        format.js { render "searches/show_nodata" }
+      else
+        format.js
+      end
+    end
+  end
+
+  def show_delta
+    @interestswaps = InterestSwap.all
+    @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
+    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    Rails.logger.info ">>>>>>>>>>> #{@scopedsearch} >>>>>>>>>>>>>"
+    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    respond_to do |format|
+      if @scopedsearch.length == 0
+        format.js { render "searches/show_nodata" }
+      else
+        format.js
+      end
+    end
+  end
+
+  def show_ois
+    @interestswaps = InterestSwap.all
+    @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
+    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    Rails.logger.info ">>>>>>>>>>> #{@scopedsearch} >>>>>>>>>>>>>"
+    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    respond_to do |format|
+      if @scopedsearch.length == 0
+        format.js { render "searches/show_nodata" }
+      else
+        format.js
+      end
+    end
+  end
+
+  def show_ccy
     @interestswaps = InterestSwap.all
     @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
     Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"

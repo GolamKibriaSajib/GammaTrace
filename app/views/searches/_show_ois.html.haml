@@ -11,15 +11,15 @@
                   color: 'black',
                   fontSize: '12px'
                 },
-                text: "Time Series: #{@search.name}"
+                text: "OIS: #{@search.name}"
               },
               chart: {
                 renderTo: $container[0],
-                type: 'line',
+                type: 'column',
                 zoomType: 'xy'
               },
               navigator: {
-                  maskFill: 'rgba(209, 74, 0, 0.25)',
+                  maskFill: 'rgba(209, 74, 0, 0.5)',
                   series: {
                       color: 'rgba(209, 74, 0, 0.5)',
                       lineColor: "orange"
@@ -43,11 +43,6 @@
               },
               series : [{
                   data : data,
-                  lineWidth : 0,
-                  marker : {
-                    enabled : true,
-                    radius : 2
-                  },
                   color : "orange",
                   tooltip: {
                       valueDecimals: 2

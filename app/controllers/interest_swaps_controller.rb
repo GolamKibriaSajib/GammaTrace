@@ -1,6 +1,11 @@
 class InterestSwapsController < ApplicationController
-before_action :authenticate_user!
-layout 'trace';
+before_action :authenticate_user!, only: [:index]
+layout 'trace', only: [:index]
+
+
+  def home
+  end
+
 
   def index
     @searches = current_user.searches.all
@@ -8,6 +13,8 @@ layout 'trace';
     @fixedfloatswaps = InterestSwap.irfixedfloat.search(params[:search]).sort_by {|x| x.execution_timestamp}
     @searchId = params[:searchId]
   end
+
+
 
   private
 

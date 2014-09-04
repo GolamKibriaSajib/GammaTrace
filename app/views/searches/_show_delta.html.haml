@@ -1,0 +1,53 @@
+:javascript
+  $(function () {
+    var $container =  $("#"+ droppableDiv +" .panel-body")
+    var data = #{@scopedsearch.map {|a| [((a.execution_timestamp)*1000), a.price_notation, a.dissemination_id]}}
+      $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
+          credits: {
+            enabled: false
+          },
+          title: {
+            style: {
+              color: 'black',
+              fontSize: '12px'
+            },
+            text: "Delta: #{@search.name}"
+          },
+          chart: {
+            renderTo: $container[0],
+            type: 'column',
+            zoomType: 'xy'
+          },
+          navigator: {
+              maskFill: 'rgba(209, 74, 0, 0.5)',
+              series: {
+                  color: 'rgba(209, 74, 0, 0.5)',
+                  lineColor: "orange"
+              }
+          },
+          rangeSelector : {
+              enabled : false,
+              selected : 1,
+              inputEnabled: $("#"+ droppableDiv +"").width() > 480
+          },
+          xAxis: {        
+              type: 'datetime',
+              labels: {
+                  formatter: function() {
+                      var dayStr = Highcharts.dateFormat('%d', this.value);
+                      var yearStr = Highcharts.dateFormat('%y', this.value);
+                      var monthStr = Highcharts.dateFormat('%b', this.value);
+                      return monthStr + " " + dayStr + ", " + yearStr;
+                  }
+              }
+          },
+          series : [{
+              data : data,
+              color : "orange",
+              tooltip: {
+                  valueDecimals: 2
+              }
+          }]
+      });
+  });
+

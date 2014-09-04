@@ -26,3 +26,14 @@
 //= require jquery.scrollTableBody
 //= require turbolinks
 //= require_tree .
+
+
+$(function () {
+    Highcharts.setOptions({
+        chart: {
+            style: {
+                fontFamily: 'Raleway'
+            }
+        }
+    });
+})

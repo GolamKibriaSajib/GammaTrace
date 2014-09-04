@@ -5,8 +5,9 @@
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
+    = favicon_link_tag 'favicon.ico'
 
-  %body
+  %body.home
     %header.navbar.navbar-inverse.navbar-fixed-top.bs-docs-nav{role: "banner"}
       .container.topbottom10
         .navbar-header
@@ -17,5 +18,12 @@
             %span.icon-bar
           / .navbar-brand.custom
           = image_tag("gammatrace.png",class: "navbar-brand", style: "padding-top:15px;padding-bottom:15px")
+        %nav.collapse.navbar-collapse.bs-navbar-collapse{role: "navigation"}
+          %ul.nav.navbar-nav.floatright
+            %li
+              - if user_signed_in?
+                = link_to "Sign out", destroy_user_session_path, method: :delete
+              - else
+                = link_to "Sign in", new_user_session_path
 
     = yield

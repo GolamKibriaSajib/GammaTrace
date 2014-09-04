@@ -11,6 +11,9 @@ Quantapp::Application.routes.draw do
         get :show_termstructure, on: :member
         get :show_datatable, on: :member
         get :show_details, on: :member
+        get :show_delta, on: :member
+        get :show_ois, on: :member
+        get :show_ccy, on: :member
       end
     resources :views
   end
@@ -18,8 +21,8 @@ Quantapp::Application.routes.draw do
 
   resources :searches
 
-
-  root 'interest_swaps#index'
+  get "interest_swaps/home"
+  root 'interest_swaps#home'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

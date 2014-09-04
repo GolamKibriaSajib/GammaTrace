@@ -5,6 +5,7 @@
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
+    = favicon_link_tag 'favicon.ico'
 
   %body
     %header.navbar.navbar-inverse.navbar-fixed-top.bs-docs-nav{role: "banner"}
@@ -44,6 +45,8 @@
               %a{:href => "javascript:void(0)", id: "datatable"} Data Table
             %li#adddetails
               %a{:href => "javascript:void(0)", id: "details"} Details
+            %li#adddelta
+              %a{:href => "javascript:void(0)", id: "delta"} Delta
             %li#addois
               %a{:href => "javascript:void(0)", id: "ois"} OIS
             %li#addccy

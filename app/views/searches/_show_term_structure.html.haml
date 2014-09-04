@@ -7,13 +7,25 @@
           enabled: false
         },
         title: {
+          style: {
+            color: 'black',
+            fontSize: '12px'
+          },
           text: "Term Structure: #{@search.name}"
         },
         chart: {
           type: 'line',
           zoomType: 'xy'
         },
+        navigator: {
+            maskFill: 'rgba(209, 74, 0, 0.5)',
+            series: {
+                color: 'rgba(209, 74, 0, 0.5)',
+                lineColor: "orange"
+            }
+        },
         rangeSelector: {
+            enabled : false,
             selected : 1,
             inputEnabled: $("#"+ droppableDiv +"").width() > 480
         },
@@ -28,15 +40,17 @@
                 }
             }
         },
-        tooltip: {
-              useHTML: true,
-              formatter: function() {
-                return "f";
-                }
-            },
         series: [{
-
             data: data,
+            lineWidth : 0,
+            marker : {
+              enabled : true,
+              radius : 2
+            },
+            color : "orange",
+            tooltip: {
+                valueDecimals: 2
+            }
             }]
           });
         });

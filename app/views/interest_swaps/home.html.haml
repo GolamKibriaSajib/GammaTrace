@@ -1,0 +1,140 @@
+
+.container-fluid.nopad#homepage
+  %br
+  %br
+  .col-lg-12
+    .centerize.white
+      %h1 
+        %strong THE MOST COMPREHENSIVE FINANCE ANALYTICS
+      %h4
+        %strong Estimates from over 4,500 hedge fund, brokerage, and independent analysts
+      %br
+      = image_tag("homepagedisp.jpg", width: "800px", class: "boxer")
+
+.container-fluid.nopad#blackb{style:"padding-bottom:30px;padding-top:30px"}
+  .container
+    .col-lg-4
+      .centerize
+        %h3 
+          %strong 4,500 contributing analysts, 30,000 community members
+        %p Join a community of analysts, portfolio managers, traders, asset managers, and independent researchers who are building the world's most robust financial data set.
+    .col-lg-4
+      .centerize
+        %h3
+          %strong More accurate than Wall Street 69.5% of the time
+        %p The Estimize consensus is more accurate than Wall Street's and it better represents market expectations. Develop your trading strategy using the broadest and most accurate earnings data set.
+    .col-lg-4
+      .centerize
+        %h3 
+          %strong Coverage of over 1,000 stocks every quarter
+        %p Browse our earnings data or register for free today to start receiving real-time notifications on consensus movements and noteworthy estimates
+}
+
+.container{style: "margin-top:50px;"}
+  .col-lg-6
+    .centerize
+      %br
+      #container1
+  .col-lg-6
+    .centerize
+      %h3
+        %strong More accurate than Wall Street 69.5% of the time
+      %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu sagittis purus, non imperdiet urna. Praesent at dolor finibus, elementum augue at, porta augue. Cras scelerisque congue sodales. Nulla ut dolor lacus. Suspendisse et porta velit. Ut scelerisque, nunc ac faucibus placerat, justo lectus pulvinar mi, quis luctus erat enim a turpis. Morbi lobortis malesuada metus, quis varius eros sagittis a.
+      %p Curabitur odio erat, rhoncus id ligula vitae, scelerisque mattis eros. Etiam a consectetur ex, mattis faucibus leo. In aliquet cursus placerat. Integer pretium erat iaculis sollicitudin posuere. Morbi id dictum purus. Curabitur ut est venenatis, auctor diam ut, sodales ligula. Praesent at ex risus. Fusce pharetra nisi ipsum, egestas luctus velit accumsan eget. Aenean laoreet dolor hendrerit, viverra urna vitae, porttitor ex.
+      %p Vestibulum ut tincidunt elit. Morbi condimentum dapibus ipsum. Donec ac tempus leo, at faucibus mauris. Proin ac mauris eget odio faucibus bibendum eu at nisi. Proin vulputate ante dui, sit amet ultrices neque sollicitudin nec. Quisque et posuere quam. Mauris gravida convallis mi et blandit. Proin laoreet diam ex, sit amet sodales nisl hendrerit eu.
+.container{style: "margin-top:50px;"}  
+  .col-lg-6
+    .centerize
+      %h3 
+        %strong Coverage of over 1,000 stocks every quarter
+      %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu sagittis purus, non imperdiet urna. Praesent at dolor finibus, elementum augue at, porta augue. Cras scelerisque congue sodales. Nulla ut dolor lacus. Suspendisse et porta velit. Ut scelerisque, nunc ac faucibus placerat, justo lectus pulvinar mi, quis luctus erat enim a turpis. Morbi lobortis malesuada metus, quis varius eros sagittis a.
+      %p Curabitur odio erat, rhoncus id ligula vitae, scelerisque mattis eros. Etiam a consectetur ex, mattis faucibus leo. In aliquet cursus placerat. Integer pretium erat iaculis sollicitudin posuere. Morbi id dictum purus. Curabitur ut est venenatis, auctor diam ut, sodales ligula. Praesent at ex risus. Fusce pharetra nisi ipsum, egestas luctus velit accumsan eget. Aenean laoreet dolor hendrerit, viverra urna vitae, porttitor ex.
+      %p Vestibulum ut tincidunt elit. Morbi condimentum dapibus ipsum. Donec ac tempus leo, at faucibus mauris. Proin ac mauris eget odio faucibus bibendum eu at nisi. Proin vulputate ante dui, sit amet ultrices neque sollicitudin nec. Quisque et posuere quam. Mauris gravida convallis mi et blandit. Proin laoreet diam ex, sit amet sodales nisl hendrerit eu.
+  .col-lg-6
+    .centerize
+      %br
+      #container2
+
+
+:javascript
+  $(function () {
+
+    $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function (data) {
+        // Create the chart
+        $('#container1').highcharts('StockChart', {
+            credits: {
+              enabled: false
+            },
+            rangeSelector : {
+                selected : 1,
+                inputEnabled: $('#container').width() > 480
+            },
+
+            title : {
+                text : 'AAPL Stock Price'
+            },
+            navigator: {
+                maskFill: 'rgba(209, 74, 0, 0.25)',
+                series: {
+                    color: 'rgba(209, 74, 0, 0.5)',
+                    lineColor: "orange"
+                }
+            },
+            rangeSelector : {
+                enabled : false,
+                selected : 1
+            },
+            series : [{
+                name : 'AAPL',
+                data : data,
+                color : "orange",
+                tooltip: {
+                    valueDecimals: 2
+                }
+            }]
+        });
+    });
+
+    $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function (data) {
+        // Create the chart
+        $('#container2').highcharts('StockChart', {
+            credits: {
+              enabled: false
+            },
+            rangeSelector : {
+                selected : 1,
+                inputEnabled: $('#container').width() > 480
+            },
+            chart: {
+              type: 'column',
+              zoomType: 'xy'
+            },
+            title : {
+                text : 'AAPL Stock Price'
+            },
+            navigator: {
+                maskFill: 'rgba(209, 74, 0, 0.25)',
+                series: {
+                    color: 'rgba(209, 74, 0, 0.5)',
+                    lineColor: "orange"
+                }
+            },
+            rangeSelector : {
+                enabled : false,
+                selected : 1
+            },
+            series : [{
+                name : 'AAPL',
+                data : data,
+                color : "orange",
+                tooltip: {
+                    valueDecimals: 2
+                }
+            }]
+        });
+    });
+
+
+
+
+  });
