@@ -21,29 +21,8 @@
 //= require jquery.draggable
 //= require jquery.gridster
 //= require utils
-//= require dataTables/jquery.dataTables
-//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
-//= require dataTables/extras/dataTables.responsive
-//= require dataTables/extras/dataTables.colVis
+//= require lodash
 //= require underscore
+//= require jquery.scrollTableBody
 //= require turbolinks
 //= require_tree .
-
-$(document).ready(function() {
-    $("div.bhoechie-tab-menu>div.list-group>a").click(function(e) {
-        e.preventDefault();
-        $(this).siblings('a.active').removeClass("active");
-        $(this).addClass("active");
-        var index = $(this).index();
-        $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
-        $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
-    });
-});
-
-$.fn.tableScroll.defaults =
-{
-    flush: true, // makes the last thead and tbody column flush with the scrollbar
-    width: null, // width of the table (head, body and foot), null defaults to the tables natural width
-    height: 100, // height of the scrollable area
-    containerClass: 'tablescroll' // the plugin wraps the table in a div with this css class
-};

@@ -1,0 +1,12 @@
+-if @search.name == ""
+  No Name Present
+  .btn-group.pull-right
+    %a#closer.closer{:href => "javascript:void(0)"} x  
+  =@search.taxonomy
+  =@search.settlement_currency
+-else
+  =@search.name
+  .btn-group.pull-right
+    %a#closer.closer{:href => "javascript:void(0)"} x
+  =@search.taxonomy
+  =@search.settlement_currency
