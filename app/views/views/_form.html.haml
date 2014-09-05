@@ -8,11 +8,10 @@
             - @view.errors.full_messages.each do |msg|
               %li= msg
       = f.input :name, :input_html => {class: "form-control"}
-      = f.input :body, :input_html => {class: "form-control", id: "inputbody"}
+      .hidden= f.input :body, :input_html => {class: "form-control", id: "inputbody"}
 
   .modal-footer
-    %button#submitter{:type => "button"} Saves
-    #submit.hidden= f.submit 'Save'
+    #submit= f.submit 'Save'
 
 :javascript
   // THE FOLLOWING SAVES THE GRIDSTER LAYOUT
