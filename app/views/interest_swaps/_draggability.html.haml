@@ -1,6 +1,7 @@
 :javascript
  // THE FOLLOWING GENERATES THE DRAGGABLE FUNCTION
   $(function () {
+
     $(".draggable").draggable({
       helper: 'clone',
       drag: function (event, ui) {
@@ -46,7 +47,10 @@
               });
           }
       });
-  })
+
+
+    
+  });
 
   // THE FOLLOWING CLOSES WIDGETS
   $(document).on("click", ".closer", function (e) {

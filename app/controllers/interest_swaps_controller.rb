@@ -12,6 +12,7 @@ layout 'trace', only: [:index]
     @user = current_user
     @fixedfloatswaps = InterestSwap.irfixedfloat.search(params[:search]).sort_by {|x| x.execution_timestamp}
     @searchId = params[:searchId]
+    @views = current_user.views.all
   end
 
 

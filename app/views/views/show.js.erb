@@ -1,8 +1,9 @@
 
 function loader() {
+  $('#mainpage').fadeTo('slow', 0.2);
   gridster.remove_all_widgets();
   var target = document.getElementById('main');
-  $('#mainpage').fadeTo('slow', 0.2);
+  
   spinner = new Spinner(opts).spin(target);
   addWidgets();
   setTimeout(function () { regenGraphs(); }, 1000);

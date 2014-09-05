@@ -1,7 +1,11 @@
 class ViewsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_view, only: [:show, :edit, :update, :destroy]
 
-
+  def index
+    @views = current_user.views.all
+  end
+  
   def new
     @view = View.new
     respond_to do |format|
@@ -24,6 +28,7 @@ class ViewsController < ApplicationController
   def create
     @view = View.new(view_params)
     @view.user = current_user
+    @user = @view.user
     respond_to do |format|
       if @view.save
         format.js

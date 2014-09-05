@@ -1,4 +1,5 @@
 class SearchesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_search, only: [:show, :show_timeseries, :show_termstructure, :show_datatable, :show_delta, :show_ois, :show_ccy, :edit, :update, :destroy]
   # before_action :authenticate_user!
   # GET /searches

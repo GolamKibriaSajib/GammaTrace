@@ -1,0 +1,2 @@
+- current_user.views.each do |v|
+  %li=link_to v.name, user_view_path(@user.id, v), remote: true
