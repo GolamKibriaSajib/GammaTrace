@@ -7,7 +7,7 @@
     = csrf_meta_tags
     = favicon_link_tag 'favicon.ico'
 
-  %body
+  %body.backblack
     %header.navbar.navbar-inverse.navbar-fixed-top.bs-docs-nav{role: "banner"}
       .container.topbottom10
         .navbar-header
@@ -57,8 +57,7 @@
               %a{:href => "javascript:void(0)", id: "volterm"} Vol Term
             %li#addvoltail
               %a{:href => "javascript:void(0)", id: "voltail"}  Vol Tail
-            %li#serialize
-              %a{:href => "javascript:void(0)", id: "voltail"}  Serialize
+            %li= link_to 'Save View', new_user_view_path(@user), { remote: true, "data-toggle" => "modal", "data-target" => "#viewmodal"}
             %li#load
               %a{:href => "javascript:void(0)", id: "voltail"}  Load
             %li#testing
@@ -68,6 +67,6 @@
                 Views
                 %b.caret
               %ul.dropdown-menu
-                / - current_user.searches.each do |s|
-                /   %li=link_to s.name, user_search_path(@user.id, s)
+                - current_user.views.each do |v|
+                  %li=link_to v.name, user_view_path(@user.id, v), remote: true
     = yield

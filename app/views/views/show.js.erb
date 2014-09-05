@@ -1,0 +1,76 @@
+
+function loader() {
+  addWidgets();
+  setTimeout(function() { regenGraphs() }, 1000);
+};
+
+function addWidgets() {
+    gridster.remove_all_widgets();
+    var a = '<%= @view.body.html_safe %>';
+    debugger
+    var parsedData = $.parseJSON(a);
+    alert(parsedData);
+    alert("parsed");
+    $.each(parsedData, function () {
+        gridster.add_widget("<li class='droppable panel panel-default' id=" + this.id + ">" + this.htmlContent + "</li>", this.size_x, this.size_y, this.col, this.row);
+    });
+};
+
+
+function regenGraphs() {
+  var listitem = $("#gridlist").children("li");
+  listitem.each(function (i) {
+          if ($(this).children(".panel-heading").hasClass("timeseries") && $.isNumeric($(this).children(".panel-heading").prop("id"))) {
+              idsearch1 = $(this).children(".panel-heading").prop("id");
+              droppableDiv = $(this).prop("id");
+              $.ajax({
+                  async: false,
+                  url: "/users/#{@user.id}/searches/" + idsearch1 + "/show_timeseries"
+              });
+          } else if ( $(this).children(".panel-heading").hasClass("termstructure") && $.isNumeric($(this).children(".panel-heading").prop("id")) ) {
+              idsearch2 = $(this).children(".panel-heading").prop("id");
+              droppableDiv = $(this).prop("id");
+              $.ajax({
+                  async: false,
+                  url: "/users/#{@user.id}/searches/" + idsearch2 + "/show_termstructure"
+              });
+          } else if ( $(this).children(".panel-heading").hasClass("datatable") && $.isNumeric($(this).children(".panel-heading").prop("id")) ) {
+              idsearch3 = $(this).children(".panel-heading").prop("id");
+              droppableDiv = $(this).prop("id");
+              $.ajax({
+                  async: false,
+                  url: "/users/#{@user.id}/searches/" + idsearch3 + "/show_datatable"
+              });
+          } else if ( $(this).children(".panel-heading").hasClass("details") && $.isNumeric($(this).children(".panel-heading").prop("id")) ) {
+              idsearch4 = $(this).children(".panel-heading").prop("id");
+              droppableDiv = $(this).prop("id");
+              $.ajax({
+                  async: false,
+                  url: "/users/#{@user.id}/searches/" + idsearch4 + "/show_details"
+              });
+          } else if ( $(this).children(".panel-heading").hasClass("delta") && $.isNumeric($(this).children(".panel-heading").prop("id")) ) {
+              idsearch5 = $(this).children(".panel-heading").prop("id");
+              droppableDiv = $(this).prop("id");
+              $.ajax({
+                  async: false,
+                  url: "/users/#{@user.id}/searches/" + idsearch5 + "/show_delta"
+              });
+          } else if ( $(this).children(".panel-heading").hasClass("ois") && $.isNumeric($(this).children(".panel-heading").prop("id")) ) {
+              idsearch6 = $(this).children(".panel-heading").prop("id");
+              droppableDiv = $(this).prop("id");
+              $.ajax({
+                  async: false,
+                  url: "/users/#{@user.id}/searches/" + idsearch6 + "/show_ois"
+              });
+          } else if ( $(this).children(".panel-heading").hasClass("ccy") && $.isNumeric($(this).children(".panel-heading").prop("id")) ) {
+              idsearch7 = $(this).children(".panel-heading").prop("id");
+              droppableDiv = $(this).prop("id");
+              $.ajax({
+                  async: false,
+                  url: "/users/#{@user.id}/searches/" + idsearch7 + "/show_ccy"
+              });
+          }
+      });
+  };
+
+loader();

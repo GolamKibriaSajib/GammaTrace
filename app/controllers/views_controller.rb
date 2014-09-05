@@ -4,24 +4,31 @@ class ViewsController < ApplicationController
 
   def new
     @view = View.new
+    respond_to do |format|
+      format.js
+    end
   end
 
   # GET /views/1/edit
   def edit
   end
 
+  def show
+    respond_to do |format|
+      format.js
+    end
+  end
+
   # POST /views
   # POST /views.json
   def create
     @view = View.new(view_params)
-
+    @view.user = current_user
     respond_to do |format|
       if @view.save
-        format.html { redirect_to @view, notice: 'View was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @view }
+        format.js
       else
-        format.html { render action: 'new' }
-        format.json { render json: @view.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
