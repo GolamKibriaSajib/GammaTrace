@@ -7,32 +7,33 @@
     = csrf_meta_tags
     = favicon_link_tag 'favicon.ico'
 
-  %body.backblack
-    %header.navbar.navbar-inverse.navbar-fixed-top.bs-docs-nav{role: "banner"}
-      .container.topbottom10
-        .navbar-header
-          %button.navbar-toggle{"data-target" => ".bs-navbar-collapse", "data-toggle" => "collapse", type: "button"}
-            %span.sr-only Toggle navigation
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          / .navbar-brand.custom
-          = image_tag("gammatrace.png",class: "navbar-brand", style: "padding-top:15px;padding-bottom:15px")
-        %nav.collapse.navbar-collapse.bs-navbar-collapse{role: "navigation"}
-          %ul.nav.navbar-nav.floatright
-            %li
-              - if user_signed_in?
-                = link_to "Sign out", destroy_user_session_path, method: :delete
-              - else
-                = link_to "Sign in", new_user_session_path
+  %body#main.backblack
+    %header.navbar.navbar-default.back2.navbar-fixed-top.bs-docs-nav{role: "banner"}
+      / .container.topbottom10
+      /   .navbar-header
+      /     %button.navbar-toggle{"data-target" => ".bs-navbar-collapse", "data-toggle" => "collapse", type: "button"}
+      /       %span.sr-only Toggle navigation
+      /       %span.icon-bar
+      /       %span.icon-bar
+      /       %span.icon-bar
+      /     / .navbar-brand.custom
+      /     = image_tag("gammatrace.png",class: "navbar-brand", style: "padding-top:15px;padding-bottom:15px")
+      /   %nav.collapse.navbar-collapse.bs-navbar-collapse{role: "navigation"}
+      /     %ul.nav.navbar-nav.floatright
+      /       %li
+      /         - if user_signed_in?
+      /           = link_to "Sign out", destroy_user_session_path, method: :delete
+      /         - else
+      /           = link_to "Sign in", new_user_session_path
 
-      #bs-example-navbar-collapse-1.collapse.navbar-collapse.back2
-        .container
-          %ul.nav.navbar-nav.back2
+      #bs-example-navbar-collapse-1.collapse.navbar-collapse.back3
+        .container-fluid.nopad
+          = image_tag("gammatrace.png",class: "navbar-brand", style: "padding-top:15px;padding-bottom:15px")
+          %ul.nav.navbar-nav.navbar-left.back3.centerize
             %li.dropdown
               %a.dropdown-toggle{"data-toggle" => "dropdown", href: "javascript:void(0)"}
                 Search
-                %b.caret
+                %i.fa.fa-angle-down
               %ul.dropdown-menu
                 %li#showsearches 
                   %a All Searches
@@ -57,16 +58,26 @@
               %a{:href => "javascript:void(0)", id: "volterm"} Vol Term
             %li#addvoltail
               %a{:href => "javascript:void(0)", id: "voltail"}  Vol Tail
-            %li= link_to 'Save View', new_user_view_path(@user), { remote: true, "data-toggle" => "modal", "data-target" => "#viewmodal"}
-            %li#load
-              %a{:href => "javascript:void(0)", id: "voltail"}  Load
-            %li#testing
-              %a{:href => "javascript:void(0)", id: "voltail"}  Testing
+            
             %li.dropdown
               %a.dropdown-toggle{"data-toggle" => "dropdown", href: "javascript:void(0)"}
                 Views
-                %b.caret
+                %i.fa.fa-angle-down
               %ul.dropdown-menu
-                - current_user.views.each do |v|
-                  %li=link_to v.name, user_view_path(@user.id, v), remote: true
+                %li= link_to 'Save View', new_user_view_path(@user), { remote: true, "data-toggle" => "modal", "data-target" => "#viewmodal"}
+                %li
+                  %a{:href => "#"} Some other action
+                %li.divider
+                %li.dropdown-submenu
+                  %a{:href => "#", :tabindex => "-1"} Load a view
+                  %ul.dropdown-menu
+                    - current_user.views.each do |v|
+                      %li=link_to v.name, user_view_path(@user.id, v), remote: true
+          
+          %ul.nav.navbar-nav.navbar-right{style:"margin-right:15px"}
+            %li
+              - if user_signed_in?
+                = link_to "Sign out", destroy_user_session_path, method: :delete
+              - else
+                = link_to "Sign in", new_user_session_path
     = yield

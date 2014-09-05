@@ -1,0 +1,41 @@
+:javascript
+  // THIS FUNCTION INITIALIZES THE GRIDSTER
+
+  $(function () {
+    // THE FOLLOWING GENERATES THE GRIDSTER LAYOUT
+    gridster = $(".gridster ul").gridster({
+        max_cols: 15,
+        min_cols: 12,
+        widget_base_dimensions: [92, 92],
+        widget_margins: [1, 1],
+        serialize_params: function ($w, wgd) {
+            clone = $w.clone();
+            clone.find('.panel-body').html('');
+            return {
+                id: $w.prop('id'),
+                class: $w.children().prop('id'),
+                col: wgd.col,
+                row: wgd.row,
+                size_x: wgd.size_x,
+                size_y: wgd.size_y,
+                htmlContent: $(clone).html()
+            };
+        },
+        draggable: {
+            handle: '.dragDiv'
+        },
+        helper: 'clone',
+        resize: {
+            enabled: true,
+            resize: function (e, ui, $widget) {
+                window.dispatchEvent(new Event('resize'));
+
+            },
+            stop: function (e, ui, $widget) {
+                window.dispatchEvent(new Event('resize'));
+            },
+            max_size: [12, 12],
+            min_size: [3, 3]
+        }
+    }).data('gridster');
+  });
