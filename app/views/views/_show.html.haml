@@ -1,18 +1,27 @@
 :javascript
+  // THE FOLLOWING FUNCTION LOADS THE GRAPH
+  function loader() {
+    addWidgets();
+    setTimeout(function () { 
+      regenGraphs(); 
+    }, 1000);
+  };
 
-  $("#showsearches").click(function (e) {
-    $("#testpanel").fadeToggle("fast");
-  });
+  // THE FOLLOWING LOADS THE GRIDSTER LAYOUT
+  function addWidgets() {
+      gridster.remove_all_widgets();
+      alert("parsing");
+      var a = '#{@view.body}';
+      alert(a);
+      var parsedinfo = JSON.parse(a);
+      alert("parsed");
+      $.each(parsedinfo, function () {
+          gridster.add_widget("<li class='droppable panel panel-default' id=" + this.id + ">" + this.htmlContent + "</li>", this.size_x, this.size_y, this.col, this.row);
+      });
+  };
 
-
-  // THIS CLOSES THE WIDGET
-  $("#closesearches").click(function() {
-      $("#testpanel").fadeToggle("fast");
-  });
-
-
-
-  $("#testing").click(function() {
+  // THE FOLLOWING REGENERATES THE GRAPHS
+  function regenGraphs() {
     var listitem = $("#gridlist").children("li");
     listitem.each(function (i) {
             if ($(this).children(".panel-heading").hasClass("timeseries") && $.isNumeric($(this).children(".panel-heading").prop("id"))) {
@@ -35,8 +44,6 @@
                 $.ajax({
                     async: false,
                     url: "/users/#{@user.id}/searches/" + idsearch3 + "/show_datatable"
-                }, function () {
-                  // hide the thing
                 });
             } else if ( $(this).children(".panel-heading").hasClass("details") && $.isNumeric($(this).children(".panel-heading").prop("id")) ) {
                 idsearch4 = $(this).children(".panel-heading").prop("id");
@@ -68,4 +75,6 @@
                 });
             }
         });
-    });
+    };
+
+  loader();

@@ -1,0 +1,17 @@
+
+function loader() {
+
+  addWidgets();
+  setTimeout(function () { $('#testing').trigger('click'); }, 1000);
+};
+
+function addWidgets() {
+    gridster.remove_all_widgets();
+    var parsedData = <%= @view.body.html_safe %>;
+    $.each(parsedData, function () {
+        gridster.add_widget("<li class='droppable panel panel-default' id=" + this.id + ">" + this.htmlContent + "</li>", this.size_x, this.size_y, this.col, this.row);
+    });
+};
+
+
+loader();

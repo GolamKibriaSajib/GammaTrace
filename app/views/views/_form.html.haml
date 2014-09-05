@@ -1,19 +1,23 @@
-= form_for @view do |f|
-  - if @view.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@view.errors.count, "error")} prohibited this view from being saved:"
-      %ul
-        - @view.errors.full_messages.each do |msg|
-          %li= msg
+= simple_form_for [@user, @view], remote: true do |f|
+  .modal-body
+    .form-horizontal
+      - if @view.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@view.errors.count, "error")} prohibited this view from being saved:"
+          %ul
+            - @view.errors.full_messages.each do |msg|
+              %li= msg
+      = f.input :name, :input_html => {class: "form-control"}
+      = f.input :body, :input_html => {class: "form-control", id: "inputbody"}
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :body
-    = f.text_area :body
-  .field
-    = f.label :user
-    = f.text_field :user
-  .actions
-    = f.submit 'Save'
+  .modal-footer
+    %button#submitter{:type => "button"} Saves
+    #submit.hidden= f.submit 'Save'
+
+:javascript
+  // THE FOLLOWING SAVES THE GRIDSTER LAYOUT
+  $("#new_view").submit(function (e) {
+      serialization = gridster.serialize();
+      var record = JSON.stringify(serialization);
+      $("#inputbody").text(record);
+  });
