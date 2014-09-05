@@ -38,7 +38,7 @@
   function graphChecker() {
     var listitem = $("#gridlist").children("li");
     listitem.each(function (i) {
-            if ( $(this).children(".panel-body").html() == "" ) {
+            if ( $.isNumeric($(this).children(".panel-heading").prop("id")) && $(this).children(".panel-body").html() == "" ) {
               regenGraphs();
             }
           });
