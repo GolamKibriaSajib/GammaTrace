@@ -1,7 +1,7 @@
 :javascript
   $(function () {
     var $container =  $("#"+ droppableDiv +" .panel-body")
-    var data = #{@scopedsearch.map {|a| [((a.execution_timestamp)*1000), a.price_notation, a.dissemination_id]}}
+    var data = #{@scopedsearch.map {|a| [((a.execution_timestamp)*1000), a.price_notation]}}
           $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
               credits: {
                 enabled: false
@@ -22,9 +22,10 @@
               navigator: {
                   maskFill: 'rgba(209, 74, 0, 0.25)',
                   series: {
+                      data : data,
                       color: 'rgba(209, 74, 0, 0.5)',
                       lineColor: "orange"
-                  }
+                  },
               },
               rangeSelector : {
                   enabled : false,

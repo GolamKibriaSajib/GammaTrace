@@ -1,7 +1,7 @@
 :javascript
   $(function () {
     var $container =  $("#"+ droppableDiv +" .panel-body");
-    var data = #{@scopedsearch.map {|a| [((a.execution_timestamp)*1000), a.price_notation, (a.dissemination_id).to_s]}};
+    var data = #{@scopedsearch.map {|a| [((a.execution_timestamp)*1000), a.price_notation]}};
     $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
         credits: {
           enabled: false
