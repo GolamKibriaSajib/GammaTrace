@@ -1,7 +1,7 @@
 :javascript
   $(function () {
-    var $container =  $("#"+ droppableDiv +" .panel-body")
-    var data = #{@scopedsearch.map {|a| [((a.execution_timestamp)*1000), a.price_notation]}}
+    var $container =  $("#"+ droppableDiv +" .panel-body");
+    var data = #{@scopedsearch.map {|a| {x: ((a.execution_timestamp)*1000), y: a.price_notation, dissId: a.dissemination_id}}.to_json};
           $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
               credits: {
                 enabled: false
@@ -43,6 +43,15 @@
                       }
                   }
               },
+              tooltip: {
+                  formatter: function() {
+                          var s = "";
+                          $.each(this.points, function(i, point) {
+                            s += 'Dissemination id: ' + point.point.dissId;
+                     });
+                     return s;
+                  }
+              },
               series : [{
                   data : data,
                   lineWidth : 0,
@@ -50,10 +59,7 @@
                     enabled : true,
                     radius : 2
                   },
-                  color : "orange",
-                  tooltip: {
-                      valueDecimals: 2
-                  }
+                  color : "orange"
               }]
           });
       });
