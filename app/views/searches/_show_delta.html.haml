@@ -1,7 +1,7 @@
 :javascript
   $(function () {
     var $container =  $("#"+ droppableDiv +" .panel-body")
-    var data = #{@scopedsearch.map {|a| [((a.execution_timestamp)*1000), a.price_notation, a.dissemination_id]}}
+    var data = #{@scopedsearch.map {|a| {x: ((a.execution_timestamp)*1000), y: a.price_notation, dissId: a.dissemination_id}}.to_json};
       $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
           credits: {
             enabled: false
@@ -40,6 +40,15 @@
                       var monthStr = Highcharts.dateFormat('%b', this.value);
                       return monthStr + " " + dayStr + ", " + yearStr;
                   }
+              }
+          },
+          tooltip: {
+              formatter: function() {
+                      var s = "";
+                      $.each(this.points, function(i, point) {
+                        s += 'Dissemination id: ' + point.point.dissId;
+                 });
+                 return s;
               }
           },
           series : [{

@@ -41,7 +41,16 @@
                 }
             }
         },
+        plotOptions: {
+          line: {
+            turboThreshold: 6000
+          }, 
+          tooltip: {
+            followPointer: true
+          }
+        },
         tooltip: {
+            snap: 1,
             formatter: function() {
                     var s = "";
                     $.each(this.points, function(i, point) {

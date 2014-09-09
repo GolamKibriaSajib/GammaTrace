@@ -2,7 +2,7 @@
   $(function () {
     var $container =  $("#"+ droppableDiv +" .panel-body");
     var data = #{@scopedsearch.map {|a| {x: ((a.execution_timestamp)*1000), y: a.price_notation, dissId: a.dissemination_id}}.to_json};
-          $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
+        chart =  $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
               credits: {
                 enabled: false
               },
@@ -27,6 +27,12 @@
                       lineColor: "orange"
                   },
               },
+              plotOptions: {
+                line: {
+                  turboThreshold: 6000,
+                  stickyTracking: false,
+                }
+              },
               rangeSelector : {
                   enabled : false,
                   selected : 1,
@@ -44,10 +50,12 @@
                   }
               },
               tooltip: {
+                  snap: 0,
                   formatter: function() {
                           var s = "";
                           $.each(this.points, function(i, point) {
                             s += 'Dissemination id: ' + point.point.dissId;
+                            s += '<br>Dissemination id: ' + point.point.dissId;
                      });
                      return s;
                   }

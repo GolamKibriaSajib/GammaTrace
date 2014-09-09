@@ -13,7 +13,7 @@
     - @scopedsearch.each_with_index do |s, i|
       %tr
         %td= i+1
-        %td= s.effective_date
+        %td.clicker= link_to s.effective_date, 'javascript:void(0)',"data-placement" => "top", :title => "Dissemination_id: #{s.dissemination_id}", "data-toggle" => "tooltip"
         %td= s.end_date
         %td= s.notional_currency_1
         %td
@@ -21,6 +21,6 @@
 
 :javascript
   $(function () {
-    $("#datatables").scrollTableBody({rowsToDisplay:14.1})
+    $("#datatables").scrollTableBody({rowsToDisplay:13.1});
+    $('.clicker').tooltip({trigger: 'click'});
   });
-

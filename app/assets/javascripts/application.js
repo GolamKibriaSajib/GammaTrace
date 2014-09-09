@@ -45,3 +45,12 @@ opts = {
   top: '50%', // Top position relative to parent
   left: '50%' // Left position relative to parent
 };
+
+  $(function () {
+    $(document).tooltip({
+      show: {
+        effect: "slideDown",
+        delay: 5
+      }
+    });
+  });
