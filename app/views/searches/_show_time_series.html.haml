@@ -30,7 +30,9 @@
               plotOptions: {
                 line: {
                   turboThreshold: 6000,
-                  stickyTracking: false,
+                },
+                tooltip: {
+                  followPointer: true
                 }
               },
               rangeSelector : {
@@ -50,12 +52,11 @@
                   }
               },
               tooltip: {
-                  snap: 0,
+                  snap: 1,
                   formatter: function() {
                           var s = "";
                           $.each(this.points, function(i, point) {
                             s += 'Dissemination id: ' + point.point.dissId;
-                            s += '<br>Dissemination id: ' + point.point.dissId;
                      });
                      return s;
                   }

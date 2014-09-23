@@ -9,13 +9,12 @@
 
   %body#main.backblack
     %header.navbar.navbar-default.back2.navbar-fixed-top.bs-docs-nav{role: "banner"}
-      / .container.topbottom10
-      /   .navbar-header
-      /     %button.navbar-toggle{"data-target" => ".bs-navbar-collapse", "data-toggle" => "collapse", type: "button"}
-      /       %span.sr-only Toggle navigation
-      /       %span.icon-bar
-      /       %span.icon-bar
-      /       %span.icon-bar
+      .container.topbottom10
+        .navbar-header
+          %button.navbar-toggle{"data-target" => "#bs-navbar-collapse-1", "data-toggle" => "collapse", type: "button"}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
       /     / .navbar-brand.custom
       /     = image_tag("gammatrace.png",class: "navbar-brand", style: "padding-top:15px;padding-bottom:15px")
       /   %nav.collapse.navbar-collapse.bs-navbar-collapse{role: "navigation"}
@@ -27,7 +26,7 @@
       /           = link_to "Sign in", new_user_session_path
 
       #bs-example-navbar-collapse-1.collapse.navbar-collapse.back3
-        .container-fluid.nopad
+        .container-fluid.nopad{style:"padding-bottom:5px;"}
           = image_tag("gammatrace.png",class: "navbar-brand", style: "padding-top:15px;padding-bottom:15px")
           %ul.nav.navbar-nav.navbar-left.back3.centerize
             %li.dropdown
@@ -52,11 +51,6 @@
               %a{:href => "javascript:void(0)", id: "datatable"}
                 %i.fa.fa-table
                 Data Table
-                
-            %li#adddetails
-              %a{:href => "javascript:void(0)", id: "details"}
-                %i.fa.fa-list
-                Details
                 
             %li#adddelta
               %a{:href => "javascript:void(0)", id: "delta"} 
@@ -103,8 +97,8 @@
                   %a{:href => "#", :tabindex => "-1"} Load a view
                   %ul#allviews.dropdown-menu
                     - current_user.views.each do |v|
-                      %li=link_to v.name, user_view_path(@user.id, v), remote: true
-
+                      %li
+                        =link_to v.name, user_view_path(@user.id, v), remote: true
           
           %ul.nav.navbar-nav.navbar-right{style:"margin-right:15px"}
             %li
@@ -116,4 +110,22 @@
                 = link_to new_user_session_path do
                   %i.fa.fa-sign-in
                   Sign In
-    = yield
+    #wrapper
+      / Sidebar
+      #sidebar-wrapper
+        =render "interest_swaps/searchlist"
+      / /#sidebar-wrapper
+      / Page Content
+      %a#menu-toggle.btn.btn-default.backcol{:href => "#menu-toggle", style:"padding-left:2px;padding-right:2px;border-left:none;position:fixed;"}
+        %i.fa.fa-caret-right
+      #page-content-wrapper.nopadding
+        .container-fluid
+          =yield
+      / /#page-content-wrapper
+    / /#wrapper
+    / Menu Toggle Script
+    :javascript
+      $("#menu-toggle").click(function(e) {
+          e.preventDefault();
+          $("#wrapper").toggleClass("toggled");
+      });

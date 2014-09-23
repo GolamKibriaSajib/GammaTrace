@@ -15,6 +15,9 @@ class ViewsController < ApplicationController
 
   # GET /views/1/edit
   def edit
+    respond_to do |format|
+      format.js
+    end
   end
 
   def show
@@ -44,10 +47,10 @@ class ViewsController < ApplicationController
     respond_to do |format|
       if @view.update(view_params)
         format.html { redirect_to @view, notice: 'View was successfully updated.' }
-        format.json { head :no_content }
+        format.js
       else
         format.html { render action: 'edit' }
-        format.json { render json: @view.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
