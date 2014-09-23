@@ -10,6 +10,7 @@ function loader() {
 };
 
 function addWidgets() {
+    
     var parsedData = <%= @view.body.html_safe %>;
     $.each(parsedData, function () {
         gridster.add_widget("<li class='droppable panel panel-default' id=" + this.id + ">" + this.htmlContent + "</li>", this.size_x, this.size_y, this.col, this.row);
