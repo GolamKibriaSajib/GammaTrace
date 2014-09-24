@@ -1,7 +1,6 @@
 %ul.sidebar-nav{style:"font-size:10px;"}
   %li{style:"color:white;"}All Searches
   - @searches.each_with_index do |s, i|
-    %li{style:"font-size:10px;"}
-      .draggable{:id => "#{s.id}"}
-        =link_to s.name, 'javascript:void(0)',"data-placement" => "top", :title => "\tTaxonomy: #{s.taxonomy}\nCleared: #{s.cleared}\nIndication of Collateralization: #{s.indication_of_collateralization}\nIndication of End User Exception: #{s.indication_of_end_user_exception}\nSEF?: #{s.execution_venue}\nEffective date: #{s.effective_date}\nEnd date: #{s.end_date}\nCurrency: #{s.settlement_currency}\nLeg1 Currency: #{s.notional_currency_1}\nLeg2 Currency: #{s.notional_currency_2}\nNotional 1: #{s.rounded_notional_amount_1}\nNotional 2: #{s.rounded_notional_amount_2}\nStrike: #{s.option_strike_price}\nPosition: #{s.option_type}\nExpiry: #{s.option_premium}\nLibor Basis: #{s.option_expiration_date}", "data-toggle" => "tooltip"
+    %li.draggable{style:"font-size:10px;border:1px solid white;", :id => "#{s.id}"}
+      =link_to s.name, 'javascript:void(0)',"data-placement" => "top", :title => "\tTaxonomy: #{s.taxonomy}\nCleared: #{s.cleared}\nIndication of Collateralization: #{s.indication_of_collateralization}\nIndication of End User Exception: #{s.indication_of_end_user_exception}\nSEF?: #{s.execution_venue}\nEffective date: #{s.effective_date}\nEnd date: #{s.end_date}\nCurrency: #{s.settlement_currency}\nLeg1 Currency: #{s.notional_currency_1}\nLeg2 Currency: #{s.notional_currency_2}\nNotional 1: #{s.rounded_notional_amount_1}\nNotional 2: #{s.rounded_notional_amount_2}\nStrike: #{s.option_strike_price}\nPosition: #{s.option_type}\nExpiry: #{s.option_premium}\nLibor Basis: #{s.option_expiration_date}", "data-toggle" => "tooltip"
 
