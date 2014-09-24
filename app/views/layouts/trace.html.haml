@@ -118,12 +118,8 @@
       / Page Content
       %a#menu-toggle.btn.btn-default.backcol{:href => "#menu-toggle", style:"padding-left:2px;padding-right:2px;border-left:none;"}
         %i.fa.fa-caret-right
-      #page-content-wrapper.nopadding
-        .container-fluid
-          =yield
-      / /#page-content-wrapper
-    / /#wrapper
-    / Menu Toggle Script
+    =yield
+
     :javascript
       $("#menu-toggle").click(function(e) {
           e.preventDefault();
