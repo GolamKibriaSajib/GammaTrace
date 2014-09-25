@@ -17,7 +17,7 @@
               chart: {
                 renderTo: $container[0],
                 type: 'line',
-                zoomType: 'xy'
+                zoomType: 'x'
               },
               navigator: {
                   maskFill: 'rgba(209, 74, 0, 0.25)',
@@ -30,9 +30,10 @@
               plotOptions: {
                 line: {
                   turboThreshold: 6000,
+                  stickyTracking: false
                 },
                 tooltip: {
-                  followPointer: true
+                  followPointer: false
                 }
               },
               rangeSelector : {
@@ -46,13 +47,13 @@
                       formatter: function() {
                           var dayStr = Highcharts.dateFormat('%d', this.value);
                           var yearStr = Highcharts.dateFormat('%y', this.value);
-                          var monthStr = Highcharts.dateFormat('%b', this.value);
+                          var monthStr = Highcharts.dateFormat('%r', this.value);
                           return monthStr + " " + dayStr + ", " + yearStr;
                       }
                   }
+
               },
               tooltip: {
-                  snap: 1,
                   formatter: function() {
                           var s = "";
                           $.each(this.points, function(i, point) {

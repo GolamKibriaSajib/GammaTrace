@@ -13,6 +13,7 @@
  *= require font-awesome
  *= require jquery-ui
  *= require jquery.gridster
+ *= require jquery.multilevelpushmenu
  *= require entypo
  *= require_self
  *= require_tree .

@@ -4,9 +4,9 @@
   $(function () {
     // THE FOLLOWING GENERATES THE GRIDSTER LAYOUT
     gridster = $(".gridster ul").gridster({
-        max_cols: 24,
-        min_cols: 12,
-        widget_base_dimensions: [55, 55],
+        max_cols: 30,
+        min_cols: 18,
+        widget_base_dimensions: [42, 42],
         widget_margins: [1, 1],
         serialize_params: function ($w, wgd) {
             clone = $w.clone();
@@ -34,8 +34,8 @@
             stop: function (e, ui, $widget) {
                 window.dispatchEvent(new Event('resize'));
             },
-            max_size: [12, 12],
-            min_size: [3, 3]
+            max_size: [30, 30],
+            min_size: [6, 6]
         }
     }).data('gridster');
   });

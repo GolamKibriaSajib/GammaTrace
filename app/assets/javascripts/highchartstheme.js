@@ -28,6 +28,7 @@ Highcharts.theme = {
       }
    },
    xAxis: {
+      ordinal: false,
       gridLineColor: '#707073',
       labels: {
          style: {

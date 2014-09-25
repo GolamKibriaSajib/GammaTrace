@@ -8,7 +8,7 @@
     = favicon_link_tag 'favicon.ico'
 
   %body#main.backblack
-    %header.navbar.navbar-default.back2.navbar-fixed-top.bs-docs-nav{role: "banner"}
+    %header.navbar.navbar-default.back2.navbar-fixed-top.bs-docs-nav{role: "banner",style:"z-index:100000000000;"}
       .container.topbottom10
         .navbar-header
           %button.navbar-toggle{"data-target" => "#bs-navbar-collapse-1", "data-toggle" => "collapse", type: "button"}
@@ -26,7 +26,7 @@
       /           = link_to "Sign in", new_user_session_path
 
       #bs-example-navbar-collapse-1.collapse.navbar-collapse.back3
-        .container-fluid.nopad{style:"padding-bottom:5px;"}
+        .container-fluid.nopad
           = image_tag("gammatrace.png",class: "navbar-brand", style: "padding-top:15px;padding-bottom:15px")
           %ul.nav.navbar-nav.navbar-left.back3.centerize
             %li.dropdown
@@ -110,18 +110,12 @@
                 = link_to new_user_session_path do
                   %i.fa.fa-sign-in
                   Sign In
-    #wrapper
-      / Sidebar
-      #sidebar-wrapper
-        =render "interest_swaps/searchlist"
-      / /#sidebar-wrapper
-      / Page Content
-      %a#menu-toggle.btn.btn-default.backcol{:href => "#menu-toggle", style:"padding-left:2px;padding-right:2px;border-left:none;"}
-        %i.fa.fa-caret-right
-    =yield
+  #menunav
+    %nav
+      %h2
+        %i.fa.fa-reorder.fa-2x{style:"padding-right:5px;"}
+      %i.fa.fa-reorder.fa-2x{style:"padding-right:5px;"}
+      =render "interest_swaps/searchlist"
+  =yield
+   
 
-    :javascript
-      $("#menu-toggle").click(function(e) {
-          e.preventDefault();
-          $("#wrapper").toggleClass("toggled");
-      });

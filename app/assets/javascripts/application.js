@@ -22,8 +22,11 @@
 //= require utils
 //= require lodash
 //= require underscore
+//= require modernizr
+//= require moment
 //= require jquery.scrollTableBody
 //= require spin.min
+//= require jquery.multilevelpushmenu.min
 //= require turbolinks
 //= require_tree .
 
@@ -53,4 +56,17 @@ opts = {
         delay: 5
       }
     });
+    $( '#menunav' ).multilevelpushmenu({
+      menuWidth: 60, // '450px', '30em', '25%' will also work
+      menuHeight: '100%',
+      collapsed: true,
+      backText: '',  
+      backItemIcon: 'fa fa-angle-right fa-2x',
+      overlapWidth: 40,
+    });
   });
+
+$(document).ready(function(){
+  // HTML markup implementation, overlap mode
+
+});
