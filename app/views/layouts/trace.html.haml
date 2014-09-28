@@ -110,12 +110,9 @@
                 = link_to new_user_session_path do
                   %i.fa.fa-sign-in
                   Sign In
-  #menunav
-    %nav
-      %h2
-        %i.fa.fa-reorder.fa-2x{style:"padding-right:5px;"}
-      %i.fa.fa-reorder.fa-2x{style:"padding-right:5px;"}
-      =render "interest_swaps/searchlist"
+  .container-fluid.nopadding{style:"width:80px;float:left;text-align:left;border-right: 1px solid red;height:900px;position:fixed;"}
+    %h5{style:"margin-left:10px;"} Searches
+    =render "interest_swaps/searchlist"
   =yield
    
 
