@@ -1,19 +1,9 @@
 #center{:style => "position:fixed;top:50%;left:50%"}
-#mainpage.container-fluid.nopad{style:"margin-left:40px;"}
+#mainpage.container-fluid.nopad{style:"margin-left:80px;"}
   .gridster.ready{:style => "width: 100%; position: relative; height: 325px;"}
     %ul#gridlist{:style => "width:100%;position:relative;height:325px;"}
 
-=render "/searches/tablemodal"
 =render "/views/viewmodal"
-#testpanel.navbar.navbar-default.navbar-fixed-bottom{style: "display:none;"}
-  .panel.panel-default{style: "margin-bottom:0px;"}
-    .panel-heading
-      All Searches
-      .btn-group.pull-right
-        %a#closesearches{:href => "javascript:void(0)"} x
-    .panel-body.nopad4{style: "margin-bottom:0px;padding-bottom:0px;"}
-      =render "allsearches"
-
 =render "searchloader"
 =render "charter"
 =render "gridster"

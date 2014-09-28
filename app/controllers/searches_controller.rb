@@ -136,6 +136,9 @@ class SearchesController < ApplicationController
 
   # GET /searches/1/edit
   def edit
+    respond_to do |format|
+      format.js
+    end
   end
 
   # POST /searches
@@ -159,11 +162,9 @@ class SearchesController < ApplicationController
   def update
     respond_to do |format|
       if @search.update(search_params)
-        format.html { redirect_to @search, notice: 'Search was successfully updated.' }
-        format.json { head :no_content }
+        format.js
       else
-        format.html { render action: 'edit' }
-        format.json { render json: @search.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end

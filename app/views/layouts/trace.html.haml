@@ -36,7 +36,7 @@
               %ul.dropdown-menu
                 %li#showsearches 
                   %a All Searches
-                %li= link_to 'New Search', new_user_search_path(@user), { remote: true, "data-toggle" => "modal", "data-target" => "#tablemodal"}
+                %li
             %li#addtermstructure
               %a{:href => "javascript:void(0)"} 
                 %i.fa.fa-area-chart
@@ -111,8 +111,12 @@
                   %i.fa.fa-sign-in
                   Sign In
   #sidebar.container-fluid.nopadding{style:"width:80px;float:left;text-align:left;border-right: 1px solid red;border-left: 1px solid red;height:900px;position:fixed;"}
-    %h5{style:"margin-left:10px;"} Searches
-    =render "interest_swaps/searchlist"
+    %h5{style:"display:block;padding-left:10px;padding-top:10px;padding-bottom:10px;margin:0px !important;border:1px solid;"} Searches
+    %ul{style:"font-size:10px;padding-left:0px;"}
+      %li{style:"text-align:left !important;padding:2px;border:1px solid;"}
+        = link_to 'New Search', new_user_search_path(@user), {remote: true}
+        #sidebarinner= render "interest_swaps/searchlist"
+  #sidebar2.container-fluid.nopadding{style:"z-index:2000000000000;left:79px;display:none;width:500px;float:left;text-align:left;border-right: 1px solid red;border-left: 1px solid red;height:900px;position:fixed;"}
   =yield
    
 

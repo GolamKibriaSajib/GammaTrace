@@ -17,7 +17,7 @@
 	display: none;
 
 	max-width: 280px;
-	min-width: 50px;
+	min-width: 280px;
 
 	font-size: 14px;
 	line-height: 12px;
@@ -556,6 +556,8 @@
 	-ms-filter: none;
 }
 
-.tooltiptext .p {
-	font-size:10px !important;
+.tooltiptext p {
+	font-size:12px !important;
+	line-height: 10px;
 }
+
