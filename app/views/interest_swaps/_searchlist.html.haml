@@ -45,27 +45,27 @@
         %i.fa.fa-trash-o
 
 :javascript
-   $('li.draggable').each(function() {
-       $(this).qtip({
-          title: "hello",
-          content: {
-              title: 'Details',
-              text: $(this).next('.tooltiptext')
-           },
-          position: {
-              my: 'top left',  // Position my top left...
-              at: 'top right', // at the bottom right of...
-              target: $("#sidebar") // my target
-          },
-          show: {
-              solo: true,
-              event: 'click'
-          },
-          hide: {
-              event: 'click',
-          },
-          style: {
-            height: 900
-          }
-       });
-   });
+  $('li.draggable').each(function() {
+    $(this).qtip({
+      title: "hello",
+      content: {
+          title: 'Details',
+          text: $(this).next('.tooltiptext')
+       },
+      position: {
+          my: 'top left',  // Position my top left...
+          at: 'top right', // at the bottom right of...
+          target: $("#sidebar") // my target
+      },
+      show: {
+          solo: true,
+          event: 'click'
+      },
+      hide: {
+          event: 'click',
+      },
+      style: {
+        height: 900
+      }
+    });
+  });
