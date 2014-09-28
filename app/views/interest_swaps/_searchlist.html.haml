@@ -4,7 +4,7 @@
       / .draggable{style:"font-size:10px;border:1px solid white;"}
       %a{:href => "javascript:void(0)"}=s.name 
 
-    .tooltiptext{style:"display:none;"}
+    .tooltiptext{style:"display:none;font-size:10px !important;"}
       %p
         Taxonomy: 
         = s.taxonomy
@@ -71,13 +71,16 @@
             position: {
                 my: 'top left',  // Position my top left...
                 at: 'top right', // at the bottom right of...
-                target: $(this) // my target
+                target: $("#sidebar") // my target
             },
             show: {
                 event: 'click'
             },
             hide: {
-                event: 'unfocus'
+                event: 'unfocus',
+            },
+            style: {
+              height: 900
             }
          });
      });

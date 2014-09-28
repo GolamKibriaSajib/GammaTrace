@@ -11,7 +11,7 @@
  * Styles: core basic css3
  */
 .qtip{
-	position: absolute;
+	position: fixed;
 	left: -28000px;
 	top: -28000px;
 	display: none;
@@ -19,7 +19,7 @@
 	max-width: 280px;
 	min-width: 50px;
 
-	font-size: 12.5px;
+	font-size: 14px;
 	line-height: 12px;
 
 	direction: ltr;
@@ -32,16 +32,16 @@
 		position: relative;
 		padding: 5px 9px;
 		overflow: hidden;
-
+		height:900px;
+		background-color: #2a2a2b;
 		text-align: left;
 		word-wrap: break-word;
 	}
 
 	.qtip-titlebar{
 		position: relative;
-		padding: 5px 35px 5px 10px;
+		padding: 11px 35px 11px 10px;
 		overflow: hidden;
-
 		border-width: 0 0 1px;
 		font-weight: bold;
 	}
@@ -109,7 +109,7 @@
 }
 
 	.qtip-default .qtip-titlebar{
-		background-color: #FFEF93;
+		background-color: #48485A;
 	}
 
 	.qtip-default .qtip-icon{
@@ -554,4 +554,8 @@
 .qtip:not(.ie9haxors) div.qtip-titlebar{
 	filter: none;
 	-ms-filter: none;
+}
+
+.tooltiptext .p {
+	font-size:10px !important;
 }
