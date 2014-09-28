@@ -1,2 +1,5 @@
+$('.qtip').each(function(){
+  $(this).data('qtip').destroy();
+});
 $("#sidebar2").html("<%= escape_javascript(render 'edit') %>");
 $("#sidebar2").show();

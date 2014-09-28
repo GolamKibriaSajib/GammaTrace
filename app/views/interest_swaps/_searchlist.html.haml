@@ -1,4 +1,4 @@
-- @searches.each_with_index do |s, i|
+- @searches.each do |s|
   %li.draggable{style:"text-align:left !important;padding:2px;border:1px solid;", :id => "#{s.id}"}
     / .draggable{style:"font-size:10px;border:1px solid white;"}
     %a{:href => "javascript:void(0)",style:"display:block;z-index:10000000000000000000000000000000000000000000000;"}=s.name 
@@ -36,7 +36,7 @@
     %p
       Libor Basis:    #{s.option_expiration_date}
     %p
-      %a{:href => "#"}
+      = link_to edit_user_search_path(@user, s.id), {remote: true} do
         Edit
         %i.fa.fa-edit
     %p
