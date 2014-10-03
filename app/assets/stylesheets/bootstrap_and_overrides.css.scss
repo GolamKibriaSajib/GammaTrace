@@ -16,6 +16,10 @@ a {
   transition: all 0.2s linear;
 }
 
+blackcol {
+  color:black !important;
+}
+
 
 a:hover {
 color: orange;
@@ -176,8 +180,9 @@ body.home {
 
 }
 
-.form-horizontal {
-  font-size:10px !important;
+.form-horizontal2 {
+  font-size:12px !important;
+  line-height:12px;
 }
 
 .form-control {
@@ -190,4 +195,20 @@ body.home {
   background-color: #48485A;
   color:white;
   
+}
+input, button, select, textarea {
+  background: #48485A;
+}
+.form-horizontal .control-label {
+  text-align: right;
+  margin-bottom: 0;
+  padding-top: 7px;
+  font-weight: normal;
+}
+
+label {
+display: inline-block;
+max-width: 100%;
+margin-bottom: 5px;
+font-weight: normal;
 }

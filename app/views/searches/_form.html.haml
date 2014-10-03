@@ -1,38 +1,58 @@
-= simple_form_for [@user, @search], html: {class: 'form-horizontal' }, remote: true do |f|
-  = f.input :name, label: false, placeholder: "Search Name",:input_html => {id: "name", class: "form-control"}
-  = f.input :taxonomy,:as => :select, collection: ["InterestRate:IRSwap:FixedFloat","OIS Swap: InterestRate:IRSwap:OIS","CCY Swap: InterestRate:CrossCurrency:Basis ||  InterestRate:CrossCurrency:FixedFloat || InterestRate:CrossCurrency:FixedFixed", "Swaption: InterestRate:Option:Swaption", "Cap/Floor: InterestRate:CapFloor"], label: false, placeholder: "a",:input_html => {id: "market", class: "form-control"}
+= simple_form_for [@user, @search], html: {class: 'form-horizontal2'}, remote: true do |f|
+  #namer
+    = f.label :name, "Name: "
+    = f.text_field :name
+  #market
+    = f.label :taxonomy, "Taxonomy: "
+    = f.select :taxonomy,["InterestRate:IRSwap:FixedFloat","OIS Swap: InterestRate:IRSwap:OIS","CCY Swap: InterestRate:CrossCurrency:Basis","InterestRate:CrossCurrency:FixedFloat","InterestRate:CrossCurrency:FixedFixed", "Swaption: InterestRate:Option:Swaption", "Cap/Floor: InterestRate:CapFloor"]
   #cleared
-    = f.input :cleared, label: false, placeholder: "Cleared",:input_html => {class: "form-control"}
+    = f.label :cleared, "Cleared: "
+    = f.text_field :cleared, class:""
   #indcol
-    = f.input :indication_of_collateralization, label: false, placeholder: "Indication of Collateralization",:input_html => {class: "form-control"}
+    = f.label  :indication_of_collateralization, "Indication of Collateralization: "
+    = f.text_field :indication_of_collateralization
   #indexec
-    = f.input :indication_of_end_user_exception, label: false, placeholder: "Indication of End User Exception",:input_html => {class: "form-control"}
+    = f.label  :indication_of_end_user_exception, "Indication of End User Exception: "
+    = f.text_field :indication_of_end_user_exception
   #execven
-    = f.input :execution_venue, label: false, placeholder: "Execution Venue",:input_html => {class: "form-control"}
+    = f.label  :execution_venue, "SEF?: "
+    = f.text_field :execution_venue
   #effdate
-    = f.input :effective_date, label: false, placeholder: "Effective Date",:input_html => {class: "form-control"}
+    = f.label  :effective_date, "Effective Date: "
+    = f.text_field :effective_date
   #enddate
-    = f.input :end_date, label: false, placeholder: "End Date",:input_html => {class: "form-control"}
+    = f.label  :end_date, "End Date: "
+    = f.text_field :end_date
   #setcur
-    = f.input :settlement_currency, label: false, placeholder: "Settlement Currency",:input_html => {class: "form-control"}
+    = f.label  :settlement_currency, "Currency: "
+    = f.text_field :settlement_currency
   #notcur1
-    = f.input :notional_currency_1, label: false, placeholder: "Notional Currency 1",:input_html => {class: "form-control"}
+    = f.label  :notional_currency_1, "Leg1 Currency: "
+    = f.text_field :notional_currency_1
   #notcur2
-    = f.input :notional_currency_2, label: false, placeholder: "Notional Currency 2",:input_html => {class: "form-control"}
+    = f.label  :notional_currency_2, "Leg2 Currency: "
+    = f.text_field :notional_currency_2
   #rnot1
-    = f.input :rounded_notional_amount_1, label: false, placeholder: "Rounded Notional Amount 1",:input_html => {class: "form-control"}
+    = f.label  :rounded_notional_amount_1, "Notional 1: "
+    = f.text_field :rounded_notional_amount_1
   #rnot2
-    = f.input :rounded_notional_amount_2, label: false, placeholder: "Rounded Notional Amount 2",:input_html => {class: "form-control"}
+    = f.label  :rounded_notional_amount_2, "Notional 2: "
+    = f.text_field :rounded_notional_amount_2
   #optstr
-    = f.input :option_strike_price, label: false, placeholder: "Option Strike Price",:input_html => {class: "form-control"}
+    = f.label  :option_strike_price, "Strike: "
+    = f.text_field :option_strike_price
   #optype
-    = f.input :option_type, label: false, placeholder: "Option Type",:input_html => {class: "form-control"}
+    = f.label  :option_type, "Position: "
+    = f.text_field :option_type
   #optprem
-    = f.input :option_premium, label: false, placeholder: "Option Premium",:input_html => {class: "form-control"}
+    = f.label  :option_premium, "Premium"
+    = f.text_field :option_premium
   #optexp
-    = f.input :option_expiration_date, label: false, placeholder: "Option Expiration Date",:input_html => {class: "form-control"}
+    = f.label  :option_expiration_date, "Expiry"
+    = f.text_field :option_expiration_date
   #floatleg
-    = f.input :floating_leg_reset, label: false, placeholder: "Floating Leg Reset",:input_html => {class: "form-control"}
+    = f.label  :floating_leg_reset, "Libor Basis"
+    = f.text_field :floating_leg_reset
   = f.submit 'Save'
 
 :javascript
@@ -48,7 +68,7 @@
         $("#cleared, #indcol, #indexec, #execven, #effdate, #enddate, #setcur, #notcur1, #rnot1").toggle("show");
         } 
 
-        else if ($(this).val() == "CCY Swap: InterestRate:CrossCurrency:Basis ||  InterestRate:CrossCurrency:FixedFloat || InterestRate:CrossCurrency:FixedFixed") {
+        else if ($(this).val() == "CCY Swap: InterestRate:CrossCurrency:Basis" ||  "InterestRate:CrossCurrency:FixedFloat" || "InterestRate:CrossCurrency:FixedFixed") {
         $("#cleared, #indcol, #indexec, #execven, #effdate, #enddate, #setcur, #notcur1, #notcur2, #rnot1, #rnot2, #optstr, #optype, #optprem, #optexp, #floatleg").toggle("hide");
         $("#cleared, #indcol, #indexec, #execven, #effdate, #enddate, #setcur, #notcur1, #notcur2, #rnot1, #rnot2, #floatleg").toggle("show");
         } 

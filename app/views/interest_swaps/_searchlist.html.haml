@@ -2,7 +2,9 @@
   %li.draggable{style:"text-align:left !important;padding:2px;border:1px solid;", :id => "#{s.id}"}
     / .draggable{style:"font-size:10px;border:1px solid white;"}
     %a{:href => "javascript:void(0)",style:"display:block;z-index:10000000000000000000000000000000000000000000000;"}=s.name 
-  .tooltiptext{style:"display:none;font-size:10px !important;line-height:2px;"}
+  .tooltiptext{style:"display:none;font-size:10px !important;line-height:18px;"}
+    %p
+      Name:   #{s.name}
     %p
       Taxonomy:   #{s.taxonomy}
     %p
@@ -32,9 +34,11 @@
     %p
       Position:   #{s.option_type}
     %p
-      Expiry:   #{s.option_premium}
+      Premium:   #{s.option_premium}
     %p
-      Libor Basis:    #{s.option_expiration_date}
+      Expiry:    #{s.option_expiration_date}
+    %p
+      Libor Basis:    #{s.floating_leg_reset}
     %p
       = link_to edit_user_search_path(@user, s.id), {remote: true} do
         Edit
