@@ -1,76 +1,99 @@
 :javascript
-  $(function () {
-    var $container =  $("#"+ droppableDiv +" .panel-body");
-    var data = #{@scopedsearch.map {|a| {x: ((a.execution_timestamp)*1000), y: a.price_notation, dissId: a.dissemination_id}}.to_json};
-        chart =  $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
-              credits: {
-                enabled: false
-              },
-              title: {
-                style: {
-                  color: 'black',
-                  fontSize: '12px',
-                  display: 'none'
-                },
-                text: "Time Series: #{@search.name}"
-              },
-              chart: {
-                renderTo: $container[0],
-                type: 'line',
-                zoomType: 'x'
-              },
-              navigator: {
-                  maskFill: 'rgba(209, 74, 0, 0.25)',
-                  series: {
-                      data : data,
-                      color: 'rgba(209, 74, 0, 0.5)',
-                      lineColor: "orange"
-                  },
-              },
-              plotOptions: {
-                line: {
-                  turboThreshold: 6000,
-                  stickyTracking: false
-                },
-                tooltip: {
-                  followPointer: false
-                }
-              },
-              rangeSelector : {
-                  enabled : false,
-                  selected : 1,
-                  inputEnabled: $("#"+ droppableDiv +"").width() > 480
-              },
-              xAxis: {        
-                  type: 'datetime',
-                  labels: {
-                      formatter: function() {
-                          var dayStr = Highcharts.dateFormat('%d', this.value);
-                          var yearStr = Highcharts.dateFormat('%y', this.value);
-                          var monthStr = Highcharts.dateFormat('%r', this.value);
-                          return monthStr + " " + dayStr + ", " + yearStr;
-                      }
-                  }
+ $(function(){
+  var myChart=
+  {
+    "type": "line",
+    "title":{
+     "text":"Hello ZingChart World!"
+  },
+    "series": [
+      {
+        "values": [5,10,15,5,10,5]
+      },
+      {
+        "values": [2,4,6,8,10,12]
+      }
+    ]
+  };
+    zingchart.render({
+        id: droppableDiv,
+        data:myChart,
+        height:400,
+        width:"100%"
+    });
+  });
+  / $(function () {
+  /   var $container =  $("#"+ droppableDiv +" .panel-body");
+  /   var data = #{@scopedsearch.map {|a| {x: ((a.execution_timestamp)*1000), y: a.price_notation, dissId: a.dissemination_id}}.to_json};
+  /       chart =  $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
+  /             credits: {
+  /               enabled: false
+  /             },
+  /             title: {
+  /               style: {
+  /                 color: 'black',
+  /                 fontSize: '12px',
+  /                 display: 'none'
+  /               },
+  /               text: "Time Series: #{@search.name}"
+  /             },
+  /             chart: {
+  /               renderTo: $container[0],
+  /               type: 'line',
+  /               zoomType: 'x'
+  /             },
+  /             navigator: {
+  /                 maskFill: 'rgba(209, 74, 0, 0.25)',
+  /                 series: {
+  /                     data : data,
+  /                     color: 'rgba(209, 74, 0, 0.5)',
+  /                     lineColor: "orange"
+  /                 },
+  /             },
+  /             plotOptions: {
+  /               line: {
+  /                 turboThreshold: 6000,
+  /                 stickyTracking: false
+  /               },
+  /               tooltip: {
+  /                 followPointer: false
+  /               }
+  /             },
+  /             rangeSelector : {
+  /                 enabled : false,
+  /                 selected : 1,
+  /                 inputEnabled: $("#"+ droppableDiv +"").width() > 480
+  /             },
+  /             xAxis: {        
+  /                 type: 'datetime',
+  /                 labels: {
+  /                     formatter: function() {
+  /                         var dayStr = Highcharts.dateFormat('%d', this.value);
+  /                         var yearStr = Highcharts.dateFormat('%y', this.value);
+  /                         var monthStr = Highcharts.dateFormat('%r', this.value);
+  /                         return monthStr + " " + dayStr + ", " + yearStr;
+  /                     }
+  /                 }
 
-              },
-              tooltip: {
-                  formatter: function() {
-                          var s = "";
-                          $.each(this.points, function(i, point) {
-                            s += 'Dissemination id: ' + point.point.dissId;
-                     });
-                     return s;
-                  }
-              },
-              series : [{
-                  data : data,
-                  lineWidth : 0,
-                  marker : {
-                    enabled : true,
-                    radius : 2
-                  },
-                  color : "orange"
-              }]
-          });
-      });
+  /             },
+  /             tooltip: {
+  /                 formatter: function() {
+  /                         var s = "";
+  /                         $.each(this.points, function(i, point) {
+  /                           s += 'Dissemination id: ' + point.point.dissId;
+  /                    });
+  /                    return s;
+  /                 }
+  /             },
+  /             series : [{
+  /                 data : data,
+  /                 lineWidth : 0,
+  /                 marker : {
+  /                   enabled : true,
+  /                   radius : 2
+  /                 },
+  /                 color : "orange"
+  /             }]
+  /         });
+  /     });
 

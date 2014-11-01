@@ -1,3 +1,69 @@
-$("#"+ droppableDiv +" .panel-body").html("<%= j render 'show_time_series' %>");
-$("#"+ droppableDiv +" .panel-heading").html("<%= j render 'searchname' %>");
-$("#"+ droppableDiv +" .panel-heading").prepend("Time Series: ");
+$(function(){
+  var myChart=
+{
+"show-progress":false,
+"graphset":[
+    {
+        "scale-x":{
+            "zooming":true
+        },
+        "scale-y":{
+            
+        },
+        "zoom":{
+            "text-align":"center"
+        },
+        "alpha":0.32,
+        "background-color":"#333333",
+        "background-color-2":"#333333",
+        "scroll-x":{
+            "visible":true
+        },
+        "plot":{
+            "animate":true,
+            "speed":0.1,
+            "tooltip-text":"%v",
+            "value-box":{
+                "text":"%v"
+            },
+            "preview":true
+        },
+        "preview":{
+            "visible":true,
+            "height":50,
+            "position":"50% 100%",
+            "margin-top":10,
+            "margin-right":50,
+            "margin-left":50,
+            "margin-bottom":15,
+            "handles":{
+                
+            }
+        },
+        "plotarea":{
+            "position":"0% 0%",
+            "margin-top":60,
+            "margin-right":50,
+            "margin-left":50,
+            "margin-bottom":105
+        },
+        "type":"scatter",
+        "series":[
+            {
+                "values": #{@scopedsearch.map {|a| [a.execution_timestamp, a.price_notation]}},
+                "text":"Item 0"
+            }
+        ]
+    }
+]
+};
+    zingchart.MODULESDIR = '/assets/modules/';
+    zingchart.render({
+        id: droppableDiv,
+        data:myChart,
+        height:"90%",
+        width:"100%"
+    });
+  });
+$("#"+ droppableDiv +"").prev(".panel-heading").html("<%= j render 'searchname' %>");
+$("#"+ droppableDiv +"").prev(".panel-heading").prepend("Time Series: ");

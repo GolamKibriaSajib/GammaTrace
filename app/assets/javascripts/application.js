@@ -25,6 +25,9 @@
 //= require modernizr
 //= require moment
 //= require jquery.scrollTableBody
+//= require license
+//= require zingchart-html5-min
+//= require modules/zingchart-html5-preview-min
 //= require spin.min
 //= require jquery.qtip.min
 //= require turbolinks

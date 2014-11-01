@@ -1,7 +1,6 @@
 :javascript
  // THE FOLLOWING GENERATES THE DRAGGABLE FUNCTION
   $(function () {
-
     $(".draggable").draggable({
       helper: 'clone',
       drag: function (event, ui) {
@@ -9,7 +8,7 @@
               accept: '.draggable',
               hoverClass: "drop-hover",
               drop: function (event, ui) {
-                  droppableDiv = $(event.target).attr('id');
+                  droppableDiv = $(event.target).children(".panel-body").attr('id');
                   alert(droppableDiv);
                   searchId = ui.draggable.attr("id");
                   panelid = $(event.target).children('.panel-heading').attr('id', searchId);

@@ -160,6 +160,7 @@ class SearchesController < ApplicationController
   # PATCH/PUT /searches/1
   # PATCH/PUT /searches/1.json
   def update
+    @searches = current_user.searches.all
     respond_to do |format|
       if @search.update(search_params)
         format.js
@@ -172,10 +173,10 @@ class SearchesController < ApplicationController
   # DELETE /searches/1
   # DELETE /searches/1.json
   def destroy
+    @searches = current_user.searches.all
     @search.destroy
     respond_to do |format|
-      format.html { redirect_to searches_url }
-      format.json { head :no_content }
+      format.js
     end
   end
 
