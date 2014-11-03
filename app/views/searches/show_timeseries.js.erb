@@ -1,15 +1,36 @@
 $(function(){
-  var myChart=
-{
+  var myChart= {
 "show-progress":false,
 "graphset":[
     {
-        "scale-x":{
-            "zooming":true
-        },
-        "scale-y":{
-            
-        },
+        "scale-x":{
+            "line-color":"none",
+            "tick":{
+                "visible":false
+            },
+            "zooming":1,
+            "item":{
+                "font-color":"#000",
+                "visible":false
+            }
+        },
+        "scale-y":{
+            "values":"20:100:10",
+            "zooming":1,
+            "format":"$%v",
+            "line-color":"#fff",
+            "line-width":"1px",
+            "alpha":0.5,
+            "tick":{
+                "line-color":"#fff",
+                "line-width":"1px"
+            },
+            "item":{
+                "font-size":11,
+                "color":"#ffffff",
+                "padding":"3px"
+            }
+        },
         "zoom":{
             "text-align":"center"
         },
@@ -50,7 +71,7 @@ $(function(){
         "type":"scatter",
         "series":[
             {
-                "values": #{@scopedsearch.map {|a| [a.execution_timestamp, a.price_notation]}},
+                "values": #{(@scopedsearch.map {|a| [a.execution_timestamp, a.price_notation]})},
                 "text":"Item 0"
             }
         ]
