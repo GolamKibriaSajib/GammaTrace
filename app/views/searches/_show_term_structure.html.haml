@@ -1,5 +1,11 @@
 :javascript
   $(function () {
+      function randomFloatBetween(minValue,maxValue,precision){
+        if(typeof(precision) == 'undefined'){
+            precision = 2;
+        }
+        return parseFloat(Math.min(minValue + (Math.random() * (maxValue - minValue)),maxValue).toFixed(precision));
+    };
     var $container =  $("#"+ droppableDiv +" .panel-body");
     var data = #{@scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.price_notation, dissId: a.dissemination_id}}.to_json};;
     $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
@@ -15,7 +21,7 @@
           text: "Term Structure: #{@search.name}"
         },
         chart: {
-          type: 'line',
+          type: 'spline',
           zoomType: 'xy',
           events : {
               load : function () {
@@ -25,7 +31,7 @@
                   setInterval(function () {
                       var obj = {};
                       var x = (new Date()).getTime();
-                      var y = Math.round(Math.random() * 5);
+                      var y = randomFloatBetween(1.7,1.85,4);
                       var dissId= 12343;
                       series.addPoint({x: x, y: y, dissId: dissId});
                   }, 1000);
