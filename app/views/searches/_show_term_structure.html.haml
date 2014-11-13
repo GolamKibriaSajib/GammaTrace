@@ -1,7 +1,7 @@
 :javascript
   $(function () {
     var $container =  $("#"+ droppableDiv +" .panel-body");
-    var data = #{@scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.price_notation, dissId: a.dissemination_id}}.to_json};
+    var data = #{@scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.price_notation, dissId: a.dissemination_id}}.to_json};;
     $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
         credits: {
           enabled: false
@@ -16,7 +16,21 @@
         },
         chart: {
           type: 'line',
-          zoomType: 'xy'
+          zoomType: 'xy',
+          events : {
+              load : function () {
+
+                  // set up the updating of the chart each second
+                  var series = this.series[0];
+                  setInterval(function () {
+                      var obj = {};
+                      var x = (new Date()).getTime();
+                      var y = Math.round(Math.random() * 5);
+                      var dissId= 12343;
+                      series.addPoint({x: x, y: y, dissId: dissId});
+                  }, 1000);
+              }
+          }
         },
         navigator: {
             maskFill: 'rgba(209, 74, 0, 0.5)',
@@ -43,7 +57,7 @@
         },
         plotOptions: {
           line: {
-            turboThreshold: 6000
+            turboThreshold: false
           }, 
           tooltip: {
             followPointer: true

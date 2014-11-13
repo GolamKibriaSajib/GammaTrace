@@ -12,7 +12,7 @@ gem 'coffee-rails', '~> 4.0.0' # Use CoffeeScript for .js.coffee assets and view
 gem 'jquery-rails' # Use jquery as the JavaScript library
 gem 'jquery-ui-rails'
 
-
+gem 'crossfilter-rails'
 gem 'rickshaw_rails'
 gem "highstock-rails"
 gem 'underscore-rails'

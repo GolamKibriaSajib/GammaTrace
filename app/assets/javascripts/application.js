@@ -23,6 +23,7 @@
 //= require lodash
 //= require underscore
 //= require modernizr
+//= require crossfilter
 //= require moment
 //= require jquery.scrollTableBody
 //= require spin.min
