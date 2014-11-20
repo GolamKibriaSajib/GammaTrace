@@ -25,7 +25,6 @@
           zoomType: 'xy',
           events : {
               load : function () {
-
                   // set up the updating of the chart each second
                   var series = this.series[0];
                   setInterval(function () {
@@ -34,9 +33,10 @@
                       var y = randomFloatBetween(1.7,1.85,4);
                       var dissId= 12343;
                       series.addPoint({x: x, y: y, dissId: dissId}, true, true, true);
-                  }, 1000);
+                  }, 10000);
               }
-          }
+          },
+          animation: false
         },
         navigator: {
             maskFill: 'rgba(209, 74, 0, 0.5)',
@@ -62,15 +62,12 @@
             }
         },
         plotOptions: {
-          line: {
-            turboThreshold: false
-          }, 
-          tooltip: {
-            followPointer: true
+          series: {
+            animation: false,
+            stickyTracking: false
           }
         },
         tooltip: {
-            snap: 1,
             formatter: function() {
                     var s = "";
                     $.each(this.points, function(i, point) {
@@ -81,6 +78,7 @@
         },
         series: [{
             data: data,
+            turboThreshold: 0,
             lineWidth : 0,
             marker : {
               enabled : true,
@@ -90,4 +88,3 @@
             }]
           });
         });
-

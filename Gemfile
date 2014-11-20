@@ -15,13 +15,7 @@ gem 'jquery-ui-rails'
 gem 'crossfilter-rails'
 gem 'rickshaw_rails'
 gem "highstock-rails"
-gem 'underscore-rails'
 gem 'jquery-datatables-rails', '~> 2.2.3'
-gem 'lodash-rails'
-gem 'modernizr-rails'
-gem 'momentjs-rails'
-
-gem 'lazy_high_charts'
 gem 'jquery-datetimepicker-rails'
 
 gem 'jquery-turbolinks'
@@ -46,7 +40,6 @@ gem 'rails_12factor', group: :production
 # Testing Gems
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'
-  gem 'capybara'
   gem 'factory_girl_rails'
   gem 'launchy'
   gem 'faker'
