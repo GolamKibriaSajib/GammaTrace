@@ -7,7 +7,7 @@
         return parseFloat(Math.min(minValue + (Math.random() * (maxValue - minValue)),maxValue).toFixed(precision));
     };
     var $container =  $("#"+ droppableDiv +" .panel-body");
-    var data = #{@scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.price_notation, dissId: a.dissemination_id}}.to_json};;
+    var data = #{@scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json};;
     $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
         credits: {
           enabled: false
@@ -33,7 +33,7 @@
                       var y = randomFloatBetween(1.7,1.85,4);
                       var dissId= 12343;
                       series.addPoint({x: x, y: y, dissId: dissId}, true, true, true);
-                  }, 10000);
+                  }, 30000);
               }
           },
           animation: false

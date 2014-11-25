@@ -17,7 +17,7 @@ class Search < ActiveRecord::Base
 
     array = (arr.join(" AND ")).to_s
     puts array
-    InterestSwap.where(array)
+    MetricInterestrateIrswapFixedfloat.where(array)
 
 
     # if self.taxonomy == "InterestRate:IRSwap:FixedFloat"

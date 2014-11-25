@@ -10,7 +10,7 @@ layout 'trace', only: [:index]
   def index
     @user = current_user
     @searches = @user.searches.all
-    @fixedfloatswaps = InterestSwap.irfixedfloat.search(params[:search]).sort_by {|x| x.execution_timestamp}
+    @fixedfloatswaps = MetricInterestrateIrswapFixedfloat.irfixedfloat.search(params[:search]).sort_by {|x| x.execution_timestamp}
     @searchId = params[:searchId]
     @views = current_user.views.all
   end
