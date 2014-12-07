@@ -70,8 +70,9 @@
         tooltip: {
             formatter: function() {
                     var s = "";
+                    var d = new Date(0);
                     $.each(this.points, function(i, point) {
-                      s += 'Dissemination id: ' + point.point.dissId;
+                      s += 'Dissemination id: ' + point.point.dissId +"<br/>" + 'Common fixed fair rate: ' + point.point.y + "%" + "<br/>" + "Execution timestamp: " + new Date(point.point.a);
                });
                return s;
             }
