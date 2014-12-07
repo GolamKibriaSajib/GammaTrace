@@ -1,8 +1,8 @@
 :javascript
   // THIS FUNCTION INITIALIZES THE GRIDSTER
+  x = screen.width;
+  y = x/42;
   $(function() {
-      var x = screen.width;
-      var y = x/42;
       gridster = $(".gridster ul").gridster({
           max_cols: y,
           min_cols: 24,
