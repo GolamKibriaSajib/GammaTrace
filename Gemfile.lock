@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/abrarmusa/highstock-rails.git
+  revision: e81fa6a630f77bdae5dc0357d73764a1753161aa
+  specs:
+    highstock-rails (1.3.10)
+      railties (>= 3.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -67,31 +74,32 @@ GEM
       i18n (~> 0.5)
     font-awesome-rails (4.2.0.0)
       railties (>= 3.2, < 5.0)
-    haml (4.0.5)
+    haml (4.1.0.beta.1)
       tilt
-    haml-rails (0.5.3)
+    haml-rails (0.6.0)
       actionpack (>= 4.0.1)
       activesupport (>= 4.0.1)
       haml (>= 3.1, < 5.0)
+      html2haml (>= 1.0.1)
       railties (>= 4.0.1)
-    highstock-rails (1.3.10)
-      railties (>= 3.1)
     hike (1.2.3)
+    hpricot (0.8.6)
+    html2haml (1.0.1)
+      erubis (~> 2.7.0)
+      haml (>= 4.0.0.rc.1)
+      hpricot (~> 0.8.6)
+      ruby_parser (~> 3.1.1)
     i18n (0.6.11)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
-    jquery-datatables-rails (2.2.3)
-      jquery-rails
-      sass-rails
-    jquery-datetimepicker-rails (2.3.9.0)
     jquery-rails (3.1.2)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
       turbolinks
-    jquery-ui-rails (5.0.2)
+    jquery-ui-rails (5.0.3)
       railties (>= 3.2.16)
     json (1.8.1)
     launchy (2.4.3)
@@ -102,7 +110,7 @@ GEM
     mime-types (1.25.1)
     minitest (4.7.5)
     multi_json (1.10.1)
-    netrc (0.8.0)
+    netrc (0.9.0)
     orm_adapter (0.5.0)
     paperclip (4.2.0)
       activemodel (>= 3.0.0)
@@ -139,8 +147,8 @@ GEM
       activesupport (= 4.0.2)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (10.3.2)
-    rdoc (4.1.2)
+    rake (10.4.2)
+    rdoc (4.2.0)
       json (~> 1.4)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
@@ -166,19 +174,22 @@ GEM
       rspec-support (~> 3.0.0)
     rspec-support (3.0.4)
     ruby-graphviz (1.0.9)
+    ruby_parser (3.1.3)
+      sexp_processor (~> 4.1)
     sass (3.2.19)
-    sass-rails (4.0.4)
+    sass-rails (4.0.5)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.2.2)
-      sprockets (~> 2.8, < 2.12)
+      sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    simple_form (3.0.2)
+    sexp_processor (4.4.4)
+    simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
-    sprockets (2.11.3)
+    sprockets (2.12.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
@@ -197,7 +208,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    turbolinks (2.5.2)
+    turbolinks (2.5.3)
       coffee-rails
     tzinfo (0.3.42)
     uglifier (2.5.3)
@@ -220,10 +231,8 @@ DEPENDENCIES
   faker
   font-awesome-rails
   haml-rails
-  highstock-rails
+  highstock-rails!
   jbuilder (~> 1.2)
-  jquery-datatables-rails (~> 2.2.3)
-  jquery-datetimepicker-rails
   jquery-rails
   jquery-turbolinks
   jquery-ui-rails

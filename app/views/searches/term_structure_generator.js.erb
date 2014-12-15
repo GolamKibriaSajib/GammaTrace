@@ -1,5 +1,4 @@
-:javascript   
-  $(function () {
+$(function () {
       function randomFloatBetween(minValue,maxValue,precision){
         if(typeof(precision) == 'undefined'){
             precision = 2;
@@ -7,7 +6,7 @@
         return parseFloat(Math.min(minValue + (Math.random() * (maxValue - minValue)),maxValue).toFixed(precision));
     };
     var $container =  $("#"+ droppableDiv +" .panel-body");
-    var data = #{@scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json};
+    var data = #{@scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json};;
     $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
         credits: {
           enabled: false
@@ -79,7 +78,6 @@
         },
         series: [{
             data: data,
-            turboThreshold: 0,
             lineWidth : 0,
             marker : {
               enabled : true,
@@ -88,4 +86,4 @@
             color : "orange"
             }]
           });
-        });
+        })

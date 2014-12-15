@@ -18,6 +18,8 @@
 //= require highchartstheme
 //= require jquery.draggable
 //= require jquery.gridster.withextras.min
+//= require gridster.min
+//= require draggability.min
 //= require crossfilter
 //= require jquery.scrollTableBody
 //= require spin.min
@@ -29,3 +31,7 @@ opts={lines:17,length:35,width:2,radius:60,corners:1,rotate:0,direction:1,color:
 $(document).ready(function(){
   // HTML markup implementation, overlap mode
 });
+
+
+
+
