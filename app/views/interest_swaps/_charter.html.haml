@@ -1,4 +1,6 @@
 :javascript
+
+  x=screen.width;y=x/40;$(function(){gridster=$(".gridster ul").gridster({max_cols:y,min_cols:30,widget_base_dimensions:[40,40],widget_margins:[2,2],serialize_params:function(e,t){clone=e.clone();clone.find(".panel-body").html("");return{id:e.prop("id"),"class":e.children().prop("id"),col:t.col,row:t.row,size_x:t.size_x,size_y:t.size_y,htmlContent:$(clone).html()}},draggable:{handle:".dragDiv"},helper:"clone",resize:{enabled:true,resize:function(e,t,n){window.dispatchEvent(new Event("resize"))},stop:function(e,t,n){window.dispatchEvent(new Event("resize"))},max_size:[y,y],min_size:[6,6]}}).data("gridster")});
   // THIS FUNCTION REGENERATES THE GRAPHS
     function regenGraphs() {
         var e = $("#gridlist").children("li");
