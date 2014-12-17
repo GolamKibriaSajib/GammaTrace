@@ -19,6 +19,7 @@ gem "highstock-rails", :git => "git://github.com/abrarmusa/highstock-rails.git"
 gem 'jquery-turbolinks'
 gem 'turbolinks' # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'jbuilder', '~> 1.2' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'lodash-rails'
 
 gem 'paperclip'
 gem 'simple_form'
