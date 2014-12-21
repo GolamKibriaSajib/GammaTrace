@@ -33,7 +33,7 @@
 		padding: 5px 9px;
 		overflow: hidden;
 		height:900px;
-		background-color: #2a2a2b;
+		background-color: #151A21;
 		text-align: left;
 		word-wrap: break-word;
 	}
@@ -109,7 +109,7 @@
 }
 
 	.qtip-default .qtip-titlebar{
-		background-color: #48485A;
+		background-color: #0F2B3B;
 	}
 
 	.qtip-default .qtip-icon{

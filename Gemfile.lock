@@ -38,11 +38,14 @@ GEM
     bootstrap-sass (3.3.1.0)
       sass (~> 3.2)
     builder (3.1.4)
+    business_time (0.7.3)
+      activesupport (>= 3.1.0)
+      tzinfo
     cancan (1.6.9)
     choice (0.1.6)
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    cocaine (0.5.4)
+    cocaine (0.5.5)
       climate_control (>= 0.0.3, < 1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -112,9 +115,9 @@ GEM
     mime-types (1.25.1)
     minitest (4.7.5)
     multi_json (1.10.1)
-    netrc (0.9.0)
+    netrc (0.10.1)
     orm_adapter (0.5.0)
-    paperclip (4.2.0)
+    paperclip (4.2.1)
       activemodel (>= 3.0.0)
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
@@ -157,8 +160,6 @@ GEM
     rest-client (1.7.2)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
-    rickshaw_rails (1.4.5)
-      railties (>= 3.1.0)
     rspec-core (3.0.4)
       rspec-support (~> 3.0.0)
     rspec-expectations (3.0.4)
@@ -213,7 +214,7 @@ GEM
     turbolinks (2.5.3)
       coffee-rails
     tzinfo (0.3.42)
-    uglifier (2.5.3)
+    uglifier (2.6.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     warden (1.2.3)
@@ -224,6 +225,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-sass
+  business_time
   cancan (= 1.6.9)
   coffee-rails (~> 4.0.0)
   crossfilter-rails
@@ -246,7 +248,6 @@ DEPENDENCIES
   rails (= 4.0.2)
   rails-erd
   rails_12factor
-  rickshaw_rails
   rspec-rails (~> 3.0.0.beta)
   sass-rails (~> 4.0.0)
   sdoc

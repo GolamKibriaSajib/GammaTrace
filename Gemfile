@@ -13,13 +13,15 @@ gem 'jquery-rails' # Use jquery as the JavaScript library
 gem 'jquery-ui-rails'
 
 gem 'crossfilter-rails'
-gem 'rickshaw_rails'
 gem "highstock-rails", :git => "git://github.com/abrarmusa/highstock-rails.git"
 
 gem 'jquery-turbolinks'
 gem 'turbolinks' # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'jbuilder', '~> 1.2' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'lodash-rails'
+gem 'business_time'
+
+
 
 gem 'paperclip'
 gem 'simple_form'

@@ -22,13 +22,12 @@
         },
         chart: {
           type: 'spline',
-          zoomType: 'xy',
+          zoomType: 'x',
           events : {
               load : function () {
                   // set up the updating of the chart each second
                   var series = this.series[0];
                   setInterval(function () {
-                      var obj = {};
                       var x = (new Date()).getTime();
                       var y = randomFloatBetween(1.7,1.85,4);
                       var dissId= 12343;
@@ -63,7 +62,6 @@
         },
         plotOptions: {
           series: {
-            animation: false,
             stickyTracking: false
           }
         },
