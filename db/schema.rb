@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141125073032) do
+ActiveRecord::Schema.define(version: 20141222054000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,8 +199,8 @@ ActiveRecord::Schema.define(version: 20141125073032) do
     t.string   "indication_of_collateralization"
     t.string   "indication_of_end_user_exception"
     t.string   "execution_venue"
-    t.integer  "effective_date"
-    t.integer  "end_date"
+    t.string   "effective_date"
+    t.string   "end_date"
     t.string   "settlement_currency"
     t.string   "notional_currency_1"
     t.string   "notional_currency_2"
