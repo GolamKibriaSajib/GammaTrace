@@ -19,7 +19,6 @@ class SearchesController < ApplicationController
   end
 
   def show_timeseries
-    @interestswaps = MetricInterestrateIrswapFixedfloat.all
     @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
     @scopedsearch = @scopedsearch.reject {|i|  i.common_fixed_fair_rate == nil} 
     Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
@@ -35,7 +34,6 @@ class SearchesController < ApplicationController
   end
 
   def show_termstructure
-    @interestswaps = MetricInterestrateIrswapFixedfloat.all
     @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
     @scopedsearch = @scopedsearch.reject {|i|  i.common_fixed_fair_rate == nil} 
     Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
@@ -51,7 +49,6 @@ class SearchesController < ApplicationController
   end
 
   def show_datatable
-    @interestswaps = MetricInterestrateIrswapFixedfloat.all
     @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
     Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     Rails.logger.info ">>>>>>>>>>> #{@scopedsearch} >>>>>>>>>>>>>"
@@ -66,7 +63,6 @@ class SearchesController < ApplicationController
   end
 
   def show_details
-    @interestswaps = MetricInterestrateIrswapFixedfloat.all
     @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
     Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     Rails.logger.info ">>>>>>>>>>> #{@scopedsearch} >>>>>>>>>>>>>"
@@ -81,7 +77,6 @@ class SearchesController < ApplicationController
   end
 
   def show_delta
-    @interestswaps = MetricInterestrateIrswapFixedfloat.all
     @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
     Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     Rails.logger.info ">>>>>>>>>>> #{@scopedsearch} >>>>>>>>>>>>>"
@@ -96,7 +91,6 @@ class SearchesController < ApplicationController
   end
 
   def show_ois
-    @interestswaps = MetricInterestrateIrswapFixedfloat.all
     @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
     Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     Rails.logger.info ">>>>>>>>>>> #{@scopedsearch} >>>>>>>>>>>>>"
@@ -111,7 +105,6 @@ class SearchesController < ApplicationController
   end
 
   def show_ccy
-    @interestswaps = MetricInterestrateIrswapFixedfloat.all
     @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
     Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     Rails.logger.info ">>>>>>>>>>> #{@scopedsearch} >>>>>>>>>>>>>"
