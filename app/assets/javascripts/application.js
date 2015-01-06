@@ -20,7 +20,7 @@
 //= require jquery.draggable
 //= require jquery.gridster.withextras.min
 //= require jquery.scrollTableBody
-//= require spin.min
+//= require pleasewait
 //= require jquery.qtip.min
 //= require turbolinks
 //= require_tree .

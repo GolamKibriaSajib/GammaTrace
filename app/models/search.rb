@@ -68,7 +68,7 @@ class Search < ActiveRecord::Base
 
   def translator(integer, string)
     if string.upcase == "B"
-      result = (integer.business_days.from_now).to_i
+      result = (integer.business_days.from_now.beginning_of_day).to_i
     elsif string.upcase == "D"
       result = (Time.now + integer.day).to_i
     elsif string.upcase == "Y"
@@ -81,5 +81,8 @@ class Search < ActiveRecord::Base
     result = result.to_s
     return result
   end
+
+
+
 
 end

@@ -19,8 +19,9 @@ gem 'jquery-turbolinks'
 gem 'turbolinks' # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'jbuilder', '~> 1.2' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'lodash-rails'
+gem 'geocoder'
 gem 'business_time'
-
+gem 'holidays'
 
 
 gem 'paperclip'
