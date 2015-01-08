@@ -11,10 +11,8 @@
  *= require bootstrap_and_overrides
  *= require font-awesome
  *= require jquery-ui
- *= require jquery.gridster
- *= require jquery.qtip
- *= require entypo
- *= require pleasewait
+ *= require jquery.gridster.min
+ *= require jquery.qtip.min
  *= require_self
  *= require_tree .
  */

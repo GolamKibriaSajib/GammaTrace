@@ -19,103 +19,31 @@ class SearchesController < ApplicationController
   end
 
   def show_timeseries
-    @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
-    @scopedsearch = @scopedsearch.reject {|i|  i.common_fixed_fair_rate == nil} 
-    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    Rails.logger.info ">>>>>>>>>>> #{@scopedsearch} >>>>>>>>>>>>>"
-    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    respond_to do |format|
-      if @scopedsearch.length == 0
-        format.js { render "searches/show_nodata" }
-      else
-        format.js
-      end
-    end
+    searcher
   end
 
   def show_termstructure
-    @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
-    @scopedsearch = @scopedsearch.reject {|i|  i.common_fixed_fair_rate == nil} 
-    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    Rails.logger.info ">>>>>>>>>>> #{@scopedsearch} >>>>>>>>>>>>>"
-    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    respond_to do |format|
-      if @scopedsearch.length == 0
-        format.js { render "searches/show_nodata" }
-      else
-        format.js
-      end
-    end
+    searcher
   end
 
   def show_datatable
-    @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
-    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    Rails.logger.info ">>>>>>>>>>> #{@scopedsearch} >>>>>>>>>>>>>"
-    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    respond_to do |format|
-      if @scopedsearch.length == 0
-        format.js { render "searches/show_nodata" }
-      else
-        format.js
-      end
-    end
+    searcher
   end
 
   def show_details
-    @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
-    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    Rails.logger.info ">>>>>>>>>>> #{@scopedsearch} >>>>>>>>>>>>>"
-    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    respond_to do |format|
-      if @scopedsearch.length == 0
-        format.js { render "searches/show_nodata" }
-      else
-        format.js
-      end
-    end
+    searcher
   end
 
   def show_delta
-    @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
-    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    Rails.logger.info ">>>>>>>>>>> #{@scopedsearch} >>>>>>>>>>>>>"
-    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    respond_to do |format|
-      if @scopedsearch.length == 0
-        format.js { render "searches/show_nodata" }
-      else
-        format.js
-      end
-    end
+    searcher
   end
 
   def show_ois
-    @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
-    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    Rails.logger.info ">>>>>>>>>>> #{@scopedsearch} >>>>>>>>>>>>>"
-    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    respond_to do |format|
-      if @scopedsearch.length == 0
-        format.js { render "searches/show_nodata" }
-      else
-        format.js
-      end
-    end
+    searcher
   end
 
   def show_ccy
-    @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
-    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    Rails.logger.info ">>>>>>>>>>> #{@scopedsearch} >>>>>>>>>>>>>"
-    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    respond_to do |format|
-      if @scopedsearch.length == 0
-        format.js { render "searches/show_nodata" }
-      else
-        format.js
-      end
-    end
+    searcher
   end
 
   def showchart
@@ -183,6 +111,18 @@ class SearchesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def search_params
     params.require(:search).permit(:name, :taxonomy, :cleared, :indication_of_collateralization, :indication_of_end_user_exception, :execution_venue, :effective_date, :end_date, :settlement_currency, :notional_currency_1, :notional_currency_2, :rounded_notional_amount_1, :rounded_notional_amount_2, :option_strike_price, :option_type, :option_premium, :option_expiration_date, :floating_leg_reset)
+  end
+
+  def searcher
+    @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
+    @scopedsearch = @scopedsearch.reject {|i|  i.common_fixed_fair_rate == nil} 
+    respond_to do |format|
+      if @scopedsearch.length == 0
+        format.js { render "searches/show_nodata" }
+      else
+        format.js
+      end
+    end
   end
 
 end
