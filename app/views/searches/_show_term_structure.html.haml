@@ -8,6 +8,8 @@
     };
     var $container =  $("#"+ droppableDiv +" .panel-body");
     var data = #{@scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json};
+    chartid = chance.hash();
+    alert($container.html());
     $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
         credits: {
           enabled: false
@@ -28,10 +30,11 @@
                   // set up the updating of the chart each second
                   var series = this.series[0];
                   setInterval(function () {
+                      var chart =  $("#"+ droppableDiv +" .panel-body").highcharts();
                       var x = (new Date()).getTime();
                       var y = randomFloatBetween(1.7,1.85,4);
                       var dissId= 12343;
-                      series.addPoint({x: x, y: y, dissId: dissId}, true, true, true);
+                      series.addPoint({x: x, y: y, dissId: dissId}, true, true, false);
                   }, 1000);
               }
           },
@@ -77,7 +80,6 @@
         },
         series: [{
             data: data,
-            turboThreshold: 0,
             lineWidth : 0,
             marker : {
               enabled : true,

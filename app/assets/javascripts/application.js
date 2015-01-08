@@ -19,6 +19,8 @@
 //= require highchartstheme
 //= require jquery.draggable.min
 //= require graphloader
+//= require widgetadder
+//= require draggability.min
 //= require jquery.gridster.withextras.min
 //= require jquery.scrollTableBody
 //= require spin.min

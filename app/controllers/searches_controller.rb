@@ -114,6 +114,7 @@ class SearchesController < ApplicationController
   end
 
   def searcher
+    gon.searchName = "FA"
     @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
     @scopedsearch = @scopedsearch.reject {|i|  i.common_fixed_fair_rate == nil} 
     respond_to do |format|
