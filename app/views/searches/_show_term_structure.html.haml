@@ -1,15 +1,9 @@
 :javascript   
   $(function () {
-      function randomFloatBetween(minValue,maxValue,precision){
-        if(typeof(precision) == 'undefined'){
-            precision = 2;
-        }
-        return parseFloat(Math.min(minValue + (Math.random() * (maxValue - minValue)),maxValue).toFixed(precision));
-    };
+
     var $container =  $("#"+ droppableDiv +" .panel-body");
     var data = #{@scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json};
     chartid = chance.hash();
-    alert($container.html());
     $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
         credits: {
           enabled: false
@@ -29,6 +23,7 @@
               load : function () {
                   // set up the updating of the chart each second
                   var series = this.series[0];
+                  globalarray.push(series);
                   setInterval(function () {
                       var chart =  $("#"+ droppableDiv +" .panel-body").highcharts();
                       var x = (new Date()).getTime();

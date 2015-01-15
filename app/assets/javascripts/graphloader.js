@@ -36,7 +36,7 @@
       isBodyEmpty = $(this).children(".panel-body").html() == "";
       if (idCheck && isBodyEmpty) count++;
     });
-    if (count > 0) regenGraphs();
+    if (count > 0) {regenGraphs()};
   };
 
 // THE FOLLOWING FUNCTION IS AN EXTRA FUNCTION FOR GRAPH CHECKING- THIS FUNCTION JUST CHECKS THE GRAPH THAT WAS JUST 

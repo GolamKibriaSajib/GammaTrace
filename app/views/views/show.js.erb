@@ -6,6 +6,7 @@ function loader() {
   
   spinner = new Spinner(opts).spin(target);
   addWidgets();
+  globalarray.length = 0;
   setTimeout(function () { regenGraphs(); }, 1000);
 };
 
@@ -19,4 +20,5 @@ function addWidgets() {
 
 
 loader();
+
 

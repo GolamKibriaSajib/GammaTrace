@@ -3,20 +3,20 @@
     = f.label :name, "Name: "
     = f.text_field :name
   #market
-    = f.label :taxonomy, "Taxonomy: "
-    = f.select :taxonomy,["InterestRate:IRSwap:FixedFloat","OIS Swap: InterestRate:IRSwap:OIS","CCY Swap: InterestRate:CrossCurrency:Basis","InterestRate:CrossCurrency:FixedFloat","InterestRate:CrossCurrency:FixedFixed", "Swaption: InterestRate:Option:Swaption", "Cap/Floor: InterestRate:CapFloor"]
+    = f.label :taxonomy, "Market: "
+    = f.select :taxonomy,[["Interest Rate Swap","InterestRate:IRSwap:FixedFloat"], ["OIS Swap", "OIS Swap: InterestRate:IRSwap:OIS"], ["CCY Swap", "CCY Swap: InterestRate:CrossCurrency:Basis"], ["Cross Currency Fixed/Float", "InterestRate:CrossCurrency:FixedFloat"], ["Cross Currency Fixed/Fixed", "InterestRate:CrossCurrency:FixedFixed"], ["Swaption", "Swaption: InterestRate:Option:Swaption"], ["Cap/Floor", "Cap/Floor: InterestRate:CapFloor"]]
   #cleared
     = f.label :cleared, "Cleared: "
-    = f.text_field :cleared, class:""
+    = f.select :cleared, [["Cleared", "C"],["Uncleared", "U"]]
   #indcol
-    = f.label  :indication_of_collateralization, "Indication of Collateralization: "
-    = f.text_field :indication_of_collateralization
+    = f.label  :indication_of_collateralization, "Collateral: "
+    = f.select :indication_of_collateralization, [["Fully","FC"],["Over","OC"],["Partially","PC"],["None","UC"]]
   #indexec
-    = f.label  :indication_of_end_user_exception, "Indication of End User Exception: "
-    = f.text_field :indication_of_end_user_exception
+    = f.label  :indication_of_end_user_exception, "End User?: "
+    = f.select :indication_of_end_user_exception, [["Yes","Y"],["No","N"]]
   #execven
     = f.label  :execution_venue, "SEF?: "
-    = f.text_field :execution_venue
+    = f.check_box :execution_venue, {}, "ON", "OFF"
   #effdate
     = f.label  :effective_date, "Effective Date: "
     = f.text_field :effective_date
