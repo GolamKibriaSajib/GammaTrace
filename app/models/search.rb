@@ -18,7 +18,7 @@ class Search < ActiveRecord::Base
         arr.push(wc1)
         if wcmult.length > 1
           wc2 = wcmult.second
-          Rails.logger.info ">>>>>>>>>>>>>> WC2 #{wcmult.first} <<<<<<<<<<<<<<<<<<<<<"
+          Rails.logger.info ">>>>>>>>>>>>>> WC2: #{wcmult.second} <<<<<<<<<<<<<<<<<<<<<"
           arr.push(wc2)
         end
       end
