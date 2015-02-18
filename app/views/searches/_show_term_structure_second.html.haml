@@ -1,10 +1,8 @@
 :javascript   
   $(function () {
-
-    var $container =  $("#"+ droppableDiv +" .panel-body");
     var data = #{@scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json};
     chartid = chance.hash();
-    $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
+    $("#"+ droppableDiv +" .panel-body.second").highcharts('StockChart', {
         credits: {
           enabled: false
         },
@@ -19,6 +17,7 @@
         chart: {
           type: 'spline',
           zoomType: 'x',
+          plotBackgroundColor: 'rgba(209, 74, 0, 0.498039)',
           events : {
               load : function () {
                   // set up the updating of the chart each second
@@ -29,18 +28,31 @@
                       var x = (new Date()).getTime();
                       var y = randomFloatBetween(1.7,1.85,4);
                       var dissId= 12343;
-                      series.addPoint({x: x, y: y, dissId: dissId}, true, true, false);
+                      try { 
+                        series.addPoint({x: x, y: y, dissId: dissId}, true, true, false)
+                      } catch (e) {
+                      }
                   }, 1000);
-              }
+
+              },
+              selection: function(event) {
+                    //console.log(event);
+                    var min,max, ex2 ;
+                    if (event.xAxis) {
+                        min = event.xAxis[0].min;
+                        max = event.xAxis[0].max;
+                    } else {
+                        ex2 = this.xAxis[0].getExtremes();
+                        min = ex2.dataMin;
+                        max = ex2.dataMax;
+                    };
+                    console.log(min,max);
+                }
           },
           animation: false
         },
         navigator: {
-            maskFill: 'rgba(209, 74, 0, 0.5)',
-            series: {
-                color: 'rgba(209, 74, 0, 0.5)',
-                lineColor: "orange"
-            }
+          enabled: false
         },
         rangeSelector: {
             enabled : false,
@@ -55,8 +67,10 @@
                     var yearStr = Highcharts.dateFormat('%y', this.value);
                     var monthStr = Highcharts.dateFormat('%b', this.value);
                     return monthStr + " " + dayStr + ", " + yearStr;
-                }
-            }
+                },
+                y: -20
+            },
+            tickPosition: 'inside'
         },
         plotOptions: {
           series: {
@@ -68,17 +82,17 @@
                     var s = "";
                     var d = new Date(0);
                     $.each(this.points, function(i, point) {
-                      s += 'Dissemination id: ' + point.point.dissId +"<br/>" + 'Common fixed fair rate: ' + point.point.y + "%" + "<br/>" + "Execution timestamp: " + new Date(point.point.x);
+                      s += 'Dissemination id: ' + point.point.dissId +"<br/>" + 'Common fixed fair rate: ' + point.point.y + "%" + "<br/>" + "Execution timestamp: " + new Date(point.point.a);
                });
                return s;
             }
         },
         series: [{
             data: data,
-            lineWidth : 0,
+            lineWidth : 1,
             marker : {
               enabled : true,
-              radius : 2
+              radius : 0
             },
             color : "orange"
             }]

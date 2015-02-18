@@ -16,6 +16,9 @@
           },
           text: "Term Structure: #{@search.name}"
         },
+        scrollbar : {
+          enabled : false
+        },
         chart: {
           type: 'spline',
           zoomType: 'x',
@@ -29,18 +32,17 @@
                       var x = (new Date()).getTime();
                       var y = randomFloatBetween(1.7,1.85,4);
                       var dissId= 12343;
-                      series.addPoint({x: x, y: y, dissId: dissId}, true, true, false);
+                      try { 
+                        series.addPoint({x: x, y: y, dissId: dissId}, true, true, false)
+                      } catch (e) {
+                      }
                   }, 1000);
               }
           },
           animation: false
         },
         navigator: {
-            maskFill: 'rgba(209, 74, 0, 0.5)',
-            series: {
-                color: 'rgba(209, 74, 0, 0.5)',
-                lineColor: "orange"
-            }
+          enabled: false
         },
         rangeSelector: {
             enabled : false,

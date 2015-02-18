@@ -1,3 +1,7 @@
+$("#"+ droppableDiv +" .panel-body").empty();
+$("#"+ droppableDiv +" .panel-body.second").empty();
 $("#"+ droppableDiv +" .panel-body").html("<%= j render 'show_term_structure' %>");
+$("#"+ droppableDiv +" .panel-body.second").html("<%= j render 'show_term_structure_second' %>");
 $("#"+ droppableDiv +" .panel-heading").html("<%= j render 'searchname' %>");
 $("#"+ droppableDiv +" .panel-heading").prepend("Term Structure: ");
+
