@@ -16,16 +16,18 @@
           ajaxGraphs(urlparam + "/show_" + graphType, headIdentifier, bodyIdentifier, urlparam);
         }
       });
-      graphChecker(gridelems);
+      // graphChecker(gridelems);
       spinner.stop();
       $("#mainpage").fadeTo("slow", 1)
   }
 // THIS FUNCTION MAKES THE AJAX CALL TO GENERATE THE GRAPH IN A WIDGET
   function ajaxGraphs(url, headIdentifier, bodyIdentifier, urlparam) {
     $.ajax({
-      async: false,
       url: url
-    })
+    }).done(function( data ) {
+      bodyIdentifier.html(data);
+  
+  });
   }
 
 // THIS FUNCTION CHECKS IF ALL GRAPHS HAVE BEEN GENERATED PROPERLY. IF NOT, IT CALLS THE REGEN FUNCTION

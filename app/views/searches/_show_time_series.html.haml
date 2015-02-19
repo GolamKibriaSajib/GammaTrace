@@ -1,7 +1,5 @@
 :javascript   
   $(function () {
-
-    var $container =  $("#"+ droppableDiv +" .panel-body");
     var data = #{@scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json};
     chartid = chance.hash();
     $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
