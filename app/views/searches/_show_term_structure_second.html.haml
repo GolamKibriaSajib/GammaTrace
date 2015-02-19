@@ -2,22 +2,15 @@
   $(function () {
     var data = #{@scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json};
     chartid = chance.hash();
-    $("#"+ droppableDiv +" .panel-body.second").highcharts('StockChart', {
+
+    $("#"+ droppableDiv +" .panel-body .second").highcharts('StockChart', {
         credits: {
           enabled: false
-        },
-        title: {
-          style: {
-            color: 'black',
-            fontSize: '12px',
-            display: 'none'
-          },
-          text: "Term Structure: #{@search.name}"
         },
         chart: {
           type: 'spline',
           zoomType: 'x',
-          plotBackgroundColor: 'rgba(209, 74, 0, 0.498039)',
+          height: 78,
           events : {
               load : function () {
                   // set up the updating of the chart each second
@@ -28,73 +21,45 @@
                       var x = (new Date()).getTime();
                       var y = randomFloatBetween(1.7,1.85,4);
                       var dissId= 12343;
-                      try { 
-                        series.addPoint({x: x, y: y, dissId: dissId}, true, true, false)
-                      } catch (e) {
-                      }
+                      series.addPoint({x: x, y: y, dissId: dissId}, true, true, false);
                   }, 1000);
-
-              },
-              selection: function(event) {
-                    //console.log(event);
-                    var min,max, ex2 ;
-                    if (event.xAxis) {
-                        min = event.xAxis[0].min;
-                        max = event.xAxis[0].max;
-                    } else {
-                        ex2 = this.xAxis[0].getExtremes();
-                        min = ex2.dataMin;
-                        max = ex2.dataMax;
-                    };
-                    console.log(min,max);
-                }
+              }
           },
           animation: false
         },
         navigator: {
-          enabled: false
+            maskFill: 'rgba(209, 74, 0, 0.5)',
+            series: {
+                color: 'rgba(209, 74, 0, 0.5)',
+                lineColor: "orange"
+            }
         },
         rangeSelector: {
             enabled : false,
-            selected : 1,
-            inputEnabled: $("#"+ droppableDiv +"").width() > 480
         },
         xAxis: {        
-            type: 'datetime',
-            labels: {
-                formatter: function() {
-                    var dayStr = Highcharts.dateFormat('%d', this.value);
-                    var yearStr = Highcharts.dateFormat('%y', this.value);
-                    var monthStr = Highcharts.dateFormat('%b', this.value);
-                    return monthStr + " " + dayStr + ", " + yearStr;
-                },
-                y: -20
-            },
-            tickPosition: 'inside'
-        },
-        plotOptions: {
-          series: {
-            stickyTracking: false
-          }
-        },
-        tooltip: {
-            formatter: function() {
-                    var s = "";
-                    var d = new Date(0);
-                    $.each(this.points, function(i, point) {
-                      s += 'Dissemination id: ' + point.point.dissId +"<br/>" + 'Common fixed fair rate: ' + point.point.y + "%" + "<br/>" + "Execution timestamp: " + new Date(point.point.a);
-               });
-               return s;
+          type: "datetime",
+          lineWidth: 0,
+          minorGridLineWidth: 0,
+          lineColor: 'transparent',
+          labels: {
+              enabled: false
+          },
+          minorTickLength: 0,
+          tickLength: 0,
+            events: {
+                setExtremes: function (e) {
+                  console.log("Navigator start " +e.min);
+                  console.log("Navigator end "+e.max);
+                }
             }
         },
+        yAxis: {
+            labels: {enabled: false},
+            height: 0
+        },
         series: [{
-            data: data,
-            lineWidth : 1,
-            marker : {
-              enabled : true,
-              radius : 0
-            },
-            color : "orange"
+            data: data
             }]
           });
         });
