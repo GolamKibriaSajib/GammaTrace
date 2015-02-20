@@ -1,4 +1,4 @@
-= simple_form_for [@user, @search], html: {class: 'form-horizontal2'}, remote: true do |f|
+= simple_form_for @search, url: user_searches_path, html: {class: 'form-horizontal2'}, remote: true do |f|
   #namer
     = f.label :name, "Name: "
     = f.text_field :name

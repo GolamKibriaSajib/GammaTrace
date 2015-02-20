@@ -1,6 +1,6 @@
 class SearchesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_search, only: [:show, :show_timeseries, :show_termstructure, :show_datatable, :show_delta, :show_ois, :show_ccy, :edit, :update, :destroy]
+  before_action :set_search, only: [:show, :show_chart, :edit, :update, :destroy]
   # before_action :authenticate_user!
   # GET /searches
   # GET /searches.json
@@ -18,40 +18,23 @@ class SearchesController < ApplicationController
   def show
   end
 
-  def show_timeseries
-    searcher
-  end
-
-  def show_termstructure
-    searcher
-  end
-
-  def show_datatable
-    searcher
-  end
-
-  def show_details
-    searcher
-  end
-
-  def show_delta
-    searcher
-  end
-
-  def show_ois
-    searcher
-  end
-
-  def show_ccy
-    searcher
-  end
-
-  def showchart
+  def show_chart
+    graphType = "show_".concat(params[:graph_type])
+    gon.searchName = "FA"
+    @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
+    @scopedsearch = @scopedsearch.reject {|i|  i.common_fixed_fair_rate == nil} 
+    respond_to do |format|
+      if @scopedsearch.length == 0
+        format.js { render "searches/show_nodata" }
+      else
+        format.js { render "searches/#{graphType}"}
+      end
+    end
   end
 
   # GET /searches/new
   def new
-    @search = Search.new
+    @search = current_user.searches.new
     respond_to do |format|
       format.js 
     end
@@ -68,8 +51,8 @@ class SearchesController < ApplicationController
   # POST /searches.json
   def create
     @searches = current_user.searches.all
-    @search = Search.new(search_params)
-    @search.user = current_user
+    @search = current_user.searches.new(search_params)
+    # @search.user = current_user
     respond_to do |format|
       if @search.save
         format.html
@@ -97,8 +80,7 @@ class SearchesController < ApplicationController
   def destroy
     @search.destroy
     respond_to do |format|
-      format.html { redirect_to searches_url }
-      format.json { head :no_content }
+      format.js
     end
   end
 
@@ -111,19 +93,6 @@ class SearchesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def search_params
     params.require(:search).permit(:name, :taxonomy, :cleared, :indication_of_collateralization, :indication_of_end_user_exception, :execution_venue, :effective_date, :end_date, :settlement_currency, :notional_currency_1, :notional_currency_2, :rounded_notional_amount_1, :rounded_notional_amount_2, :option_strike_price, :option_type, :option_premium, :option_expiration_date, :floating_leg_reset)
-  end
-
-  def searcher
-    gon.searchName = "FA"
-    @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
-    @scopedsearch = @scopedsearch.reject {|i|  i.common_fixed_fair_rate == nil} 
-    respond_to do |format|
-      if @scopedsearch.length == 0
-        format.js { render "searches/show_nodata" }
-      else
-        format.js
-      end
-    end
   end
 
 end

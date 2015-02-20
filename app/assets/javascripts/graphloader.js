@@ -13,21 +13,23 @@
           urlparam = urlFirst + idsearch;
           droppableDiv = $(this).prop("id");
           graphType = $(this).children(".panel-heading").attr("class").split(' ').slice(1, 2);
-          ajaxGraphs(urlparam + "/show_" + graphType, headIdentifier, bodyIdentifier, urlparam);
+          ajaxGraphs(urlparam + "/show_chart", graphType, bodyIdentifier, urlparam);
         }
       });
-      // graphChecker(gridelems);
       spinner.stop();
       $("#mainpage").fadeTo("slow", 1)
   }
 // THIS FUNCTION MAKES THE AJAX CALL TO GENERATE THE GRAPH IN A WIDGET
-  function ajaxGraphs(url, headIdentifier, bodyIdentifier, urlparam) {
+  function ajaxGraphs(url, graphType, bodyIdentifier, urlparam) {
+    var data = {"graph_type" : graphType.toString()};
     $.ajax({
-      url: url
-    }).done(function( data ) {
-      bodyIdentifier.html(data);
-  
-  });
+      type: "POST",
+      url: url,
+      data: data,
+      async: false
+    }).done(function() {
+      console.log("DONE");
+    });
   }
 
 // THIS FUNCTION CHECKS IF ALL GRAPHS HAVE BEEN GENERATED PROPERLY. IF NOT, IT CALLS THE REGEN FUNCTION

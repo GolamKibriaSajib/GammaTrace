@@ -7,19 +7,10 @@ Quantapp::Application.routes.draw do
   resources :users do
     resources :interest_swaps
     resources :searches do
-        get :show_timeseries, on: :member
-        get :show_termstructure, on: :member
-        get :show_datatable, on: :member
-        get :show_details, on: :member
-        get :show_delta, on: :member
-        get :show_ois, on: :member
-        get :show_ccy, on: :member
-      end
+      post :show_chart, on: :member
+    end
     resources :views
   end
-  resources :views
-
-  resources :searches
 
   get "interest_swaps/home"
   root 'interest_swaps#home'

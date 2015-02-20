@@ -1,4 +1,4 @@
-= simple_form_for [@user, @view], remote: true do |f|
+= simple_form_for [@user, @view], url: user_views_path,remote: true do |f|
   .modal-body
     .form-horizontal
       - if @view.errors.any?
@@ -9,7 +9,6 @@
               %li= msg
       = f.input :name, :input_html => {class: "form-control"}
       .hidden= f.input :body, :input_html => {class: "form-control", id: "inputbody"}
-
   .modal-footer
     #submit= f.submit 'Save'
 
