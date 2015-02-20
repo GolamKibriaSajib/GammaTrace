@@ -1,9 +1,14 @@
-.panel-default {
-  background-color: #151A21;
+.panel-default .panel-body{
+  background: rgb(31, 72, 103);
+  background: -moz-linear-gradient(45deg, rgb(31, 72, 103) -1%, rgb(21, 26, 59) 100%) !important;
+  background: -webkit-linear-gradient(45deg, rgb(31, 72, 103) -1%, rgb(21, 26, 59) 100%) !important;
+  background: -o-linear-gradient(45deg, rgb(31, 72, 103) -1%, rgb(21, 26, 59) 100%) !important;
+  background: -ms-linear-gradient(45deg, rgb(31, 72, 103) -1%, rgb(21, 26, 59) 100%) !important;
+  background: linear-gradient(135deg, rgb(31, 72, 103) -1%, rgb(21, 26, 59) 100%) !important;
   color: white;
 }
 .panel .panel-heading{
-  background-color: #0F2B3B;
+  background-color: #1D3F5D;
   color: white;
   font-size: 12px;
   padding-top:5px;
@@ -13,4 +18,13 @@
 }
 
 .panel {
+}
+
+.droppable {
+  background: rgb(31, 72, 103);
+  background: -moz-linear-gradient(45deg, rgb(31, 72, 103) -1%, rgb(21, 26, 59) 100%) !important;
+  background: -webkit-linear-gradient(45deg, rgb(31, 72, 103) -1%, rgb(21, 26, 59) 100%) !important;
+  background: -o-linear-gradient(45deg, rgb(31, 72, 103) -1%, rgb(21, 26, 59) 100%) !important;
+  background: -ms-linear-gradient(45deg, rgb(31, 72, 103) -1%, rgb(21, 26, 59) 100%) !important;
+  background: linear-gradient(135deg, rgb(31, 72, 103) -1%, rgb(21, 26, 59) 100%) !important;
 }
