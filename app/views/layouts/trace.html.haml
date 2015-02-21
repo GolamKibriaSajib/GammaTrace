@@ -1,15 +1,16 @@
 !!!
-%html
+%html{"ng-app" => "Gammatrace"}
   %head
     %title Quantapp
-    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
-    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = stylesheet_link_tag    "application", media: "all"
+    = javascript_include_tag "application"
     = csrf_meta_tags
     = favicon_link_tag 'favicon.ico'
     = include_gon
 
 
   %body#main.backblack
+    %div{"ng-controller" =>"DashboardCtrl"}
     %header.navbar.navbar-default.back2.navbar-fixed-top.bs-docs-nav{role: "banner",style:"z-index:100000000000;"}
       .container.topbottom10
         .navbar-header
@@ -28,34 +29,25 @@
       /           = link_to "Sign in", new_user_session_path
 
       #bs-example-navbar-collapse-1.collapse.navbar-collapse.back3
-        .container-fluid.nopad
+        .container-fluid.nopad{"ng-controller" =>"DashboardCtrl"}
           = image_tag("gammatrace.png",class: "navbar-brand", style: "padding-top:15px;padding-bottom:15px")
           %ul.nav.navbar-nav.navbar-left.back3.centerize
-            %li.dropdown
-              %a.dropdown-toggle{"data-toggle" => "dropdown", href: "javascript:void(0)"}
-                %i.fa.fa-search
-                Search
-              %ul.dropdown-menu
-                %li#showsearches 
-                  %a All Searches
-                %li
             %li#addtermstructure
-              %a{:href => "javascript:void(0)"} 
+              %a{"ng-click" => "addTimeSeriesWidget()"}
                 %i.fa.fa-area-chart
                 Term Structure
-                
             %li#addtimeseries
-              %a{:href => "javascript:void(0)", id: "timeseries"}
+              %a{"ng-click" => "addTermStructureWidget()"}
                 %i.fa.fa-area-chart
                 Time Series
                 
             %li#adddatatable
-              %a{:href => "javascript:void(0)", id: "datatable"}
+              %a{"ng-click" => "addDataTableWidget()"}
                 %i.fa.fa-table
                 Data Table
                 
             %li#adddelta
-              %a{:href => "javascript:void(0)", id: "delta"} 
+              %a{"ng-click" => "addDeltaWidget()"}
                 %i.fa.fa-bar-chart
                 Delta
                 
@@ -83,8 +75,7 @@
               %a{:href => "javascript:void(0)", id: "voltail"}  
                 %i.fa.fa-list-alt
                 Vol Tail
-                
-            
+          
             %li.dropdown
               %a.dropdown-toggle{"data-toggle" => "dropdown", href: "javascript:void(0)"}
                 %i.fa.fa-image
@@ -101,7 +92,7 @@
                     - current_user.views.each do |v|
                       %li
                         =link_to v.name, user_view_path(@user.id, v), remote: true
-          
+        
           %ul.nav.navbar-nav.navbar-right{style:"margin-right:15px"}
             %li
               - if user_signed_in?

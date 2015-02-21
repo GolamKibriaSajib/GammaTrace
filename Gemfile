@@ -1,4 +1,4 @@
- source 'https://rubygems.org'
+source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
@@ -13,6 +13,8 @@ gem 'coffee-rails' # Use CoffeeScript for .js.coffee assets and views
 gem 'jquery-rails' # Use jquery as the JavaScript library
 gem 'jquery-ui-rails'
 gem 'gon'
+gem 'angularjs-rails'
+gem 'angular-ui-bootstrap-rails'
 
 gem 'crossfilter-rails'
 gem "highstock-rails", :git => "git://github.com/abrarmusa/highstock-rails.git"
