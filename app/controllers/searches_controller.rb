@@ -20,9 +20,11 @@ class SearchesController < ApplicationController
 
   def show_chart
     graphType = "show_".concat(params[:graph_type])
+    @bodyidentifier = params[:bodyid]
     gon.searchName = "FA"
     @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
     @scopedsearch = @scopedsearch.reject {|i|  i.common_fixed_fair_rate == nil} 
+    @scopedsearch = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
     respond_to do |format|
       if @scopedsearch.length == 0
         format.js { render "searches/show_nodata" }

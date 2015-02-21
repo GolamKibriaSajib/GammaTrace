@@ -1,68 +1,65 @@
 :javascript   
-  $(function () {
-    var data = #{@scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json};
-    chartid = chance.hash();
+  chartid = chance.hash();
 
-    $("#"+ droppableDiv +" .panel-body .second").highcharts('StockChart', {
-        credits: {
-          enabled: false
+  $("##{@bodyidentifier} .panel-body .second").highcharts('StockChart', {
+      credits: {
+        enabled: false
+      },
+      chart: {
+        type: 'spline',
+        zoomType: 'x',
+        height: 78,
+        events : {
+            load : function () {
+                // set up the updating of the chart each second
+                var series = this.series[0];
+                globalarray.push(series);
+                intervalArr.push(setInterval(function () {
+                    var chart =  $("#"+ droppableDiv +" .panel-body").highcharts();
+                    var x = (new Date()).getTime();
+                    var y = randomFloatBetween(1.7,1.85,4);
+                    var dissId= 12343;
+                    series.addPoint({x: x, y: y, dissId: dissId}, true, true, false);
+                }, 10000));
+            }
         },
-        chart: {
-          type: 'spline',
-          zoomType: 'x',
-          height: 78,
-          events : {
-              load : function () {
-                  // set up the updating of the chart each second
-                  var series = this.series[0];
-                  globalarray.push(series);
-                  setInterval(function () {
-                      var chart =  $("#"+ droppableDiv +" .panel-body").highcharts();
-                      var x = (new Date()).getTime();
-                      var y = randomFloatBetween(1.7,1.85,4);
-                      var dissId= 12343;
-                      series.addPoint({x: x, y: y, dissId: dissId}, true, true, false);
-                  }, 10000);
+        animation: false
+      },
+      navigator: {
+          maskFill: 'rgba(209, 74, 0, 0.5)',
+          series: {
+              color: 'rgba(209, 74, 0, 0.5)',
+              lineColor: "orange"
+          }
+      },
+      rangeSelector: {
+          enabled : false,
+      },
+      xAxis: {        
+        type: "datetime",
+        lineWidth: 0,
+        minorGridLineWidth: 0,
+        lineColor: 'rgba(0, 0, 0, 0)',
+        labels: {
+            enabled: false
+        },
+        minorTickLength: 0,
+        tickLength: 0,
+          events: {
+              setExtremes: function (e) {
+                console.log("Navigator start " +e.min);
+                console.log("Navigator end "+e.max);
               }
-          },
-          animation: false
-        },
-        navigator: {
-            maskFill: 'rgba(209, 74, 0, 0.5)',
-            series: {
-                color: 'rgba(209, 74, 0, 0.5)',
-                lineColor: "orange"
-            }
-        },
-        rangeSelector: {
-            enabled : false,
-        },
-        xAxis: {        
-          type: "datetime",
-          lineWidth: 0,
-          minorGridLineWidth: 0,
-          lineColor: 'rgba(0, 0, 0, 0)',
-          labels: {
-              enabled: false
-          },
-          minorTickLength: 0,
-          tickLength: 0,
-            events: {
-                setExtremes: function (e) {
-                  console.log("Navigator start " +e.min);
-                  console.log("Navigator end "+e.max);
-                }
-            }
-        },
-        yAxis: {
-            labels: {enabled: false},
-            height: 0
-        },
-        tooltip: {
-          enabled: false
-        },
-        series: [{
-            data: data
-            }]
-          });
+          }
+      },
+      yAxis: {
+          labels: {enabled: false},
+          height: 0
+      },
+      tooltip: {
+        enabled: false
+      },
+      series: [{
+          data: #{@scopedsearch}
+          }]
         });

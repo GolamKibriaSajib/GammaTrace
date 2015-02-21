@@ -1,6 +1,8 @@
-$("#"+ droppableDiv +" .panel-body").empty();
-$("#"+ droppableDiv +" .panel-body").prepend('<div class="first" style="width:100%;height:76%;margin: 0 auto"></div><div class="second" style="width:100%;height: 10%;margin: 0 auto;position: absolute; bottom: 67px;right: 0px;padding-left: 10px;padding-right: 10px;"></div>');
-$("#"+ droppableDiv +" .panel-body .first").html("<%= j render 'show_term_structure' %>");
-$("#"+ droppableDiv +" .panel-body .second").html("<%= j render 'show_term_structure_second' %>");
-$("#"+ droppableDiv +" .panel-heading").html("<%= j render 'searchname' %>");
-$("#"+ droppableDiv +" .panel-heading").prepend("Term Structure: ");
+
+$("#<%= @bodyidentifier -%> .panel-heading").html("<%= j render 'searchname' %>");
+$("#<%= @bodyidentifier -%> .panel-heading").prepend("Term Structure: ");
+$("#<%= @bodyidentifier -%> .panel-body").empty();
+$("#<%= @bodyidentifier -%> .panel-body").prepend('<div class="first" style="width:100%;height:76%;margin: 0 auto"></div><div class="second" style="width:100%;height: 10%;margin: 0 auto;position: absolute; bottom: 67px;right: 0px;padding-left: 10px;padding-right: 10px;"></div>');
+$("#<%= @bodyidentifier -%> .panel-body .first").html("<%= j render 'show_term_structure' %>");
+$("#<%= @bodyidentifier -%> .panel-body .second").html("<%= j render 'show_term_structure_second' %>");
+

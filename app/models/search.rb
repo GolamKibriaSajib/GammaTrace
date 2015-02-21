@@ -14,11 +14,11 @@ class Search < ActiveRecord::Base
       elsif col == ("effective_date" || col == "end_date") && val != nil 
         wcmult =  regex_translator(col, val)
         wc1 = wcmult.first
-        Rails.logger.info ">>>>>>>>>>>>>> WC1: #{wc1} <<<<<<<<<<<<<<<<<<<<<"
+        # Rails.logger.info ">>>>>>>>>>>>>> WC1: #{wc1} <<<<<<<<<<<<<<<<<<<<<"
         arr.push(wc1)
         if wcmult.length > 1
           wc2 = wcmult.second
-          Rails.logger.info ">>>>>>>>>>>>>> WC2: #{wcmult.second} <<<<<<<<<<<<<<<<<<<<<"
+          # Rails.logger.info ">>>>>>>>>>>>>> WC2: #{wcmult.second} <<<<<<<<<<<<<<<<<<<<<"
           arr.push(wc2)
         end
       end
@@ -26,9 +26,9 @@ class Search < ActiveRecord::Base
     end
 
     array = (arr.join(" AND ")).to_s
-    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<"
-    Rails.logger.info ">>>>>>>>>>>>>>>>>#{array}<<<<<<<<<<<<<<<<<<<<<<<"
-    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    # Rails.logger.info ">>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    # Rails.logger.info ">>>>>>>>>>>>>>>>>#{array}<<<<<<<<<<<<<<<<<<<<<<<"
+    # Rails.logger.info ">>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<"
     MetricInterestrateIrswapFixedfloat.where(array)
   end
 
@@ -36,11 +36,11 @@ class Search < ActiveRecord::Base
     string = string.gsub(/\s+/, "")
     if string =~ /(\d+)+[B|Y|D|H|M|S]-(\d+)+[B|Y|D|H|M|S]/ix
         firstint, secondint= string.scan(/\d+/)
-        Rails.logger.info ">>>>>>>>>>>>>> Firstint: #{firstint} <<<<<<<<<<<<<<<<<<<<<"
-        Rails.logger.info ">>>>>>>>>>>>>> Secondint: #{secondint} <<<<<<<<<<<<<<<<<<<"
+        # Rails.logger.info ">>>>>>>>>>>>>> Firstint: #{firstint} <<<<<<<<<<<<<<<<<<<<<"
+        # Rails.logger.info ">>>>>>>>>>>>>> Secondint: #{secondint} <<<<<<<<<<<<<<<<<<<"
         firstletter, secondletter= string.scan(/[BYDHMS]/)
-        Rails.logger.info ">>>>>>>>>>>>>> Firstletter: #{firstletter} <<<<<<<<<<<<<<<<<<<<<"
-        Rails.logger.info ">>>>>>>>>>>>>> Secondletter: #{secondletter} <<<<<<<<<<<<<<<<<<<"
+        # Rails.logger.info ">>>>>>>>>>>>>> Firstletter: #{firstletter} <<<<<<<<<<<<<<<<<<<<<"
+        # Rails.logger.info ">>>>>>>>>>>>>> Secondletter: #{secondletter} <<<<<<<<<<<<<<<<<<<"
         firstint = firstint.to_i
         secondint = secondint.to_i
         firstconversion = translator(firstint, firstletter)
@@ -56,11 +56,11 @@ class Search < ActiveRecord::Base
         firstint = firstint.to_i
         firstletter = string.scan(/[BYDHMS]/)
         firstletter = firstletter.first
-        Rails.logger.info ">>>>>>>>>>>>>> Firstint: #{firstint} <<<<<<<<<<<<<<<<<<<<<"
-        Rails.logger.info ">>>>>>>>>>>>>> Firstletter: #{firstletter} <<<<<<<<<<<<<<<<<<<<<"
+        # Rails.logger.info ">>>>>>>>>>>>>> Firstint: #{firstint} <<<<<<<<<<<<<<<<<<<<<"
+        # Rails.logger.info ">>>>>>>>>>>>>> Firstletter: #{firstletter} <<<<<<<<<<<<<<<<<<<<<"
         firstconversion = translator(firstint, firstletter)
         result1 = [col + " >= '" + firstconversion + "'"]
-        Rails.logger.info ">>>>>>>>>>>>>> Result1: #{result1} <<<<<<<<<<<<<<<<<<<<<"
+        # Rails.logger.info ">>>>>>>>>>>>>> Result1: #{result1} <<<<<<<<<<<<<<<<<<<<<"
         return result1
     end
   end

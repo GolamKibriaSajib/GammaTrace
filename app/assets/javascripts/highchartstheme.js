@@ -64,6 +64,9 @@ Highcharts.theme = {
       },
       errorbar: {
          color: 'white'
+      },
+      spline: {
+        turboThreshold: 0
       }
    },
    legend: {

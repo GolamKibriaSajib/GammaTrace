@@ -1,3 +1,3 @@
-$("#"+ droppableDiv +" .panel-body").html("<%= j render 'show_delta' %>");
-$("#"+ droppableDiv +" .panel-heading").html("<%= j render 'searchname' %>");
-$("#"+ droppableDiv +" .panel-heading").prepend("Delta: ");
+$("#<%= @bodyidentifier -%> .panel-body").html("<%= j render 'show_delta' %>");
+$("#<%= @bodyidentifier -%> .panel-heading").html("<%= j render 'searchname' %>");
+$("#<%= @bodyidentifier -%> .panel-heading").prepend("Delta: ");

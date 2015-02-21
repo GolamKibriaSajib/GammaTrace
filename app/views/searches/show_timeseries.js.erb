@@ -1,3 +1,3 @@
-$("#"+ droppableDiv +" .panel-body").html("<%= j render 'show_time_series' %>");
-$("#"+ droppableDiv +" .panel-heading").html("<%= j render 'searchname' %>");
-$("#"+ droppableDiv +" .panel-heading").prepend("Time Series: ");
+$("#<%= @bodyidentifier -%> .panel-body").html("<%= j render 'show_time_series' %>");
+$("#<%= @bodyidentifier -%> .panel-heading").html("<%= j render 'searchname' %>");
+$("#<%= @bodyidentifier -%> .panel-heading").prepend("Time Series: ");

@@ -1,83 +1,81 @@
 :javascript   
-  $(function () {
-    var data = #{@scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json};
-    chartid = chance.hash();
-    $("#"+ droppableDiv +" .panel-body .first").highcharts('StockChart', {
-        credits: {
-          enabled: false
+  var data = #{@scopedsearch};
+  chartid = chance.hash();
+  $("##{@bodyidentifier} .panel-body .first").highcharts('StockChart', {
+      credits: {
+        enabled: false
+      },
+      title: {
+        style: {
+          color: 'black',
+          fontSize: '12px',
+          display: 'none'
         },
-        title: {
-          style: {
-            color: 'black',
-            fontSize: '12px',
-            display: 'none'
-          },
-          text: "Term Structure: #{@search.name}"
+        text: "Term Structure: #{@search.name}"
+      },
+      scrollbar : {
+        enabled : false
+      },
+      chart: {
+        type: 'spline',
+        zoomType: 'x',
+        events : {
+            load : function () {
+                // set up the updating of the chart each second
+                var series = this.series[0];
+                globalarray.push(series);
+                intervalArr.push(setInterval(function () {
+                    var chart =  $("#"+ droppableDiv +" .panel-body").highcharts();
+                    var x = (new Date()).getTime();
+                    var y = randomFloatBetween(1.7,1.85,4);
+                    var dissId= 12343;
+                    series.addPoint({x: x, y: y, dissId: dissId}, true, true, false)
+                }, 1000));
+            }
         },
-        scrollbar : {
-          enabled : false
-        },
-        chart: {
-          type: 'spline',
-          zoomType: 'x',
-          events : {
-              load : function () {
-                  // set up the updating of the chart each second
-                  var series = this.series[0];
-                  globalarray.push(series);
-                  setInterval(function () {
-                      var chart =  $("#"+ droppableDiv +" .panel-body").highcharts();
-                      var x = (new Date()).getTime();
-                      var y = randomFloatBetween(1.7,1.85,4);
-                      var dissId= 12343;
-                      series.addPoint({x: x, y: y, dissId: dissId}, true, true, false)
-                  }, 10000);
+        animation: false
+      },
+      navigator: {
+        enabled: false
+      },
+      rangeSelector: {
+          enabled : false,
+          selected : 1,
+          inputEnabled: $("#"+ droppableDiv +"").width() > 480
+      },
+      xAxis: {        
+          type: 'datetime',
+          labels: {
+              formatter: function() {
+                  var dayStr = Highcharts.dateFormat('%d', this.value);
+                  var yearStr = Highcharts.dateFormat('%y', this.value);
+                  var monthStr = Highcharts.dateFormat('%b', this.value);
+                  return monthStr + " " + dayStr + ", " + yearStr;
               }
-          },
-          animation: false
-        },
-        navigator: {
-          enabled: false
-        },
-        rangeSelector: {
-            enabled : false,
-            selected : 1,
-            inputEnabled: $("#"+ droppableDiv +"").width() > 480
-        },
-        xAxis: {        
-            type: 'datetime',
-            labels: {
-                formatter: function() {
-                    var dayStr = Highcharts.dateFormat('%d', this.value);
-                    var yearStr = Highcharts.dateFormat('%y', this.value);
-                    var monthStr = Highcharts.dateFormat('%b', this.value);
-                    return monthStr + " " + dayStr + ", " + yearStr;
-                }
-            }
-        },
-        plotOptions: {
-          series: {
-            stickyTracking: false
           }
-        },
-        tooltip: {
-            formatter: function() {
-                    var s = "";
-                    var d = new Date(0);
-                    $.each(this.points, function(i, point) {
-                      s += 'Dissemination id: ' + point.point.dissId +"<br/>" + 'Common fixed fair rate: ' + point.point.y + "%" + "<br/>" + "Execution timestamp: " + new Date(point.point.a);
-               });
-               return s;
-            }
-        },
-        series: [{
-            data: data,
-            lineWidth : 0,
-            marker : {
-              enabled : true,
-              radius : 2
-            },
-            color : "orange"
-            }]
-          });
+      },
+      plotOptions: {
+        series: {
+          stickyTracking: false
+        }
+      },
+      tooltip: {
+          formatter: function() {
+                  var s = "";
+                  var d = new Date(0);
+                  $.each(this.points, function(i, point) {
+                    s += 'Dissemination id: ' + point.point.dissId +"<br/>" + 'Common fixed fair rate: ' + point.point.y + "%" + "<br/>" + "Execution timestamp: " + new Date(point.point.a);
+             });
+             return s;
+          }
+      },
+      series: [{
+          data: data,
+          lineWidth : 0,
+          marker : {
+            enabled : true,
+            radius : 2
+          },
+          color : "orange"
+          }]
         });

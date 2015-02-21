@@ -1,8 +1,8 @@
 :javascript
   $(function () {
     var $container =  $("#"+ droppableDiv +" .panel-body")
-    var data = #{@scopedsearch.map {|a| {x: ((a.execution_timestamp)*1000), y: a.price_notation, dissId: a.dissemination_id}}.to_json};
-      $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
+    var data = #{@scopedsearch};
+      $("##{@bodyidentifier} .panel-body").highcharts('StockChart', {
           credits: {
             enabled: false
           },

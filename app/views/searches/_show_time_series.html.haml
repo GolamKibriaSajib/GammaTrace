@@ -1,8 +1,8 @@
 :javascript   
   $(function () {
-    var data = #{@scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json};
+    var data = #{@scopedsearch};
     chartid = chance.hash();
-    $("#"+ droppableDiv +" .panel-body").highcharts('StockChart', {
+    $("##{@bodyidentifier} .panel-body").highcharts('StockChart', {
         credits: {
           enabled: false
         },
@@ -22,13 +22,13 @@
                   // set up the updating of the chart each second
                   var series = this.series[0];
                   globalarray.push(series);
-                  setInterval(function () {
+                  intervalArr.push(setInterval(function () {
                       var chart =  $("#"+ droppableDiv +" .panel-body").highcharts();
                       var x = (new Date()).getTime();
                       var y = randomFloatBetween(1.7,1.85,4);
                       var dissId= 12343;
                       series.addPoint({x: x, y: y, dissId: dissId}, true, true, false);
-                  }, 10000);
+                  }, 1000));
               }
           },
           animation: false
