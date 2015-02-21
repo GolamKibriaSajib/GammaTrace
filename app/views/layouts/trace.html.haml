@@ -9,8 +9,8 @@
     = include_gon
 
 
-  %body#main.backblack
-    %div{"ng-controller" =>"DashboardCtrl"}
+  %body#main.backblack{"ng-controller" =>"DashboardCtrl"}
+    -# %div{"ng-controller" =>"DashboardCtrl"}
     %header.navbar.navbar-default.back2.navbar-fixed-top.bs-docs-nav{role: "banner",style:"z-index:100000000000;"}
       .container.topbottom10
         .navbar-header
@@ -29,7 +29,7 @@
       /           = link_to "Sign in", new_user_session_path
 
       #bs-example-navbar-collapse-1.collapse.navbar-collapse.back3
-        .container-fluid.nopad{"ng-controller" =>"DashboardCtrl"}
+        .container-fluid.nopad
           = image_tag("gammatrace.png",class: "navbar-brand", style: "padding-top:15px;padding-bottom:15px")
           %ul.nav.navbar-nav.navbar-left.back3.centerize
             %li#addtermstructure
@@ -106,7 +106,6 @@
       %li{style:"text-align:left !important;padding:2px;border:1px solid;"}
         = link_to 'New Search', new_user_search_path(@user), {remote: true}
         #sidebarinner= render "interest_swaps/searchlist"
-  #sidebar2.container-fluid.nopadding{style:"z-index:2000000000000;left:79px;display:none;width:400px;float:left;text-align:left;border-left: 1px solid red;position:fixed;"}
   =yield
    
 

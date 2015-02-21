@@ -91,6 +91,7 @@ angular.module('Gammatrace')
     };
 
     $scope.addDatatableWidget = function() {
+      randId = chance.hash();
       $scope.dashboard.widgets.push({
         name: "New Widget",
         sizeX: 1,
@@ -101,11 +102,13 @@ angular.module('Gammatrace')
     };
 
     $scope.addTimeSeriesWidget = function() {
+      randId = chance.hash();
       $scope.dashboard.widgets.push({
         name: "New Widget",
         sizeX: 1,
         sizeY: 1,
         graphType: "timeseries",
+        randId: randId,
         gTypeName: "Time Series"
       });
     };

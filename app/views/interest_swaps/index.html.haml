@@ -1,21 +1,15 @@
 =render "/views/viewmodal"
-=render "widgetadder"
 
 #center{:style => "position:fixed;top:50%;left:50%"}
 #mainpage.container-fluid.nopad{style:"margin-left:80px;"}
-  
-  .page-header
-    %a.pull-right.btn.btn-primary{"ng-init" =>"graphType='timeseries';gTypeName='Time Series'", "ng-click" => "addTimeSeriesWidget()"}
-      Add Widget
-    %a.pull-right.btn.btn-warning{"ng-click" => "clear()"}
   %div{:gridster => "gridsterOptions"}
     %ul
       %li.droppable.panel.panel-default{"gridster-item" => "widget", "ng-repeat" => "widget in dashboard.widgets"}
-        %div{"ng-controller" => "CustomWidgetCtrl", "ng-attr-id" =>"{{ widget.graphType }}"}
-          #searchname.panel-heading.dragDiv
+        %div.widgetholder{"ng-controller" => "CustomWidgetCtrl", "ng-attr-id" =>"{{ widget.graphType+widget.randId }}"}
+          #searchname{"ng-attr-class" =>"panel-heading dragDiv {{ widget.graphType }}"}
             .btn-group.pull-right
               %a{"ng-click" => "remove(widget)"} 
-                x
+                %i.fa.fa-times
             {{ widget.gTypeName }}
           .panel-body{:style => "width:100%;height:90%;margin: 0 auto"}
             Drop a search in
