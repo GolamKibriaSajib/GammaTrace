@@ -32,14 +32,14 @@
         .container-fluid.nopad
           = image_tag("gammatrace.png",class: "navbar-brand", style: "padding-top:15px;padding-bottom:15px")
           %ul.nav.navbar-nav.navbar-left.back3.centerize
-            %li#addtermstructure
+            %li#addtimeseries
               %a{"ng-click" => "addTimeSeriesWidget()"}
                 %i.fa.fa-area-chart
-                Term Structure
-            %li#addtimeseries
+                Time Series
+            %li#addtermstructure
               %a{"ng-click" => "addTermStructureWidget()"}
                 %i.fa.fa-area-chart
-                Time Series
+                Term Structure
                 
             %li#adddatatable
               %a{"ng-click" => "addDataTableWidget()"}

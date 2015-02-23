@@ -21,40 +21,7 @@ angular.module('Gammatrace')
       '1': {
         id: '1',
         name: 'Home',
-        widgets: [{
-          col: 0,
-          row: 0,
-          sizeY: 2,
-          sizeX: 2,
-          graphType: "helloworld",
-          name: "Widgedddt 1"
-        }, {
-          col: 2,
-          row: 2,
-          sizeY: 2,
-          sizeX: 2,
-          graphType: "helloworld",
-          name: "Widgedt 2"
-        }]
-      },
-      '2': {
-        id: '2',
-        name: 'Other',
-        widgets: [{
-          col: 1,
-          row: 1,
-          sizeY: 1,
-          sizeX: 2,
-          graphType: "helloworld",
-          name: "Other Widget 1"
-        }, {
-          col: 1,
-          row: 3,
-          sizeY: 1,
-          sizeX: 1,
-          graphType: "helloworld",
-          name: "Other Widget 2"
-        }]
+        widgets: []
       }
     };
 
@@ -82,13 +49,7 @@ angular.module('Gammatrace')
       });
     };
 
-    $scope.addWidget = function() {
-      $scope.dashboard.widgets.push({
-        name: "New Widget",
-        sizeX: 1,
-        sizeY: 1
-      });
-    };
+
 
     $scope.addDatatableWidget = function() {
       randId = chance.hash();
@@ -150,49 +111,7 @@ angular.module('Gammatrace')
   }
 ])
 
-.controller('WidgetSettingsCtrl', ['$scope', '$timeout', '$rootScope', '$modalInstance', 'widget',
-  function($scope, $timeout, $rootScope, $modalInstance, widget) {
-    $scope.widget = widget;
 
-    $scope.form = {
-      name: widget.name,
-      sizeX: widget.sizeX,
-      sizeY: widget.sizeY,
-      col: widget.col,
-      row: widget.row
-    };
-
-    $scope.sizeOptions = [{
-      id: '1',
-      name: '1'
-    }, {
-      id: '2',
-      name: '2'
-    }, {
-      id: '3',
-      name: '3'
-    }, {
-      id: '4',
-      name: '4'
-    }];
-
-    $scope.dismiss = function() {
-      $modalInstance.dismiss();
-    };
-
-    $scope.remove = function() {
-      $scope.dashboard.widgets.splice($scope.dashboard.widgets.indexOf(widget), 1);
-      $modalInstance.close();
-    };
-
-    $scope.submit = function() {
-      angular.extend(widget, $scope.form);
-
-      $modalInstance.close(widget);
-    };
-
-  }
-])
 
 // helper code
 .filter('object2Array', function() {

@@ -24,7 +24,7 @@
     defaultSizeY: 40, // default height of an item in rows
     minSizeX: 2, // minimum column width of an item
     maxSizeX: null, // maximum column width of an item
-    minSizeY: 1.5, // minumum row height of an item
+    minSizeY: 2, // minumum row height of an item
     maxSizeY: null, // maximum row height of an item
     saveGridItemCalculatedHeightInMobile: false, // grid item height in mobile display. true- to use the calculated height by sizeY given
     resizable: { // options to pass to resizable handler
