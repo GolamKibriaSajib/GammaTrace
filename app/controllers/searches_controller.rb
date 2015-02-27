@@ -1,9 +1,7 @@
 class SearchesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_search, only: [:show, :show_chart, :edit, :update, :destroy]
-  # before_action :authenticate_user!
-  # GET /searches
-  # GET /searches.json
+
   def index
     @searches = current_user.searches.all
     @views = current_user.views.all
@@ -23,7 +21,7 @@ class SearchesController < ApplicationController
     @bodyidentifier = params[:bodyid]
     gon.searchName = "FA"
     @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
-    @scopedsearch = @scopedsearch.reject {|i|  i.common_fixed_fair_rate == nil} 
+    @scopedsearch = @scopedsearch.reject {|i|  i.common_fixed_fair_rate == nil}
     @scopedsearch = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
     respond_to do |format|
       if @scopedsearch.length == 0

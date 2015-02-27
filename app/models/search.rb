@@ -5,30 +5,29 @@ class Search < ActiveRecord::Base
 
   def scopingsearch
     hashed_value = self.serializable_hash
+    taxonomy = hashed_value.delete("taxonomy")
+    Rails.logger.info "XXXX\n"
+    Rails.logger.info ">>#{hashed_value}<<\n"
+    Rails.logger.info ">>#{taxonomy}<<\n"
+    Rails.logger.info "XXXX\n"
     arr = []
     hashed_value.each do |col, val|
+      next if col == "taxonomy"
       if val != "" && val != nil && col != "id" && col != "effective_date" && col != "created_at" && col != "updated_at" && col != "user_id" && col != "name" && col != "floating_leg_reset"
         wc =  col + " = '" + val.to_s + "'"
         puts wc
         arr.push(wc)
-      elsif col == ("effective_date" || col == "end_date") && val != nil 
+      elsif (col == "effective_date" || col == "end_date") && val != nil 
         wcmult =  regex_translator(col, val)
         wc1 = wcmult.first
-        # Rails.logger.info ">>>>>>>>>>>>>> WC1: #{wc1} <<<<<<<<<<<<<<<<<<<<<"
         arr.push(wc1)
         if wcmult.length > 1
           wc2 = wcmult.second
-          # Rails.logger.info ">>>>>>>>>>>>>> WC2: #{wcmult.second} <<<<<<<<<<<<<<<<<<<<<"
           arr.push(wc2)
         end
       end
-      
     end
-
     array = (arr.join(" AND ")).to_s
-    # Rails.logger.info ">>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<"
-    # Rails.logger.info ">>>>>>>>>>>>>>>>>#{array}<<<<<<<<<<<<<<<<<<<<<<<"
-    # Rails.logger.info ">>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<"
     MetricInterestrateIrswapFixedfloat.where(array)
   end
 
@@ -45,7 +44,6 @@ class Search < ActiveRecord::Base
         secondint = secondint.to_i
         firstconversion = translator(firstint, firstletter)
         secondconversion = translator(secondint, secondletter)
-
         result1 = col + " >= '" + firstconversion + "'"
         result2 = col + " <= '" + secondconversion + "'"
         arr = [result1, result2]
@@ -67,15 +65,17 @@ class Search < ActiveRecord::Base
 
 
   def translator(integer, string)
-    if string.upcase == "B"
+    string = string.upcase;
+    case string
+    when "B"
       result = (integer.business_days.from_now.beginning_of_day).to_i
-    elsif string.upcase == "D"
+    when "D"
       result = (Time.now + integer.day).to_i
-    elsif string.upcase == "Y"
+    when "Y"
       result = (Time.now + integer.year).to_i
-    elsif string.upcase == "H"
+    when "H"
       result = (Time.now + integer.hour).to_i
-    elsif string.upcase == "M"
+    when "M"
       result = (Time.now + integer.minute).to_i
     end
     result = result.to_s

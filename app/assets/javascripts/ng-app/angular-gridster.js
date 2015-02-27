@@ -37,7 +37,7 @@
           window.dispatchEvent(new Event("resize"))
       },
       stop: function(e, t, n) {
-          window.dispatchEvent(new Event("resize"))
+          setTimeout(function(){window.dispatchEvent(new Event("resize"))}, 300)
       }
     },
     draggable: { // options to pass to draggable handler
