@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141222054000) do
+ActiveRecord::Schema.define() do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "sslinfo"
 
-  create_table "config", id: false, force: :cascade do |t|
-    t.string "key",   limit: 50, null: false
+  create_table "config", primary_key: "key", force: :cascade do |t|
     t.string "value", limit: 50
   end
 
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(version: 20141222054000) do
     t.float   "price_notation3"
   end
 
+  add_index "interest_swap", ["effective_date"], name: "interest_swap_effective_date", order: {"effective_date"=>:desc}, using: :btree
+
   create_table "metric_interestrate_capfloor", primary_key: "dissemination_id", force: :cascade do |t|
     t.integer "execution_timestamp",              limit: 8
     t.string  "settlement_currency"
@@ -98,6 +100,8 @@ ActiveRecord::Schema.define(version: 20141222054000) do
     t.float   "volatility"
   end
 
+  add_index "metric_interestrate_capfloor", ["effective_date"], name: "metric_interestrate_capfloor_effective_date", order: {"effective_date"=>:desc}, using: :btree
+
   create_table "metric_interestrate_crosscurrency_basis", primary_key: "dissemination_id", force: :cascade do |t|
     t.integer "execution_timestamp",              limit: 8
     t.string  "notional_currency_1"
@@ -119,6 +123,8 @@ ActiveRecord::Schema.define(version: 20141222054000) do
     t.string  "fixed_delta"
     t.string  "xccy_delta"
   end
+
+  add_index "metric_interestrate_crosscurrency_basis", ["effective_date"], name: "metric_interestrate_crosscurrency_basis_effective_date", order: {"effective_date"=>:desc}, using: :btree
 
   create_table "metric_interestrate_crosscurrency_fixedfixed", primary_key: "dissemination_id", force: :cascade do |t|
     t.integer "execution_timestamp",              limit: 8
@@ -142,6 +148,8 @@ ActiveRecord::Schema.define(version: 20141222054000) do
     t.string  "xccy_delta"
   end
 
+  add_index "metric_interestrate_crosscurrency_fixedfixed", ["effective_date"], name: "metric_interestrate_crosscurrency_fixedfixed_effective_date", order: {"effective_date"=>:desc}, using: :btree
+
   create_table "metric_interestrate_crosscurrency_fixedfloat", primary_key: "dissemination_id", force: :cascade do |t|
     t.integer "execution_timestamp",              limit: 8
     t.string  "notional_currency_1"
@@ -164,6 +172,8 @@ ActiveRecord::Schema.define(version: 20141222054000) do
     t.string  "xccy_delta"
   end
 
+  add_index "metric_interestrate_crosscurrency_fixedfloat", ["effective_date"], name: "metric_interestrate_crosscurrency_fixedfloat_effective_date", order: {"effective_date"=>:desc}, using: :btree
+
   create_table "metric_interestrate_irswap_basis", primary_key: "dissemination_id", force: :cascade do |t|
     t.integer "execution_timestamp",              limit: 8
     t.string  "settlement_currency"
@@ -181,6 +191,8 @@ ActiveRecord::Schema.define(version: 20141222054000) do
     t.string  "spread_delta"
     t.string  "fixed_delta"
   end
+
+  add_index "metric_interestrate_irswap_basis", ["effective_date"], name: "metric_interestrate_irswap_basis_effective_date", order: {"effective_date"=>:desc}, using: :btree
 
   create_table "metric_interestrate_irswap_fixedfloat", primary_key: "dissemination_id", force: :cascade do |t|
     t.integer "execution_timestamp",              limit: 8
@@ -204,6 +216,8 @@ ActiveRecord::Schema.define(version: 20141222054000) do
     t.string  "fixed_delta"
   end
 
+  add_index "metric_interestrate_irswap_fixedfloat", ["effective_date"], name: "metric_interestrate_irswap_fixedfloat_effective_date", order: {"effective_date"=>:desc}, using: :btree
+
   create_table "metric_interestrate_irswap_fixedfloats", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -226,6 +240,8 @@ ActiveRecord::Schema.define(version: 20141222054000) do
     t.string  "spread_delta"
     t.string  "fixed_delta"
   end
+
+  add_index "metric_interestrate_irswap_ois", ["effective_date"], name: "metric_interestrate_irswap_ois_effective_date", order: {"effective_date"=>:desc}, using: :btree
 
   create_table "metric_interestrate_option_swaption", primary_key: "dissemination_id", force: :cascade do |t|
     t.integer "execution_timestamp",              limit: 8
@@ -251,48 +267,50 @@ ActiveRecord::Schema.define(version: 20141222054000) do
     t.float   "volatility"
   end
 
+  add_index "metric_interestrate_option_swaption", ["effective_date"], name: "metric_interestrate_option_swaption_effective_date", order: {"effective_date"=>:desc}, using: :btree
+
   create_table "metrics", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "searches", force: :cascade do |t|
-    t.string   "cleared",                          limit: 255
-    t.string   "indication_of_collateralization",  limit: 255
-    t.string   "indication_of_end_user_exception", limit: 255
-    t.string   "execution_venue",                  limit: 255
-    t.string   "effective_date",                   limit: 255
-    t.string   "end_date",                         limit: 255
-    t.string   "settlement_currency",              limit: 255
-    t.string   "notional_currency_1",              limit: 255
-    t.string   "notional_currency_2",              limit: 255
-    t.string   "rounded_notional_amount_1",        limit: 255
+    t.string   "cleared"
+    t.string   "indication_of_collateralization"
+    t.string   "indication_of_end_user_exception"
+    t.string   "execution_venue"
+    t.string   "effective_date"
+    t.string   "end_date"
+    t.string   "settlement_currency"
+    t.string   "notional_currency_1"
+    t.string   "notional_currency_2"
+    t.string   "rounded_notional_amount_1"
     t.integer  "rounded_notional_amount_2"
     t.integer  "option_strike_price"
-    t.string   "option_type",                      limit: 255
-    t.string   "option_premium",                   limit: 255
+    t.string   "option_type"
+    t.string   "option_premium"
     t.integer  "option_expiration_date"
-    t.string   "floating_leg_reset",               limit: 255
+    t.string   "floating_leg_reset"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name",                             limit: 255
+    t.string   "name"
     t.integer  "user_id"
-    t.string   "taxonomy",                         limit: 255
+    t.string   "taxonomy"
   end
 
   add_index "searches", ["user_id"], name: "index_searches_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "", null: false
-    t.string   "encrypted_password",     limit: 255, default: "", null: false
-    t.string   "reset_password_token",   limit: 255
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",     limit: 255
-    t.string   "last_sign_in_ip",        limit: 255
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -301,7 +319,7 @@ ActiveRecord::Schema.define(version: 20141222054000) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "views", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name"
     t.text     "body"
     t.integer  "user_id"
     t.datetime "created_at"

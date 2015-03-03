@@ -1,0 +1,13 @@
+thead { background: #23232B; margin:0px; cell-spacing:0px; left:0px; color:white;}
+tfoot { background: black; margin:0px; cell-spacing:0px; left:0px; color:white;}
+th { height:10px;text-align:center; border: 1px solid gray !important;font-size: 9px;}
+td { height:10px;margin:0px; text-align:center;font-size: 10px;}
+
+.panel-heading {
+  border-bottom: none;
+}
+
+.table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {
+  background-color: white;
+  color:rgb(209, 74, 0);
+}

@@ -17,11 +17,11 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: QuantDB
+  database: GammatraceDB
   pool: 5
-  username: tester
-  password: yZ678J65
-  host: quantdb.cjwcpyuxpq0k.us-west-2.rds.amazonaws.com 
+  username: test_ro_user
+  password: CzRVvHFr1jHKhM1
+  host: gammatracedb.cbvkzeetao0u.eu-west-1.rds.amazonaws.com
   port: 5432
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -56,9 +56,9 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: QuantDB
+  database: GammatraceDB
   pool: 5
-  username: tester
-  password: yZ678J65
-  host: quantdb.cjwcpyuxpq0k.us-west-2.rds.amazonaws.com 
+  username: test_ro_user
+  password: CzRVvHFr1jHKhM1
+  host: gammatracedb.cbvkzeetao0u.eu-west-1.rds.amazonaws.com
   port: 5432
