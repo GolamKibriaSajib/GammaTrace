@@ -1,0 +1,75 @@
+#bs-example-navbar-collapse-1.collapse.navbar-collapse.back3
+  .container-fluid.nopad
+    = image_tag("gammatrace.png",class: "navbar-brand", style: "padding-top:15px;padding-bottom:15px")
+    %ul.nav.navbar-nav.navbar-left.back3.centerize
+      %li#addtimeseries
+        %a{"ng-click" => "addTimeSeriesWidget()"}
+          %i.fa.fa-area-chart
+          Time Series
+      %li#addtermstructure
+        %a{"ng-click" => "addTermStructureWidget()"}
+          %i.fa.fa-area-chart
+          Term Structure
+          
+      %li#adddatatable
+        %a{"ng-click" => "addDataTableWidget()"}
+          %i.fa.fa-table
+          Data Table
+          
+      %li#adddelta
+        %a{"ng-click" => "addDeltaWidget()"}
+          %i.fa.fa-bar-chart
+          Delta
+          
+      %li#addois
+        %a{:href => "javascript:void(0)", id: "ois"} 
+          %i.fa.fa-bar-chart
+          OIS
+          
+      %li#addccy
+        %a{:href => "javascript:void(0)", id: "ccy"} 
+          %i.fa.fa-bar-chart
+          CCY
+          
+      %li#addvega
+        %a{:href => "javascript:void(0)", id: "vega"} 
+          %i.fa.fa-list-alt
+          Vega
+          
+      %li#addvolterm
+        %a{:href => "javascript:void(0)", id: "volterm"} 
+          %i.fa.fa-list-alt
+          Vol Term
+          
+      %li#addvoltail
+        %a{:href => "javascript:void(0)", id: "voltail"}  
+          %i.fa.fa-list-alt
+          Vol Tail
+    
+      %li.dropdown
+        %a.dropdown-toggle{"data-toggle" => "dropdown", href: "javascript:void(0)"}
+          %i.fa.fa-image
+          Views
+          
+        %ul.dropdown-menu
+          %li= link_to 'Save View', new_user_view_path(@user), { remote: true, "data-toggle" => "modal", "data-target" => "#viewmodal"}
+          %li
+            %a{:href => "#"} Some other action
+          %li.divider
+          %li.dropdown-submenu
+            %a{:href => "#", :tabindex => "-1"} Load a view
+            %ul#allviews.dropdown-menu
+              - if @views.count == 0
+                %li 
+                  No views created
+              - else
+                - @views.each do |v|
+                  %li
+                    =link_to v.name, user_view_path(@user.id, v), remote: true
+  
+    %ul.nav.navbar-nav.navbar-right{style:"margin-right:15px"}
+      %li
+        - if user_signed_in?
+          = link_to destroy_user_session_path, method: :delete do
+            %i.fa.fa-sign-out
+            Sign Out

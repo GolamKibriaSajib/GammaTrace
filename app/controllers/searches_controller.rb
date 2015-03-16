@@ -22,7 +22,12 @@ class SearchesController < ApplicationController
     gon.searchName = "FA"
     @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
     @scopedsearch = @scopedsearch.reject {|i|  i.common_fixed_fair_rate == nil}
-    @scopedsearch = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
+    if graphType == "show_termstructure"
+      @scopedsearch_b = @scopedsearch.map {|a| {x:(((a.end_date - a.effective_date)*1000)/(31556926*1000)), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
+      @scopedsearch_a = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, maturity: (a.end_date - a.effective_date), price_metric: a.common_fixed_fair_rate}}.to_json
+    else
+      @scopedsearch = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
+    end
     respond_to do |format|
       if @scopedsearch.length == 0
         format.js { render "searches/show_nodata" }

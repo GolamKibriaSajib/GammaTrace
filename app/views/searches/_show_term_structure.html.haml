@@ -1,7 +1,7 @@
 :javascript   
-  var data = #{@scopedsearch};
+  var data = #{@scopedsearch_b};
   chartid = chance.hash();
-  $("##{@bodyidentifier} .panel-body .first").highcharts('StockChart', {
+  $("##{@bodyidentifier} .panel-body .first").highcharts({
       credits: {
         enabled: false
       },
@@ -19,21 +19,21 @@
       chart: {
         type: 'spline',
         zoomType: 'x',
-        events : {
-            load : function () {
-                // set up the updating of the chart each second
-                var series = this.series[0];
-                globalarray.push(series);
-                intervalArr.push(setInterval(function () {
-                    var chart =  $("#"+ droppableDiv +" .panel-body").highcharts();
-                    var x = (new Date()).getTime();
-                    var y = randomFloatBetween(1.7,1.85,4);
-                    var dissId= 12343;
-                    series.addPoint({x: x, y: y, dissId: dissId}, true, true, false)
-                }, 1000));
-            }
-        },
-        animation: false
+      //   events : {
+      //   //     load : function () {
+      //   //         // set up the updating of the chart each second
+      //   //         var series = this.series[0];
+      //   //         globalarray.push(series);
+      //   //         intervalArr.push(setInterval(function () {
+      //   //             var chart =  $("#"+ droppableDiv +" .panel-body").highcharts();
+      //   //             var x = (new Date()).getTime();
+      //   //             var y = randomFloatBetween(1.7,1.85,4);
+      //   //             var dissId= 12343;
+      //   //             series.addPoint({x: x, y: y, dissId: dissId}, true, true, false)
+      //   //         }, 1000));
+      //   //     }
+      //   // },
+      //   // animation: false
       },
       navigator: {
         enabled: false
@@ -44,15 +44,18 @@
           inputEnabled: $("#"+ droppableDiv +"").width() > 480
       },
       xAxis: {        
-          type: 'datetime',
-          labels: {
-              formatter: function() {
-                  var dayStr = Highcharts.dateFormat('%d', this.value);
-                  var yearStr = Highcharts.dateFormat('%y', this.value);
-                  var monthStr = Highcharts.dateFormat('%b', this.value);
-                  return monthStr + " " + dayStr + ", " + yearStr;
-              }
-          }
+          type: 'linear'
+          // labels: {
+          //     formatter: function() {
+          //         var dayStr = Highcharts.dateFormat('%d', this.value);
+          //         var yearStr = Highcharts.dateFormat('%y', this.value);
+          //         var monthStr = Highcharts.dateFormat('%b', this.value);
+          //         return monthStr + " " + dayStr + ", " + yearStr;
+          //     }
+          // }
+      },
+      yAxis: {
+        type: "linear"
       },
       plotOptions: {
         series: {
@@ -79,66 +82,4 @@
           color : "orange"
           }]
         });
-  $("##{@bodyidentifier} .panel-body .second").highcharts('StockChart', {
-      credits: {
-        enabled: false
-      },
-      chart: {
-        type: 'spline',
-        zoomType: 'x',
-        height: 78,
-        events : {
-            load : function () {
-                // set up the updating of the chart each second
-                var series = this.series[0];
-                globalarray.push(series);
-                intervalArr.push(setInterval(function () {
-                    var chart =  $("#"+ droppableDiv +" .panel-body").highcharts();
-                    var x = (new Date()).getTime();
-                    var y = randomFloatBetween(1.7,1.85,4);
-                    var dissId= 12343;
-                    series.addPoint({x: x, y: y, dissId: dissId}, true, true, false);
-                }, 10000));
-            }
-        },
-        animation: false
-      },
-      navigator: {
-          maskFill: 'rgba(209, 74, 0, 0.5)',
-          series: {
-              color: 'rgba(209, 74, 0, 0.5)',
-              lineColor: "orange"
-          }
-      },
-      rangeSelector: {
-          enabled : false,
-      },
-      xAxis: {        
-        type: "datetime",
-        lineWidth: 0,
-        minorGridLineWidth: 0,
-        lineColor: 'rgba(0, 0, 0, 0)',
-        labels: {
-            enabled: false
-        },
-        minorTickLength: 0,
-        tickLength: 0,
-          events: {
-              setExtremes: function (e) {
-                console.log("Navigator start " +e.min);
-                console.log("Navigator end "+e.max);
-              }
-          }
-      },
-      yAxis: {
-          labels: {enabled: false},
-          height: 0
-      },
-      tooltip: {
-        enabled: false
-      },
-      series: [{
-          data: #{@scopedsearch}
-          }]
-        });
-
+ 
