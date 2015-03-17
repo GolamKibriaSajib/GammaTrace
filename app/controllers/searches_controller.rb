@@ -20,12 +20,18 @@ class SearchesController < ApplicationController
     graphType = "show_".concat(params[:graph_type])
     @bodyidentifier = params[:bodyid]
     gon.searchName = "FA"
-    @scopedsearch = @search.scopingsearch.sort_by {|x| x.execution_timestamp}
+    @scopedsearch = @search.scopingsearch
     @scopedsearch = @scopedsearch.reject {|i|  i.common_fixed_fair_rate == nil}
     if graphType == "show_termstructure"
-      @scopedsearch_b = @scopedsearch.map {|a| {x:(((a.end_date - Date.today.to_time.to_i)*1000)/(31556926*1000)), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
-      @scopedsearch_a = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, maturity: (a.end_date - a.effective_date), price_metric: a.common_fixed_fair_rate}}.to_json
+      @scopedsearch1 = @scopedsearch.sort_by {|x| x.execution_timestamp}
+      @scopedsearch2 = @scopedsearch.sort_by {|x| x.end_date}
+
+      @scopedsearch_a = @scopedsearch1.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, topdata: (((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0))}}.to_json
+      @scopedsearch_alter = @scopedsearch2.map {|a| {x:(((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0)), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, execution_timestamp: ((a.execution_timestamp)*1000)}}
+      @scopedsearch_b = @scopedsearch_alter.to_json
+      Rails.logger.info "XXXX>>>#{@scopedsearch_alter.length}<<<XXXX"
     else
+      @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
       @scopedsearch = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
     end
     respond_to do |format|

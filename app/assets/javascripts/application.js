@@ -16,6 +16,8 @@
 //= require bootstrap
 //= require jquery-ui
 //= require highstock
+//= require jquery.qtip.min
+//= require multithread
 //= require angular
 //= require angular-animate
 //= require angular-resource
@@ -27,4 +29,8 @@ opts={lines:17,length:35,width:2,radius:60,corners:1,rotate:0,direction:1,color:
 var chartLister = ["timeseries","termstructure","datatable","details", "delta", "ois", "ccy"];
 Object.freeze(chartLister);
 
-
+$(document).mousedown(function() {
+    down = true;
+}).mouseup(function() {
+    down = false;  
+});

@@ -19,29 +19,13 @@
       chart: {
         type: 'spline',
         zoomType: 'x',
-      //   events : {
-      //   //     load : function () {
-      //   //         // set up the updating of the chart each second
-      //   //         var series = this.series[0];
-      //   //         globalarray.push(series);
-      //   //         intervalArr.push(setInterval(function () {
-      //   //             var chart =  $("#"+ droppableDiv +" .panel-body").highcharts();
-      //   //             var x = (new Date()).getTime();
-      //   //             var y = randomFloatBetween(1.7,1.85,4);
-      //   //             var dissId= 12343;
-      //   //             series.addPoint({x: x, y: y, dissId: dissId}, true, true, false)
-      //   //         }, 1000));
-      //   //     }
-      //   // },
-      //   // animation: false
+        animation: false
       },
       navigator: {
         enabled: false
       },
       rangeSelector: {
-          enabled : false,
-          selected : 1,
-          inputEnabled: $("#"+ droppableDiv +"").width() > 480
+          enabled : false
       },
       xAxis: {        
           type: 'linear'
@@ -64,13 +48,14 @@
       },
       tooltip: {
           formatter: function() {
-                  var s = "";
-                  var d = new Date(0);
-                  $.each(this.points, function(i, point) {
-                    s += 'Dissemination id: ' + point.point.dissId +"<br/>" + 'Common fixed fair rate: ' + point.point.y + "%" + "<br/>" + "Execution timestamp: " + new Date(point.point.a);
-             });
-             return s;
-          }
+             //      var s = "";
+             //      $.each(this.points, function(i, point) {
+             //        s += "hello";
+             //         // 'Maturity: ' + point.point.x +"<br/>" + 'Common fixed fair rate: ' + point.point.y + "%"
+             // });
+             return 'Maturity: '+ this.x + '<br/>' + 'Price Metric: ' + this.y+'%' ;
+          },
+          enabled: true
       },
       series: [{
           data: data,
