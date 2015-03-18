@@ -16,6 +16,7 @@
 //= require bootstrap
 //= require jquery-ui
 //= require highstock
+//= require chance.min
 //= require jquery.qtip.min
 //= require multithread
 //= require angular

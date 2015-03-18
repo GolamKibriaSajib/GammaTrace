@@ -17,7 +17,7 @@
         enabled : false
       },
       chart: {
-        type: 'spline',
+        type: 'scatter',
         zoomType: 'x',
         animation: false
       },
@@ -28,7 +28,9 @@
           enabled : false
       },
       xAxis: {        
-          type: 'linear'
+          type: 'linear',
+          max: 70,
+          min: 0
           // labels: {
           //     formatter: function() {
           //         var dayStr = Highcharts.dateFormat('%d', this.value);
@@ -40,11 +42,6 @@
       },
       yAxis: {
         type: "linear"
-      },
-      plotOptions: {
-        series: {
-          stickyTracking: false
-        }
       },
       tooltip: {
           formatter: function() {
@@ -59,7 +56,9 @@
       },
       series: [{
           data: data,
+          type: "scatter",
           lineWidth : 0,
+          turboThreshold: 0,
           marker : {
             enabled : true,
             radius : 2

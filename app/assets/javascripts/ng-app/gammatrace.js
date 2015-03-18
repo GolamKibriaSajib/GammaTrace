@@ -40,12 +40,14 @@ angular.module('Gammatrace')
     };
 
     $scope.addTermStructureWidget = function() {
+      randId = chance.hash();
       $scope.dashboard.widgets.push({
         name: "New Widget",
         sizeX: 1,
         sizeY: 1,
         graphType: "termstructure",
-        gTypeName: "Term Structure"
+        gTypeName: "Term Structure",
+        randId: randId
       });
     };
 

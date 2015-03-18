@@ -15,7 +15,6 @@
           text: "Term Structure: #{@search.name}"
         },
         chart: {
-          type: 'spline',
           zoomType: 'x',
           events : {
               load : function () {
@@ -58,7 +57,11 @@
         },
         plotOptions: {
           series: {
-            stickyTracking: false
+            stickyTracking: true,
+            animation: false,
+          },
+          spline: {
+            lineWidth: 0
           }
         },
         tooltip: {
@@ -74,6 +77,7 @@
         series: [{
             data: data,
             lineWidth : 0,
+            turboThreshold: 10000,
             marker : {
               enabled : true,
               radius : 2

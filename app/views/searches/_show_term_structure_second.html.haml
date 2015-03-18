@@ -1,6 +1,9 @@
 :javascript   
   var data = #{@scopedsearch_a};
+  var data_to_send = #{@scopedsearch_b};
   chartid = chance.hash();
+  var body_id = "#{@bodyidentifier}";
+  var searchId = #{@searchid};
   $("##{@bodyidentifier} .panel-body .second").highcharts('StockChart', {
       credits: {
         enabled: false
@@ -10,18 +13,18 @@
         zoomType: 'x',
         height: 78,
         events : {
-            // load : function () {
-            //     // set up the updating of the chart each second
-            //     var series = this.series[0];
-            //     globalarray.push(series);
-            //     intervalArr.push(setInterval(function () {
-            //         var chart =  $("#"+ droppableDiv +" .panel-body").highcharts();
-            //         var x = (new Date()).getTime();
-            //         var y = randomFloatBetween(1.7,1.85,4);
-            //         var dissId= 12343;
-            //         series.addPoint({x: x, y: y, dissId: dissId}, true, true, false);
-            //     }, 10000));
-            // }
+            load : function () {
+                // set up the updating of the chart each second
+                var series = this.series[0];
+                globalarray.push(series);
+                intervalArr.push(setInterval(function () {
+                    var chart =  $("#"+ droppableDiv +" .panel-body").highcharts();
+                    var x = (new Date()).getTime();
+                    var y = randomFloatBetween(1.7,1.85,4);
+                    var dissId= 12343;
+                    series.addPoint({x: x, y: y, dissId: dissId}, true, true, false);
+                }, 10000));
+            }
         },
         animation: false
       },
@@ -51,24 +54,22 @@
           events: {
 
               afterSetExtremes: function (e) {
-                var num_threads = 4;
-                var MT = new Multithread(num_threads);
+                
                 if( !down ){
                   var chart1 = $("##{@bodyidentifier} .panel-body .second").highcharts();
                   var chart2 = $("##{@bodyidentifier} .panel-body .first").highcharts();
                   var series1 = chart1.series[0];
                   var series2 = chart2.series[0];
                   var max = chart1.xAxis[0].getExtremes().max;
+                  var min = chart1.xAxis[0].getExtremes().min;
                   console.log("GOT IT "+ series1.data.length + ">> COMPARE >> "+ series2.data.length);
-                  console.log("Max: " + max+ " Min: " + chart1.xAxis[0].getExtremes.dataMin);
-                  for (i=0; i < series2.data.length;i++){
-                    if (series2.data[i].execution_timestamp > max) {
-                      console.log("Entering");
-                      series2.data[i].remove();
-                      console.log("REMOVED");
-                    } 
-                  }
-
+                  console.log("Max: " + max+ " Min: " + chart1.xAxis[0].getExtremes().min);
+                  var datatosend = {"body_id" : body_id, "data_set" : JSON.stringify(data_to_send), "max": max, "min": min};
+                  $.ajax({
+                      type: "POST",
+                      url: "/users/" + gon.userid + "/searches/" + searchId + "/chart_updater",
+                      data: datatosend
+                  })
                 }
               }
           }
@@ -81,14 +82,7 @@
         }
       },
       tooltip: {
-          formatter: function() {
-                  var s = "";
-                  var d = new Date(0);
-                  $.each(this.points, function(i, point) {
-                    s += 'Dissemination id: ' + point.point.dissId +"<br/>" + 'Common fixed fair rate: ' + point.point.y + "%" + "<br/>" + "Execution timestamp: " + new Date(point.point.a);
-             });
-             return s;
-          }
+        enabled: false
       },
       series: [{
           data: data

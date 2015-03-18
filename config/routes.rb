@@ -8,6 +8,7 @@ Quantapp::Application.routes.draw do
     resources :interest_swaps
     resources :searches do
       post :show_chart, on: :member
+      post :chart_updater, on: :member
     end
     resources :views
   end

@@ -1,6 +1,6 @@
 class SearchesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_search, only: [:show, :show_chart, :edit, :update, :destroy]
+  before_action :set_search, only: [:show, :show_chart, :edit, :update, :destroy, :chart_updater]
 
   def index
     @searches = current_user.searches.all
@@ -20,6 +20,7 @@ class SearchesController < ApplicationController
     graphType = "show_".concat(params[:graph_type])
     @bodyidentifier = params[:bodyid]
     gon.searchName = "FA"
+    @searchid = @search.id
     @scopedsearch = @search.scopingsearch
     @scopedsearch = @scopedsearch.reject {|i|  i.common_fixed_fair_rate == nil}
     if graphType == "show_termstructure"
@@ -42,6 +43,23 @@ class SearchesController < ApplicationController
       end
     end
   end
+
+
+
+  def chart_updater
+    @data_set = JSON.parse(params[:data_set]);
+    min_execution_timestamp = (params[:min]).to_f;
+    max_execution_timestamp = (params[:max]).to_f;
+    @body_id = params[:body_id]
+    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>> #{@data_set.first}"
+    @modifiedseta = @data_set.delete_if {|x| ((x["execution_timestamp"] < min_execution_timestamp) || (x["execution_timestamp"]  > max_execution_timestamp))}
+    @modifiedset = @modifiedseta.to_json
+    Rails.logger.info ">>>>>#{@modifiedseta.length}<<<<<"
+    respond_to do |format|
+      format.js
+    end
+  end
+
 
   # GET /searches/new
   def new

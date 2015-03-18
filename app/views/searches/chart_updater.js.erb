@@ -1,0 +1,7 @@
+var seriesmodder = $("#<%= @body_id -%> .panel-body .first").highcharts();
+seriesmodder.series[0].remove();
+var moddeddata = <%= raw @modifiedset %>;
+seriesmodder.addSeries({
+  name: "Selected Range", type: "scatter", turboThreshold: 3000, data: moddeddata, lineWidth : 0, marker : { enabled : true, radius : 2 }, color : "orange" }, false, false);
+seriesmodder.xAxis[0].setExtremes();
+// console.log("SERIES DONE");
