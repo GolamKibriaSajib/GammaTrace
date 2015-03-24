@@ -24,13 +24,9 @@ class SearchesController < ApplicationController
     @scopedsearch = @search.scopingsearch
     @scopedsearch = @scopedsearch.reject {|i|  i.common_fixed_fair_rate == nil}
     if graphType == "show_termstructure"
-      @scopedsearch1 = @scopedsearch.sort_by {|x| x.execution_timestamp}
-      @scopedsearch2 = @scopedsearch.sort_by {|x| x.end_date}
-
-      @scopedsearch_a = @scopedsearch1.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, topdata: (((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0))}}.to_json
-      @scopedsearch_alter = @scopedsearch2.map {|a| {x:(((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0)), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, execution_timestamp: ((a.execution_timestamp)*1000)}}
-      @scopedsearch_b = @scopedsearch_alter.to_json
-      Rails.logger.info "XXXX>>>#{@scopedsearch_alter.length}<<<XXXX"
+      termstructure_data
+    elsif graphType == "show_datatable"
+      datatable_data
     else
       @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
       @scopedsearch = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
@@ -44,6 +40,33 @@ class SearchesController < ApplicationController
     end
   end
 
+  def timeseries_data
+    @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
+    # @scopedsearch = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
+  end
+
+  def data_preprocessor
+  end
+
+  def termstructure_data
+    @scopedsearch1 = @scopedsearch.sort_by {|x| x.execution_timestamp}
+    @scopedsearch2 = @scopedsearch.sort_by {|x| x.end_date}
+    @scopedsearch_a = @scopedsearch1.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, topdata: (((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0))}}.to_json
+    @scopedsearch_alter = @scopedsearch2.map {|a| {x:(((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0)), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, execution_timestamp: ((a.execution_timestamp)*1000)}}
+    @scopedsearch_b = @scopedsearch_alter.to_json
+    Rails.logger.info "XXXX>>>#{@scopedsearch_alter.length}<<<XXXX"
+  end
+
+  def datatable_data
+    @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
+    Rails.logger.info ">>>>>>>>>>>>>> #{@scopedsearch} <<<<<<<<<<"
+  end
+
+  def vega_data
+  end
+
+  def delta 
+  end
 
 
   def chart_updater
@@ -69,19 +92,17 @@ class SearchesController < ApplicationController
     end
   end
 
-  # GET /searches/1/edit
+
   def edit
     respond_to do |format|
       format.js
     end
   end
 
-  # POST /searches
-  # POST /searches.json
+
   def create
     @searches = current_user.searches.all
     @search = current_user.searches.new(search_params)
-    # @search.user = current_user
     respond_to do |format|
       if @search.save
         format.html
@@ -92,8 +113,6 @@ class SearchesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /searches/1
-  # PATCH/PUT /searches/1.json
   def update
     respond_to do |format|
       if @search.update(search_params)
@@ -104,8 +123,6 @@ class SearchesController < ApplicationController
     end
   end
 
-  # DELETE /searches/1
-  # DELETE /searches/1.json
   def destroy
     @search.destroy
     respond_to do |format|

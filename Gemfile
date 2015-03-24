@@ -15,6 +15,8 @@ gem 'jquery-ui-rails'
 gem 'gon'
 gem 'angularjs-rails'
 gem 'angular-ui-bootstrap-rails'
+gem 'jquery-datatables-rails'
+
 
 gem 'crossfilter-rails'
 gem "highstock-rails", :git => "git://github.com/abrarmusa/highstock-rails.git"

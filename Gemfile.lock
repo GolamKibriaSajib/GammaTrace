@@ -114,6 +114,11 @@ GEM
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
+    jquery-datatables-rails (3.2.0)
+      actionpack (>= 3.1)
+      jquery-rails
+      railties (>= 3.1)
+      sass-rails
     jquery-rails (4.0.3)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
@@ -257,6 +262,7 @@ DEPENDENCIES
   highstock-rails!
   holidays
   jbuilder (~> 1.2)
+  jquery-datatables-rails
   jquery-rails
   jquery-turbolinks
   jquery-ui-rails

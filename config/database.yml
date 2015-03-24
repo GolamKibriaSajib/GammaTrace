@@ -19,8 +19,8 @@ development:
   encoding: unicode
   database: GammatraceDB
   pool: 5
-  username: test_ro_user
-  password: CzRVvHFr1jHKhM1
+  username: test_rw_user
+  password: pQ5vEmQhwqDZYl0
   host: gammatracedb.cbvkzeetao0u.eu-west-1.rds.amazonaws.com
   port: 5432
 

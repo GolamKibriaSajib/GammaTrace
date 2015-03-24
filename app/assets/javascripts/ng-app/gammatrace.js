@@ -53,14 +53,15 @@ angular.module('Gammatrace')
 
 
 
-    $scope.addDatatableWidget = function() {
+    $scope.addDataTableWidget = function() {
       randId = chance.hash();
       $scope.dashboard.widgets.push({
         name: "New Widget",
         sizeX: 1,
         sizeY: 1,
         graphType: "datatable",
-        gTypeName: "Data Table"
+        gTypeName: "Data Table",
+        randId: randId
       });
     };
 
