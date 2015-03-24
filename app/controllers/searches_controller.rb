@@ -59,7 +59,7 @@ class SearchesController < ApplicationController
 
   def datatable_data
     @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
-    Rails.logger.info ">>>>>>>>>>>>>> #{@scopedsearch} <<<<<<<<<<"
+    # Rails.logger.info ">>>>>>>>>>>>>> #{@scopedsearch.first.spread_delta} <<<<<<<<<<"
   end
 
   def vega_data

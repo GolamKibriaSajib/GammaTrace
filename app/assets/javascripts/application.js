@@ -13,7 +13,6 @@
 //= require turbolinks
 //= require jquery
 //= require jquery_ujs
-//= require dataTables/jquery.dataTables
 //= require bootstrap
 //= require jquery-ui
 //= require highstock

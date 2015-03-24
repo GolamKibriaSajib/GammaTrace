@@ -1,5 +1,5 @@
 
-%table#datatablestable-hover{style: "width:100%;cellspacing:0px;"}
+%table#datatables.table-bordered.table-hover{style: "width:100%;cellspacing:0px;"}
   %thead
     %tr
       %th Effective date
@@ -18,9 +18,7 @@
 
 :javascript
   $(function () {
-   $('#datatables').DataTable({
-      responsive: true
-    });
+    $('[data-toggle="tooltip"]').tooltip();
 
   });
 
