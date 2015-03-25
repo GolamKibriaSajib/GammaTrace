@@ -1,5 +1,5 @@
 $("#<%= @bodyidentifier -%> .panel-heading .widgetname").empty();
 $("#<%= @bodyidentifier -%> .panel-heading .widgetname").html("<%= j render 'searchname' %>");
-$("#<%= @bodyidentifier -%> .panel-heading ,widgetname").prepend("Delta: ");
+$("#<%= @bodyidentifier -%> .panel-heading .widgetname").prepend("Delta: ");
 $("#<%= @bodyidentifier -%> .panel-body").empty();
 $("#<%= @bodyidentifier -%> .panel-body").html("<%= j render 'show_delta' %>");

@@ -1,4 +1,4 @@
-%table.datatabler.table.table-bordered.table-hover{style: "width:100%;cellspacing:0px;"}
+%table.datatabler2.table.table-bordered.table-hover{style: "width:100%;cellspacing:0px;"}
   %thead
     %tr
       %th 
@@ -7,17 +7,25 @@
         %th
 
   %tbody
-    - @deltahasharray["periods"].each do |s|
+    - counter = 0
+    - @deltahasharray["periods"].each_with_index do |item, index|
       %tr
-        %td=s
-        -# - @deltahasharray["curveDeltas"].each do |item|
-        %td
-        %td
+        %td=item
+        - if counter < @curveDeltaCount
+          - if index < (@objectcount - 1)
+            %td=(((@deltahasharray["curveDeltas"])[counter])["quoteInstrumentTypes"])[index]
+            %td=(((@deltahasharray["curveDeltas"])[counter])["deltaValues"])[index]
+          - elsif index == (@objectcount - 1)
+            %td=(((@deltahasharray["curveDeltas"])[counter])["quoteInstrumentTypes"])[index]
+            %td=(((@deltahasharray["curveDeltas"])[counter])["deltaValues"])[index]
+            -counter+=1
+          - else
+            %td No Info available
         %td
 
 
 :javascript
-  $('.datatabler').DataTable({
+  $('.datatabler2').DataTable({
       "searching": false,
       "lengthChange": false,
       "info": false,
