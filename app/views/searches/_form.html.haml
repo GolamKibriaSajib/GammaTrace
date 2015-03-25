@@ -7,13 +7,13 @@
     = f.select :taxonomy,[["Interest Rate Swap","InterestRate:IRSwap:FixedFloat"], ["OIS Swap", "OIS Swap: InterestRate:IRSwap:OIS"], ["CCY Swap", "CCY Swap: InterestRate:CrossCurrency:Basis"], ["Cross Currency Fixed/Float", "InterestRate:CrossCurrency:FixedFloat"], ["Cross Currency Fixed/Fixed", "InterestRate:CrossCurrency:FixedFixed"], ["Swaption", "Swaption: InterestRate:Option:Swaption"], ["Cap/Floor", "Cap/Floor: InterestRate:CapFloor"]]
   #cleared
     = f.label :cleared, "Cleared: "
-    = f.select :cleared, [["Cleared", "C"],["Uncleared", "U"]]
+    = f.select :cleared, [["Cleared", "C"],["Uncleared", "U"], ["Unspecified", ""]]
   #indcol
     = f.label  :indication_of_collateralization, "Collateral: "
-    = f.select :indication_of_collateralization, [["Fully","FC"],["Over","OC"],["Partially","PC"],["None","UC"]]
+    = f.select :indication_of_collateralization, [["Fully","FC"],["Over","OC"],["Partially","PC"],["None","UC"], ["Unspecified", ""]]
   #indexec
     = f.label  :indication_of_end_user_exception, "End User?: "
-    = f.select :indication_of_end_user_exception, [["Yes","Y"],["No","N"]]
+    = f.select :indication_of_end_user_exception, [["Yes","Y"],["No","N"], ["Unspecified", ""]]
   #execven
     = f.label  :execution_venue, "SEF?: "
     = f.check_box :execution_venue, {}, "ON", "OFF"

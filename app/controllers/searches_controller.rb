@@ -88,22 +88,23 @@ class SearchesController < ApplicationController
             if iter.has_key?("name")
               if iter["name"] == newhash["name"]
                 iter["deltaValues"] = [iter["deltaValues"], newhash["deltaValues"]].transpose.map{|a| a.sum}
+              else 
+                (@deltahasharray["curveDeltas"]).push(newhash)
               end
             end
           end
-        else 
-          @deltahasharray["curveDeltas"].push(newhash)
+
         end
       end
       
     end
     @curveDeltaCount = @deltahasharray["curveDeltas"].count
-    @objectcount = ((@deltahasharray["curveDeltas"][0])["quoteInstrumentTypes"]).count
+    # @objectcount = ((@deltahasharray["curveDeltas"][0])["quoteInstrumentTypes"]).count
     Rails.logger.info("#{@deltahasharray["periods"]}")
     Rails.logger.info("#{@deltahasharray["curveDeltas"]}")
     Rails.logger.info("XXXXXXXXX#{(((@deltahasharray["curveDeltas"])[0])["quoteInstrumentTypes"])[0]}XXXXXXXXXXXX")
     Rails.logger.info("MMMM#{@curveDeltaCount}MMMM")
-    Rails.logger.info("MMMM#{@objectcount}MMMM")
+    # Rails.logger.info("MMMM#{@objectcount}MMMM")
   end
 
 
