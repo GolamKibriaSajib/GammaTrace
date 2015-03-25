@@ -93,7 +93,8 @@ class SearchesController < ApplicationController
               end
             end
           end
-
+        else
+          (@deltahasharray["curveDeltas"]).push(newhash)
         end
       end
       
