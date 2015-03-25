@@ -1,25 +1,30 @@
-
-%table#datatables.table-bordered.table-hover{style: "width:100%;cellspacing:0px;"}
+%table.datatabler.table.table-bordered.table-hover{style: "width:100%;cellspacing:0px;"}
   %thead
     %tr
+      %th Dissemination id
       %th Effective date
       %th End date
       %th Floating Leg
-      %th Price Metric
 
   %tbody
     - @scopedsearch.each do |s|
       %tr
-        %td.clicker#tooler= link_to Time.at(s.effective_date), 'javascript:void(0)',"data-placement" => "top", :title => "\tDissemination_id: #{s.dissemination_id}\nCleared: #{s.cleared}\nIndication of Collateralization: #{s.indication_of_collateralization}\nIndication of End User Exception: #{s.indication_of_end_user_exception}\nSEF?: #{s.execution_venue}\nEffective date: #{Time.at(s.effective_date)}\nEnd date: #{Time.at(s.end_date)}\nCurrency: #{s.settlement_currency}\nRounded Notional Amount: #{s.rounded_notional_amount_1}\nCommon Fixed Fair Rate: #{s.common_fixed_fair_rate}\nEffective Date Fixed Fair Rate: #{s.effective_date_fixed_fair_rate}\nEnd Date Fixed Fair Rate: #{s.end_date_fixed_fair_rate}\nFixed Delta: #{s.fixed_delta}\nSpread Delta: #{s.spread_delta}", "data-toggle" => "tooltip"
-        %td= Time.at(s.end_date)
+        %td=s.dissemination_id
+        %td.clicker.hint#tooler{"data-hint" => "Dissemination_id: #{s.dissemination_id}\nCleared: #{s.cleared}\nIndication of Collateralization: #{s.indication_of_collateralization}\nIndication of End User Exception: #{s.indication_of_end_user_exception}\nSEF?: #{s.execution_venue}\nEffective date: #{Time.at(s.effective_date)}\nEnd date: #{Time.at(s.end_date)}\nCurrency: #{s.settlement_currency}\nRounded Notional Amount: #{s.rounded_notional_amount_1}\nCommon Fixed Fair Rate: #{s.common_fixed_fair_rate}\nEffective Date Fixed Fair Rate: #{s.effective_date_fixed_fair_rate}\nEnd Date Fixed Fair Rate: #{s.end_date_fixed_fair_rate}"}= Time.at(s.effective_date)
         %td
         %td
 
 
 :javascript
   $(function () {
+    
+    
     $('[data-toggle="tooltip"]').tooltip();
-
+  });
+  $('.datatabler').DataTable({
+      "searching": false,
+      "lengthChange": false,
+      "info": false
   });
 
 

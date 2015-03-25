@@ -29,7 +29,7 @@
     saveGridItemCalculatedHeightInMobile: false, // grid item height in mobile display. true- to use the calculated height by sizeY given
     resizable: { // options to pass to resizable handler
       enabled: true,
-      handles: ['se', 'e', 'n', 'w', 'ne', 'sw', 'nw'],
+      handles: ['s', 'se', 'e', 'n', 'w', 'ne', 'sw', 'nw'],
       start: function(e, t, n) {
           window.dispatchEvent(new Event("resize"))
       },

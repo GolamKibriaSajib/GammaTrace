@@ -27,6 +27,8 @@ class SearchesController < ApplicationController
       termstructure_data
     elsif graphType == "show_datatable"
       datatable_data
+    elsif graphType == "show_delta"
+      delta_data
     else
       @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
       @scopedsearch = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
@@ -59,13 +61,45 @@ class SearchesController < ApplicationController
 
   def datatable_data
     @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
-    # Rails.logger.info ">>>>>>>>>>>>>> #{@scopedsearch.first.spread_delta} <<<<<<<<<<"
+    Rails.logger.info ">>>>>>>>>>>>>> #{@scopedsearch.first.fixed_delta} <<<<<<<<<<"
+    Rails.logger.info ">>>>>>>>>>>>>> #{@scopedsearch.second.fixed_delta} <<<<<<<<<<"
   end
 
   def vega_data
   end
 
-  def delta 
+  def delta_data
+    @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
+    detailparser
+  end
+
+  def detailparser
+    @deltahasharray =  {"periods" => [], "curveDeltas" => []}
+    @scopedsearch.each do |item|
+      fixed_delta = JSON.parse(item.fixed_delta)
+      @deltahasharray["periods"] = @deltahasharray["periods"] | fixed_delta["periods"]
+      fixed_delta["curveDeltas"].each do |hashmaker|
+        newhash = {}
+        newhash["name"] = hashmaker["name"]
+        newhash["quoteInstrumentTypes"] = hashmaker["quoteInstrumentTypes"]
+        newhash["deltaValues"] = hashmaker["deltaValues"]
+        if @deltahasharray["curveDeltas"].count > 0 
+          @deltahasharray["curveDeltas"].each do |iter|
+            if iter.has_key?("name")
+              if iter["name"] == newhash["name"]
+                iter["deltaValues"] = [iter["deltaValues"], newhash["deltaValues"]].transpose.map{|a| a.sum}
+              end
+            end
+          end
+        else 
+          @deltahasharray["curveDeltas"].push(newhash)
+        end
+
+      end
+      
+    end
+      Rails.logger.info("#{@deltahasharray["periods"]}")
+      Rails.logger.info("#{@deltahasharray["curveDeltas"]}")
   end
 
 

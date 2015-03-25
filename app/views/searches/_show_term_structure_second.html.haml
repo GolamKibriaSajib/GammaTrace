@@ -23,7 +23,7 @@
                     var y = randomFloatBetween(1.7,1.85,4);
                     var dissId= 12343;
                     series.addPoint({x: x, y: y, dissId: dissId}, true, true, false);
-                }, 2000));
+                }, 30000));
             }
         },
         animation: false
@@ -62,8 +62,6 @@
                   var series2 = chart2.series[0];
                   var max = chart1.xAxis[0].getExtremes().max;
                   var min = chart1.xAxis[0].getExtremes().min;
-                  console.log("GOT IT "+ series1.data.length + ">> COMPARE >> "+ series2.data.length);
-                  console.log("Max: " + max+ " Min: " + chart1.xAxis[0].getExtremes().min);
                   var datatosend = {"body_id" : body_id, "data_set" : JSON.stringify(data_to_send), "max": max, "min": min};
                   $.ajax({
                       type: "POST",

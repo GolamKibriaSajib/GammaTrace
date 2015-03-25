@@ -1,63 +1,28 @@
+%table.datatabler.table.table-bordered.table-hover{style: "width:100%;cellspacing:0px;"}
+  %thead
+    %tr
+      %th 
+      - @deltahasharray["curveDeltas"].each do |item|
+        %th=item["name"]
+        %th
+
+  %tbody
+    - @deltahasharray["periods"].each do |s|
+      %tr
+        %td=s
+        -# - @deltahasharray["curveDeltas"].each do |item|
+        %td
+        %td
+        %td
+
+
 :javascript
-  $(function () {
-    var $container =  $("#"+ droppableDiv +" .panel-body")
-    var data = #{@scopedsearch};
-      $("##{@bodyidentifier} .panel-body").highcharts('StockChart', {
-          credits: {
-            enabled: false
-          },
-          title: {
-            style: {
-              color: 'black',
-              fontSize: '12px',
-              display: 'none'
-            },
-            text: "Delta: #{@search.name}"
-          },
-          chart: {
-            renderTo: $container[0],
-            type: 'column',
-            zoomType: 'xy'
-          },
-          navigator: {
-              maskFill: 'rgba(209, 74, 0, 0.5)',
-              series: {
-                  color: 'rgba(209, 74, 0, 0.5)',
-                  lineColor: "orange"
-              }
-          },
-          rangeSelector : {
-              enabled : false,
-              selected : 1,
-              inputEnabled: $("#"+ droppableDiv +"").width() > 480
-          },
-          xAxis: {        
-              type: 'datetime',
-              labels: {
-                  formatter: function() {
-                      var dayStr = Highcharts.dateFormat('%d', this.value);
-                      var yearStr = Highcharts.dateFormat('%y', this.value);
-                      var monthStr = Highcharts.dateFormat('%b', this.value);
-                      return monthStr + " " + dayStr + ", " + yearStr;
-                  }
-              }
-          },
-          tooltip: {
-              formatter: function() {
-                      var s = "";
-                      $.each(this.points, function(i, point) {
-                        s += 'Dissemination id: ' + point.point.dissId;
-                 });
-                 return s;
-              }
-          },
-          series : [{
-              data : data,
-              color : "orange",
-              tooltip: {
-                  valueDecimals: 2
-              }
-          }]
-      });
+  $('.datatabler').DataTable({
+      "searching": false,
+      "lengthChange": false,
+      "info": false,
+      "order": []
   });
+
+
 

@@ -57,10 +57,47 @@ angular.module('Gammatrace')
       randId = chance.hash();
       $scope.dashboard.widgets.push({
         name: "New Widget",
-        sizeX: 1,
-        sizeY: 1,
+        sizeX: 6,
+        sizeY: 4,
         graphType: "datatable",
         gTypeName: "Data Table",
+        randId: randId
+      });
+      var divname = "#datatable"+ randId;
+    };
+
+    $scope.addDeltaWidget = function() {
+      randId = chance.hash();
+      $scope.dashboard.widgets.push({
+        name: "New Widget",
+        sizeX: 6,
+        sizeY: 4,
+        graphType: "delta",
+        gTypeName: "Delta",
+        randId: randId
+      });
+    };
+
+    $scope.addCcyDeltaWidget = function() {
+      randId = chance.hash();
+      $scope.dashboard.widgets.push({
+        name: "New Widget",
+        sizeX: 6,
+        sizeY: 4,
+        graphType: "ccydelta",
+        gTypeName: "CCY Delta",
+        randId: randId
+      });
+    };
+
+    $scope.addSpreadDeltaWidget = function() {
+      randId = chance.hash();
+      $scope.dashboard.widgets.push({
+        name: "New Widget",
+        sizeX: 6,
+        sizeY: 4,
+        graphType: "spreaddelta",
+        gTypeName: "Spread Delta",
         randId: randId
       });
     };

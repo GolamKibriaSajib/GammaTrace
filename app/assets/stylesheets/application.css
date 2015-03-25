@@ -10,7 +10,8 @@
  *
  *= require bootstrap_and_overrides
  *= require font-awesome
- *= require datatablesbootstrap
+ *= hint.min
  *= require_self
  *= require_tree .
+ *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
  */
