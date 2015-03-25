@@ -100,12 +100,12 @@ class SearchesController < ApplicationController
       
     end
     @curveDeltaCount = @deltahasharray["curveDeltas"].count
-    # @objectcount = ((@deltahasharray["curveDeltas"][0])["quoteInstrumentTypes"]).count
+    @objectcount = ((@deltahasharray["curveDeltas"][0])["quoteInstrumentTypes"]).count
     Rails.logger.info("#{@deltahasharray["periods"]}")
     Rails.logger.info("#{@deltahasharray["curveDeltas"]}")
     Rails.logger.info("XXXXXXXXX#{(((@deltahasharray["curveDeltas"])[0])["quoteInstrumentTypes"])[0]}XXXXXXXXXXXX")
     Rails.logger.info("MMMM#{@curveDeltaCount}MMMM")
-    # Rails.logger.info("MMMM#{@objectcount}MMMM")
+    Rails.logger.info("MMMM#{@objectcount}MMMM")
   end
 
 
