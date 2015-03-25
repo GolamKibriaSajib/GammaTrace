@@ -17,7 +17,7 @@ class Search < ActiveRecord::Base
         wc =  col + " = '" + val.to_s + "'"
         puts wc
         arr.push(wc)
-      elsif (col == "effective_date" || col == "end_date") && val != nil 
+      elsif (col == "effective_date" || col == "end_date") && val != ""
         wcmult =  regex_translator(col, val)
         wc1 = wcmult.first
         arr.push(wc1)
