@@ -1,0 +1,53 @@
+:javascript  
+  var data = #{@scopedsearch_a};
+
+  chartid = chance.hash();
+  $("##{@bodyidentifier} .panel-body .second").highcharts('StockChart', {
+      credits: {
+        enabled: false
+      },
+      chart: {
+        type: 'spline',
+        zoomType: 'x',
+        height: 78,
+        animation: false
+      },
+      scrollbar : {
+        enabled : true
+      },
+      navigator: {
+          maskFill: 'rgba(209, 74, 0, 0.5)',
+          series: {
+              color: 'rgba(209, 74, 0, 0.5)',
+              lineColor: "orange"
+          }
+      },
+      rangeSelector: {
+          enabled : false
+      },
+      xAxis: {        
+        type: "datetime",
+        lineWidth: 0,
+        minorGridLineWidth: 0,
+        lineColor: 'rgba(0, 0, 0, 0)',
+        labels: {
+            enabled: false
+        },
+        minorTickLength: 0,
+        tickLength: 0
+      },
+      yAxis: {
+        height: 0,
+        gridLineWidth: 0,
+        labels: {
+            enabled: false
+        }
+      },
+      tooltip: {
+        enabled: false
+      },
+      series: [{
+          data: data
+          }]
+        });
+

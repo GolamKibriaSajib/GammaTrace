@@ -96,7 +96,7 @@ angular.module('Gammatrace')
         name: "New Widget",
         sizeX: 6,
         sizeY: 4,
-        graphType: "spreaddelta",
+        graphType: "spread_delta",
         gTypeName: "Spread Delta",
         randId: randId
       });

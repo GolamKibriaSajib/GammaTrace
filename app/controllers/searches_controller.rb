@@ -17,6 +17,7 @@ class SearchesController < ApplicationController
   end
 
   def show_chart
+    Rails.logger.info "HELLO"
     graphType = "show_".concat(params[:graph_type])
     @bodyidentifier = params[:bodyid]
     gon.searchName = "FA"
@@ -29,6 +30,8 @@ class SearchesController < ApplicationController
       datatable_data
     elsif graphType == "show_delta"
       delta_data
+    elsif graphType == "show_spread_delta"
+      spread_delta_data
     else
       @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
       @scopedsearch = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
@@ -56,13 +59,10 @@ class SearchesController < ApplicationController
     @scopedsearch_a = @scopedsearch1.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, topdata: (((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0))}}.to_json
     @scopedsearch_alter = @scopedsearch2.map {|a| {x:(((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0)), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, execution_timestamp: ((a.execution_timestamp)*1000)}}
     @scopedsearch_b = @scopedsearch_alter.to_json
-    Rails.logger.info "XXXX>>>#{@scopedsearch_alter.length}<<<XXXX"
   end
 
   def datatable_data
     @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
-    Rails.logger.info ">>>>>>>>>>>>>> #{@scopedsearch.first.fixed_delta} <<<<<<<<<<"
-    Rails.logger.info ">>>>>>>>>>>>>> #{@scopedsearch.second.fixed_delta} <<<<<<<<<<"
   end
 
   def vega_data
@@ -71,7 +71,15 @@ class SearchesController < ApplicationController
   def delta_data
     @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
     detailparser
+    @scopedsearch_a = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, topdata: (((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0))}}.to_json
   end
+
+  def spread_delta_data
+    @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
+    detailparser2
+    @scopedsearch_a = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, topdata: (((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0))}}.to_json
+  end
+
 
   def detailparser
     @deltahasharray =  {"periods" => [], "curveDeltas" => []}
@@ -101,6 +109,37 @@ class SearchesController < ApplicationController
     end
     @curveDeltaCount = @deltahasharray["curveDeltas"].count
     @objectcount = ((@deltahasharray["curveDeltas"][0])["quoteInstrumentTypes"]).count
+  end
+
+  def detailparser2
+    @deltahasharray =  {"periods" => [], "curveDeltas" => []}
+    @scopedsearch.each do |item|
+      spread_delta = JSON.parse(item.spread_delta)
+      @deltahasharray["periods"] = @deltahasharray["periods"] | spread_delta["periods"]
+      spread_delta["curveDeltas"].each do |hashmaker|
+        newhash = {}
+        newhash["name"] = hashmaker["name"]
+        newhash["quoteInstrumentTypes"] = hashmaker["quoteInstrumentTypes"]
+        newhash["deltaValues"] = hashmaker["deltaValues"]
+        if @deltahasharray["curveDeltas"].count > 0 
+          @deltahasharray["curveDeltas"].each do |iter|
+            if iter.has_key?("name")
+              if iter["name"] == newhash["name"]
+                Rails.logger.info ">>>>>>>>>>>>>>#{iter["deltaValues"]}<<<<<<<<<<<"
+                iter["deltaValues"] = [iter["deltaValues"], newhash["deltaValues"]].transpose.map{|a| a.sum}
+              else 
+                (@deltahasharray["curveDeltas"]).push(newhash)
+              end
+            end
+          end
+        else
+          (@deltahasharray["curveDeltas"]).push(newhash)
+        end
+      end
+      
+    end
+    @curveDeltaCount = @deltahasharray["curveDeltas"].count
+    @objectcount = ((@deltahasharray["curveDeltas"][0])["quoteInstrumentTypes"]).count
     Rails.logger.info("#{@deltahasharray["periods"]}")
     Rails.logger.info("#{@deltahasharray["curveDeltas"]}")
     Rails.logger.info("XXXXXXXXX#{(((@deltahasharray["curveDeltas"])[0])["quoteInstrumentTypes"])[0]}XXXXXXXXXXXX")
@@ -114,10 +153,8 @@ class SearchesController < ApplicationController
     min_execution_timestamp = (params[:min]).to_f;
     max_execution_timestamp = (params[:max]).to_f;
     @body_id = params[:body_id]
-    Rails.logger.info ">>>>>>>>>>>>>>>>>>>>> #{@data_set.first}"
     @modifiedseta = @data_set.delete_if {|x| ((x["execution_timestamp"] < min_execution_timestamp) || (x["execution_timestamp"]  > max_execution_timestamp))}
     @modifiedset = @modifiedseta.to_json
-    Rails.logger.info ">>>>>#{@modifiedseta.length}<<<<<"
     respond_to do |format|
       format.js
     end
