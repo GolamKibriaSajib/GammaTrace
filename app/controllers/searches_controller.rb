@@ -11,13 +11,10 @@ class SearchesController < ApplicationController
     end
   end
 
-  # GET /searches/1
-  # GET /searches/1.json
   def show
   end
 
   def show_chart
-    Rails.logger.info "HELLO"
     graphType = "show_".concat(params[:graph_type])
     @bodyidentifier = params[:bodyid]
     gon.searchName = "FA"
@@ -29,9 +26,9 @@ class SearchesController < ApplicationController
     elsif graphType == "show_datatable"
       datatable_data
     elsif graphType == "show_delta"
-      delta_data
+      delta_data("delta")
     elsif graphType == "show_spread_delta"
-      spread_delta_data
+      delta_data("spread_delta")
     else
       @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
       @scopedsearch = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
@@ -68,86 +65,54 @@ class SearchesController < ApplicationController
   def vega_data
   end
 
-  def delta_data
+  def delta_data(deltatype)
     @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
-    detailparser
     @scopedsearch_a = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, topdata: (((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0))}}.to_json
-  end
-
-  def spread_delta_data
-    @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
-    detailparser2
-    @scopedsearch_a = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, topdata: (((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0))}}.to_json
+    detailparser(deltatype)
   end
 
 
-  def detailparser
-    @deltahasharray =  {"periods" => [], "curveDeltas" => []}
+  def detailparser(deltatype)
+    @deltahasharray =  {"periods" => [], "curveDeltas" => {}}
+    deltaperiodmanager = @deltahasharray["periods"]
+    deltacurvemanager = @deltahasharray["curveDeltas"]
     @scopedsearch.each do |item|
-      fixed_delta = JSON.parse(item.fixed_delta)
-      @deltahasharray["periods"] = @deltahasharray["periods"] | fixed_delta["periods"]
-      fixed_delta["curveDeltas"].each do |hashmaker|
+
+      if deltatype == "delta"
+        delta = JSON.parse(item.fixed_delta)
+      else
+        delta = JSON.parse(item.spread_delta)
+      end
+
+      deltaperiodmanager = deltaperiodmanager | delta["periods"]
+
+      @deltahasharray["periods"] = deltaperiodmanager
+
+      delta["curveDeltas"].each do |hashmaker|
+        curve_name = hashmaker["name"]
+        curve_instr_types = hashmaker["quoteInstrumentTypes"]
+        curve_delta_values = hashmaker["deltaValues"]
+        curve_delta_values = curve_delta_values.map { |x| x ? x : 0 }
         newhash = {}
-        newhash["name"] = hashmaker["name"]
-        newhash["quoteInstrumentTypes"] = hashmaker["quoteInstrumentTypes"]
-        newhash["deltaValues"] = hashmaker["deltaValues"]
-        if @deltahasharray["curveDeltas"].count > 0 
-          @deltahasharray["curveDeltas"].each do |iter|
-            if iter.has_key?("name")
-              if iter["name"] == newhash["name"]
-                iter["deltaValues"] = [iter["deltaValues"], newhash["deltaValues"]].transpose.map{|a| a.sum}
-              else 
-                (@deltahasharray["curveDeltas"]).push(newhash)
-              end
-            end
-          end
+        if deltacurvemanager.has_key?(curve_name)
+          deltacurvemanager[curve_name][1] = [curve_delta_values, deltacurvemanager[curve_name][1]].transpose.map{|a| a.sum}
         else
-          (@deltahasharray["curveDeltas"]).push(newhash)
+          deltacurvemanager.store(curve_name, [ curve_instr_types, curve_delta_values ] )
         end
       end
-      
     end
-    @curveDeltaCount = @deltahasharray["curveDeltas"].count
-    @objectcount = ((@deltahasharray["curveDeltas"][0])["quoteInstrumentTypes"]).count
-  end
 
-  def detailparser2
-    @deltahasharray =  {"periods" => [], "curveDeltas" => []}
-    @scopedsearch.each do |item|
-      spread_delta = JSON.parse(item.spread_delta)
-      @deltahasharray["periods"] = @deltahasharray["periods"] | spread_delta["periods"]
-      spread_delta["curveDeltas"].each do |hashmaker|
-        newhash = {}
-        newhash["name"] = hashmaker["name"]
-        newhash["quoteInstrumentTypes"] = hashmaker["quoteInstrumentTypes"]
-        newhash["deltaValues"] = hashmaker["deltaValues"]
-        if @deltahasharray["curveDeltas"].count > 0 
-          @deltahasharray["curveDeltas"].each do |iter|
-            if iter.has_key?("name")
-              if iter["name"] == newhash["name"]
-                Rails.logger.info ">>>>>>>>>>>>>>#{iter["deltaValues"]}<<<<<<<<<<<"
-                iter["deltaValues"] = [iter["deltaValues"], newhash["deltaValues"]].transpose.map{|a| a.sum}
-              else 
-                (@deltahasharray["curveDeltas"]).push(newhash)
-              end
-            end
-          end
-        else
-          (@deltahasharray["curveDeltas"]).push(newhash)
-        end
-      end
-      
-    end
-    @curveDeltaCount = @deltahasharray["curveDeltas"].count
-    @objectcount = ((@deltahasharray["curveDeltas"][0])["quoteInstrumentTypes"]).count
-    Rails.logger.info("#{@deltahasharray["periods"]}")
-    Rails.logger.info("#{@deltahasharray["curveDeltas"]}")
-    Rails.logger.info("XXXXXXXXX#{(((@deltahasharray["curveDeltas"])[0])["quoteInstrumentTypes"])[0]}XXXXXXXXXXXX")
-    Rails.logger.info("MMMM#{@curveDeltaCount}MMMM")
-    Rails.logger.info("MMMM#{@objectcount}MMMM")
+    @curveDeltaCount = deltacurvemanager.length    
+    @deltaobjects = @deltahasharray["curveDeltas"]
+    @deltakeys = @deltaobjects.keys
+    @objectcount = @deltahasharray["curveDeltas"][@deltakeys[0]][0].count
+    Rails.logger.info("#{@deltahasharray}")
+    Rails.logger.info("#{@objectcount}")
+
   end
 
 
+      
   def chart_updater
     @data_set = JSON.parse(params[:data_set]);
     min_execution_timestamp = (params[:min]).to_f;

@@ -2,8 +2,8 @@
   %thead
     %tr
       %th 
-      - @deltahasharray["curveDeltas"].each do |item|
-        %th=item["name"]
+      - @deltahasharray["curveDeltas"].keys.each do |item|
+        %th=item
         %th
 
   %tbody
@@ -13,15 +13,17 @@
         %td=item
         - if counter < @curveDeltaCount
           - if index < (@objectcount - 1)
-            %td=(((@deltahasharray["curveDeltas"])[counter])["quoteInstrumentTypes"])[index]
-            %td=(((@deltahasharray["curveDeltas"])[counter])["deltaValues"])[index]
+
+            %td= @deltaobjects[@deltakeys[counter]][0][index]
+            %td= @deltaobjects[@deltakeys[counter]][1][index]
+
           - elsif index == (@objectcount - 1)
-            %td=(((@deltahasharray["curveDeltas"])[counter])["quoteInstrumentTypes"])[index]
-            %td=(((@deltahasharray["curveDeltas"])[counter])["deltaValues"])[index]
+            %td= @deltaobjects[@deltakeys[counter]][0][index]
+            %td= @deltaobjects[@deltakeys[counter]][1][index]
             -counter+=1
           - else
             %td No Info available
-        %td
+            %td
 
 
 :javascript
