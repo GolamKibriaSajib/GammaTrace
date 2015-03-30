@@ -2,7 +2,7 @@
   %thead
     %tr
       %th 
-      - @deltahasharray["curveDeltas"].keys.each do |item|
+      - @deltakeys.each do |item|
         %th=item
         %th
 
@@ -11,19 +11,23 @@
     - @deltahasharray["periods"].each_with_index do |item, index|
       %tr
         %td=item
-        - if counter < @curveDeltaCount
-          - if index < (@objectcount - 1)
+        - (0..(@deltakeys.length-1)).each do |indexer|
+          %td= @deltaobjects[@deltakeys[indexer]][0][index]
+          %td= @deltaobjects[@deltakeys[indexer]][1][index]
+        -# - if counter < @curveDeltaCount
+        -#   - if index < (@objectcount - 1)
+        -#     -# - (0...@objectcount-1).each do
+        -#       %td= @deltaobjects[@deltakeys[counter]][0][index]
+        -#       %td= @deltaobjects[@deltakeys[counter]][1][index]
 
-            %td= @deltaobjects[@deltakeys[counter]][0][index]
-            %td= @deltaobjects[@deltakeys[counter]][1][index]
-
-          - elsif index == (@objectcount - 1)
-            %td= @deltaobjects[@deltakeys[counter]][0][index]
-            %td= @deltaobjects[@deltakeys[counter]][1][index]
-            -counter+=1
-          - else
-            %td No Info available
-            %td
+        -#   - elsif index == (@objectcount - 1)
+        -#     -# - (0..@deltakeys.length).each do
+        -#       %td= @deltaobjects[@deltakeys[counter]][0][index]
+        -#       %td= @deltaobjects[@deltakeys[counter]][1][index]
+        -#     -counter+=1
+        -#   - else
+        -#     %td No Info available
+        -#     %td
 
 
 :javascript

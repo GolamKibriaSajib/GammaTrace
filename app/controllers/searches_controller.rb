@@ -90,7 +90,9 @@ class SearchesController < ApplicationController
 
       delta["curveDeltas"].each do |hashmaker|
         curve_name = hashmaker["name"]
+
         curve_instr_types = hashmaker["quoteInstrumentTypes"]
+        curve_instr_types = curve_instr_types.map { |x| x ? x : "N/A" }
         curve_delta_values = hashmaker["deltaValues"]
         curve_delta_values = curve_delta_values.map { |x| x ? x : 0 }
         newhash = {}
