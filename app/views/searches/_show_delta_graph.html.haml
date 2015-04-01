@@ -1,6 +1,8 @@
 :javascript  
   var data = #{@scopedsearch_a};
-
+  var data_to_send = #{@scopedsearch};
+  var body_id = "#{@bodyidentifier}";
+  var delta_type = "#{@delta_type}";
   chartid = chance.hash();
   $("##{@bodyidentifier} .panel-body .second").highcharts('StockChart', {
       credits: {
@@ -34,7 +36,25 @@
             enabled: false
         },
         minorTickLength: 0,
-        tickLength: 0
+        tickLength: 0,
+        events: {
+
+              afterSetExtremes: function (e) {
+                
+                if( !down ){
+                  var chart1 = $("##{@bodyidentifier} .panel-body .second").highcharts();
+                  var series1 = chart1.series[0];
+                  var max = chart1.xAxis[0].getExtremes().max;
+                  var min = chart1.xAxis[0].getExtremes().min;
+                  var datatosend = {"body_id" : body_id, "data_set" : JSON.stringify(data_to_send), "max": max, "min": min, "delta_type": delta_type};
+                  $.ajax({
+                      type: "POST",
+                      url: "/users/" + gon.userid + "/searches/" + searchId + "/table_updater",
+                      data: datatosend
+                  })
+                }
+              }
+          }
       },
       yAxis: {
         height: 0,

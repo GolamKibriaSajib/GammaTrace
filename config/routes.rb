@@ -9,6 +9,7 @@ Quantapp::Application.routes.draw do
     resources :searches do
       post :show_chart, on: :member
       post :chart_updater, on: :member
+      post :table_updater, on: :member
     end
     resources :views
   end

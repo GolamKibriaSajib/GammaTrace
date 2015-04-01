@@ -9,9 +9,11 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require bootstrap_and_overrides
+ *= require toastr
  *= require font-awesome
  *= hint.min
  *= require_self
  *= require_tree .
  *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+ *= require dataTables/extras/dataTables.scroller
  */

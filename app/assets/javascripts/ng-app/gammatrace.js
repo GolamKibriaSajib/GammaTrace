@@ -70,8 +70,8 @@ angular.module('Gammatrace')
       randId = chance.hash();
       $scope.dashboard.widgets.push({
         name: "New Widget",
-        sizeX: 6,
-        sizeY: 4,
+        sizeX: 5,
+        sizeY: 3,
         graphType: "delta",
         gTypeName: "Delta",
         randId: randId
@@ -82,8 +82,8 @@ angular.module('Gammatrace')
       randId = chance.hash();
       $scope.dashboard.widgets.push({
         name: "New Widget",
-        sizeX: 6,
-        sizeY: 4,
+        sizeX: 5,
+        sizeY: 3,
         graphType: "ccydelta",
         gTypeName: "CCY Delta",
         randId: randId
@@ -94,8 +94,8 @@ angular.module('Gammatrace')
       randId = chance.hash();
       $scope.dashboard.widgets.push({
         name: "New Widget",
-        sizeX: 6,
-        sizeY: 4,
+        sizeX: 5,
+        sizeY: 3,
         graphType: "spread_delta",
         gTypeName: "Spread Delta",
         randId: randId

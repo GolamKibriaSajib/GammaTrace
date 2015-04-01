@@ -31,6 +31,8 @@ class Search < ActiveRecord::Base
     MetricInterestrateIrswapFixedfloat.where(array)
   end
 
+
+
   def regex_translator(col, string)
     string = string.gsub(/\s+/, "")
     if string =~ /(\d+)+[B|Y|D|H|M|S]-(\d+)+[B|Y|D|H|M|S]/ix

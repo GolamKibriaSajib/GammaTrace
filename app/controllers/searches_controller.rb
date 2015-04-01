@@ -5,16 +5,18 @@ class SearchesController < ApplicationController
   def index
     @searches = current_user.searches.all
     @views = current_user.views.all
-
     respond_to do |format|
       format.js
     end
   end
 
+
   def show
   end
 
+
   def show_chart
+
     graphType = "show_".concat(params[:graph_type])
     @bodyidentifier = params[:bodyid]
     gon.searchName = "FA"
@@ -23,16 +25,16 @@ class SearchesController < ApplicationController
     @scopedsearch = @scopedsearch.reject {|i|  i.common_fixed_fair_rate == nil}
     if graphType == "show_termstructure"
       termstructure_data
-    elsif graphType == "show_datatable"
-      datatable_data
-    elsif graphType == "show_delta"
-      delta_data("delta")
-    elsif graphType == "show_spread_delta"
-      delta_data("spread_delta")
+    elsif graphType == "show_datatable" || graphType == "show_timeseries"
+      execution_time_sorted_data
+    elsif graphType == "show_delta" || graphType == "show_spread_delta"
+      delta_data(graphType)
+      @delta_type = graphType
     else
       @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
       @scopedsearch = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
     end
+
     respond_to do |format|
       if @scopedsearch.length == 0
         format.js { render "searches/show_nodata" }
@@ -42,9 +44,8 @@ class SearchesController < ApplicationController
     end
   end
 
-  def timeseries_data
+  def execution_time_sorted_data
     @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
-    # @scopedsearch = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
   end
 
   def data_preprocessor
@@ -58,9 +59,6 @@ class SearchesController < ApplicationController
     @scopedsearch_b = @scopedsearch_alter.to_json
   end
 
-  def datatable_data
-    @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
-  end
 
   def vega_data
   end
@@ -69,6 +67,7 @@ class SearchesController < ApplicationController
     @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
     @scopedsearch_a = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, topdata: (((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0))}}.to_json
     detailparser(deltatype)
+    @scopedsearch = @scopedsearch.to_json
   end
 
 
@@ -77,20 +76,15 @@ class SearchesController < ApplicationController
     deltaperiodmanager = @deltahasharray["periods"]
     deltacurvemanager = @deltahasharray["curveDeltas"]
     @scopedsearch.each do |item|
-
-      if deltatype == "delta"
+      if deltatype == "show_delta"
         delta = JSON.parse(item.fixed_delta)
       else
         delta = JSON.parse(item.spread_delta)
       end
-
       deltaperiodmanager = deltaperiodmanager | delta["periods"]
-
       @deltahasharray["periods"] = deltaperiodmanager
-
       delta["curveDeltas"].each do |hashmaker|
         curve_name = hashmaker["name"]
-
         curve_instr_types = hashmaker["quoteInstrumentTypes"]
         curve_instr_types = curve_instr_types.map { |x| x ? x : "N/A" }
         curve_delta_values = hashmaker["deltaValues"]
@@ -103,14 +97,10 @@ class SearchesController < ApplicationController
         end
       end
     end
-
     @curveDeltaCount = deltacurvemanager.length    
     @deltaobjects = @deltahasharray["curveDeltas"]
     @deltakeys = @deltaobjects.keys
     @objectcount = @deltahasharray["curveDeltas"][@deltakeys[0]][0].count
-    Rails.logger.info("#{@deltahasharray}")
-    Rails.logger.info("#{@objectcount}")
-
   end
 
 
@@ -127,6 +117,27 @@ class SearchesController < ApplicationController
     end
   end
 
+  def table_updater
+    @body_id = params[:body_id]
+    @data_set = JSON.parse(params[:data_set]);
+    Rails.logger.info "HHH#{@data_set.first}HHH"
+    delta_type = params[:delta_type]
+    min_execution_timestamp = (params[:min]).to_f;
+    max_execution_timestamp = (params[:max]).to_f;
+    Rails.logger.info "MIN: #{min_execution_timestamp}"
+    Rails.logger.info "MAX: #{max_execution_timestamp}"
+    @body_id = params[:body_id]
+    @data_set2 = @data_set.delete_if {|x| ((x["execution_timestamp"] < min_execution_timestamp) || (x["execution_timestamp"]  > max_execution_timestamp))}
+    Rails.logger.info "FFFF#{@data_set}FFFF"
+    Rails.logger.info "FFFF#{@data_set2}FFFF"
+    detailparser(delta_type)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
+
 
   # GET /searches/new
   def new
@@ -137,11 +148,15 @@ class SearchesController < ApplicationController
   end
 
 
+
+
   def edit
     respond_to do |format|
       format.js
     end
   end
+
+
 
 
   def create
@@ -157,6 +172,8 @@ class SearchesController < ApplicationController
     end
   end
 
+
+
   def update
     respond_to do |format|
       if @search.update(search_params)
@@ -167,6 +184,9 @@ class SearchesController < ApplicationController
     end
   end
 
+
+
+
   def destroy
     @search.destroy
     respond_to do |format|
@@ -174,7 +194,9 @@ class SearchesController < ApplicationController
     end
   end
 
+
   private
+
     # Use callbacks to share common setup or constraints between actions.
   def set_search
     @search = Search.find(params[:id])
