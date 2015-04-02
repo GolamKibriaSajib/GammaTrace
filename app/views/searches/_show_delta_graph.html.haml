@@ -1,8 +1,8 @@
 :javascript  
   var data = #{@scopedsearch_a};
+  var hash_body_id = "#{@bodyidentifier}"
   var data_to_send = #{@scopedsearch};
-  var body_id = "#{@bodyidentifier}";
-  var delta_type = "#{@delta_type}";
+  data_array[hash_body_id] = data_to_send;
   chartid = chance.hash();
   $("##{@bodyidentifier} .panel-body .second").highcharts('StockChart', {
       credits: {
@@ -42,10 +42,24 @@
               afterSetExtremes: function (e) {
                 
                 if( !down ){
-                  var chart1 = $("##{@bodyidentifier} .panel-body .second").highcharts();
+
+                  var body_id = $(this).attr("chart");
+                  body_id = body_id["container"];
+                  body_id = body_id["id"]
+                  body_id = $("#"+body_id).parent().parent().parent().attr("id");
+                  var delta_type = body_id.slice(0,5)
+
+                  if (delta_type == "delta") {
+                    delta_type = "show_delta"
+                  } else {
+                    delta_type = "show_spread_delta"
+                  }
+
+                  var chart1 = $("#"+body_id+" .panel-body .second").highcharts();
                   var series1 = chart1.series[0];
                   var max = chart1.xAxis[0].getExtremes().max;
                   var min = chart1.xAxis[0].getExtremes().min;
+                  var data_to_send = data_array[body_id]
                   var datatosend = {"body_id" : body_id, "data_set" : JSON.stringify(data_to_send), "max": max, "min": min, "delta_type": delta_type};
                   $.ajax({
                       type: "POST",
