@@ -1,6 +1,6 @@
 :javascript   
   $(function () {
-    var data = #{@scopedsearch};
+    var data = #{@scopedsearch_time};
     chartid = chance.hash();
     $("##{@bodyidentifier} .panel-body").highcharts('StockChart', {
         credits: {

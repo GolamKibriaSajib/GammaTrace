@@ -46,6 +46,7 @@ class SearchesController < ApplicationController
 
   def execution_time_sorted_data
     @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
+    @scopedsearch_time = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
   end
 
   def data_preprocessor
@@ -77,9 +78,9 @@ class SearchesController < ApplicationController
     deltacurvemanager = @deltahasharray["curveDeltas"]
     @scopedsearch.each do |item|
       if deltatype == "show_delta"
-        delta = JSON.parse(item.fixed_delta)
+        delta = JSON.parse(item["fixed_delta"])
       else
-        delta = JSON.parse(item.spread_delta)
+        delta = JSON.parse(item["spread_delta"])
       end
       deltaperiodmanager = deltaperiodmanager | delta["periods"]
       @deltahasharray["periods"] = deltaperiodmanager
@@ -118,18 +119,13 @@ class SearchesController < ApplicationController
   end
 
   def table_updater
-    @body_id = params[:body_id]
-    @data_set = JSON.parse(params[:data_set]);
-    Rails.logger.info "HHH#{@data_set.first}HHH"
+    @bodyidentifier = params[:body_id]
+    @data_set = JSON.parse(params[:data_set])
     delta_type = params[:delta_type]
     min_execution_timestamp = (params[:min]).to_f;
     max_execution_timestamp = (params[:max]).to_f;
-    Rails.logger.info "MIN: #{min_execution_timestamp}"
-    Rails.logger.info "MAX: #{max_execution_timestamp}"
     @body_id = params[:body_id]
-    @data_set2 = @data_set.delete_if {|x| ((x["execution_timestamp"] < min_execution_timestamp) || (x["execution_timestamp"]  > max_execution_timestamp))}
-    Rails.logger.info "FFFF#{@data_set}FFFF"
-    Rails.logger.info "FFFF#{@data_set2}FFFF"
+    @scopedsearch = @data_set.delete_if {|x| ((x["execution_timestamp"]*1000) > max_execution_timestamp) || ((x["execution_timestamp"]*1000) < min_execution_timestamp)}
     detailparser(delta_type)
     respond_to do |format|
       format.js

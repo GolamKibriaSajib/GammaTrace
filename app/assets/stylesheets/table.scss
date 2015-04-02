@@ -3,7 +3,7 @@ tbody { background: #32445B; margin:0px;left:0px; color:white;}
 tfoot { background: black; margin:0px; cell-spacing:0px; left:0px; color:white;}
 th { height:10px;text-align:center;font-size: 9px;}
 table {border-spacing:2px}
-td { height:10px;font-size: 9px;}
+td { height:10px;font-size: 9px; padding: 1px !important;}
 
 .table-hover > tbody > tr:hover {
   background-color: #f5f5f5;
