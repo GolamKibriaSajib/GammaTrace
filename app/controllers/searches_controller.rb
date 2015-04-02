@@ -124,6 +124,8 @@ class SearchesController < ApplicationController
     delta_type = params[:delta_type]
     min_execution_timestamp = (params[:min]).to_f;
     max_execution_timestamp = (params[:max]).to_f;
+    Rails.logger.info "MINIMUM IS #{min_execution_timestamp}"
+    Rails.logger.info "MAXIMUM IS #{max_execution_timestamp}"
     @body_id = params[:body_id]
     @scopedsearch = @data_set.delete_if {|x| ((x["execution_timestamp"]*1000) > max_execution_timestamp) || ((x["execution_timestamp"]*1000) < min_execution_timestamp)}
     detailparser(delta_type)
