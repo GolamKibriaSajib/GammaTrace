@@ -16,7 +16,6 @@ class SearchesController < ApplicationController
 
 
   def show_chart
-
     graphType = "show_".concat(params[:graph_type])
     @bodyidentifier = params[:bodyid]
     gon.searchName = "FA"

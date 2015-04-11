@@ -12,12 +12,13 @@ class Search < ActiveRecord::Base
     Rails.logger.info "XXXX\n"
     arr = []
     hashed_value.each do |col, val|
-      next if col == "taxonomy"
-      if val != "" && val != nil && col != "id" && col != "effective_date" && col != "created_at" && col != "updated_at" && col != "user_id" && col != "name" && col != "floating_leg_reset"
+      next if col == "taxonomy" || col == "created_at" || col == "updated_at" || col == "user_id" || col == "floating_leg_reset" || col == "name"
+      if val != "" && val != nil && col != "id" && col != "effective_date" && col != "end_date"
         wc =  col + " = '" + val.to_s + "'"
         puts wc
         arr.push(wc)
       elsif (col == "effective_date" || col == "end_date") && val != ""
+        Rails.logger.info "LOGGING\n"
         wcmult =  regex_translator(col, val)
         wc1 = wcmult.first
         arr.push(wc1)
@@ -34,6 +35,7 @@ class Search < ActiveRecord::Base
 
 
   def regex_translator(col, string)
+    string = string.upcase;
     string = string.gsub(/\s+/, "")
     if string =~ /(\d+)+[B|Y|D|H|M|S]-(\d+)+[B|Y|D|H|M|S]/ix
         firstint, secondint= string.scan(/\d+/)
@@ -46,8 +48,8 @@ class Search < ActiveRecord::Base
         secondint = secondint.to_i
         firstconversion = translator(firstint, firstletter)
         secondconversion = translator(secondint, secondletter)
-        result1 = col + " >= '" + firstconversion + "'"
-        result2 = col + " <= '" + secondconversion + "'"
+        result1 = col + " >= " + firstconversion + ""
+        result2 = col + " <= " + secondconversion + ""
         arr = [result1, result2]
         return arr
     elsif string =~ /(\d+)+[B|Y|D|H|M|S]/x
@@ -67,6 +69,7 @@ class Search < ActiveRecord::Base
 
 
   def translator(integer, string)
+    Rails.logger.info "STRING IS #{string}\n"
     string = string.upcase;
     case string
     when "B"
