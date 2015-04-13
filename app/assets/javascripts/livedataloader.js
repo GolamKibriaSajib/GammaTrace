@@ -21,3 +21,37 @@ function dataPush() {
         
   }
 };
+
+
+function table_typecheck(table_type){
+  if (table_type == "delta") {
+    console.log('Type is delta');
+    return "show_delta"
+  } else if (table_type == "sprea"){
+    console.log('Type is spread');
+    return "show_spread_delta"
+  } else if (table_type == "datat") {
+    console.log('Type is data');
+    return "datatable"
+  } else if(table_type == "terms"){
+    console.log('Type is data');
+    return "term_structure"
+  }
+}
+
+function ajax_caller(table_type, datatosend, searchId){
+  if (table_type == "term_structure"){
+    $.ajax({
+      type: "POST",
+      url: "/users/" + gon.userid + "/searches/" + searchId + "/chart_updater",
+      data: datatosend
+    })
+  } else if ( (table_type == "show_delta") || (table_type == "show_spread_delta") || (table_type == "datatable") ) {
+    $.ajax({
+      type: "POST",
+      url: "/users/" + gon.userid + "/searches/" + searchId + "/table_updater",
+      data: datatosend
+    })
+  }
+}
+

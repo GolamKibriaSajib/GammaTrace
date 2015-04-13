@@ -21,7 +21,6 @@
 //= require highstock
 //= require chance.min
 //= require jquery.qtip.min
-//= require multithread
 //= require angular
 //= require angular-animate
 //= require angular-resource

@@ -1,9 +1,10 @@
 :javascript  
-  var data = #{@scopedsearch_a};
-  var hash_body_id = "#{@bodyidentifier}"
-  var data_to_send = #{@scopedsearch};
-  data_array[hash_body_id] = data_to_send;
-  chartid = chance.hash();
+  var gtype = "#{@graphType}";
+  // console.log('HAHA');
+  // if (gtype == "show_termstructure"){
+  //    console.log("GOING IN");
+  //    data = #{@scopedsearch_a};
+  // }
   $("##{@bodyidentifier} .panel-body .second").highcharts('StockChart', {
       credits: {
         enabled: false
@@ -12,6 +13,20 @@
         type: 'spline',
         zoomType: 'x',
         height: 78,
+        // events : {
+        //     load : function () {
+        //         // set up the updating of the chart each second
+        //         var series = this.series[0];
+        //         globalarray.push(series);
+        //         intervalArr.push(setInterval(function () {
+        //             var chart =  $("#"+ droppableDiv +" .panel-body").highcharts();
+        //             var x = (new Date()).getTime();
+        //             var y = randomFloatBetween(1.7,1.85,4);
+        //             var dissId= 12343;
+        //             series.addPoint({x: x, y: y, dissId: dissId}, true, true, false);
+        //         }, 2000));
+        //     }
+        // },
         animation: false
       },
       scrollbar : {
@@ -45,26 +60,18 @@
                   body_id = body_id["container"];
                   body_id = body_id["id"]
                   body_id = $("#"+body_id).parent().parent().parent().attr("id");
-                  var delta_type = body_id.slice(0,5)
+                  var table_type = body_id.slice(0,5)
                   var searchId = $("#"+body_id).children(".panel-heading").attr("id")
                   console.log("Search id is "+searchId);
-                  if (delta_type == "delta") {
-                    delta_type = "show_delta"
-                  } else {
-                    delta_type = "show_spread_delta"
-                  }
-
+                  console.log("Table type is is "+table_type);
+                  table_type = table_typecheck(table_type);
+                  console.log("Table type is is "+table_type);
                   var chart1 = $("#"+body_id+" .panel-body .second").highcharts();
-                  var series1 = chart1.series[0];
                   var max = chart1.xAxis[0].getExtremes().max;
                   var min = chart1.xAxis[0].getExtremes().min;
                   var data_to_send = data_array[body_id]
-                  var datatosend = {"body_id" : body_id, "data_set" : JSON.stringify(data_to_send), "max": max, "min": min, "delta_type": delta_type};
-                  $.ajax({
-                      type: "POST",
-                      url: "/users/" + gon.userid + "/searches/" + searchId + "/table_updater",
-                      data: datatosend
-                  })
+                  var datatosend = {"body_id" : body_id, "data_set" : JSON.stringify(data_to_send), "max": max, "min": min, "table_type": table_type};
+                  ajax_caller(table_type, datatosend, searchId)
                 }
               }
           }

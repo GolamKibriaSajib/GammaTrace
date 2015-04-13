@@ -1,38 +1,45 @@
 $("#<%= @bodyidentifier -%> .panel-heading .widgetname").empty();
+$("#<%= @bodyidentifier -%> .panel-heading .widgetname").html("<%= j render 'searchname' %>");
 $("#<%= @bodyidentifier -%> .panel-body").empty();
 <% if @graphType == "show_timeseries" %>
   $("#<%= @bodyidentifier -%> .panel-body").html("<%= j render 'show_time_series' %>");
   $("#<%= @bodyidentifier -%> .panel-heading .widgetname").html("<%= j render 'searchname' %>");
   $("#<%= @bodyidentifier -%> .panel-heading .widgetname").prepend("Time Series: ");
 <% elsif @graphType == "show_termstructure"%>
-  $("#<%= @bodyidentifier -%> .panel-heading .widgetname").html("<%= j render 'searchname' %>");
+  var data = <%= raw @scopedsearch_a %>;
+  console.log(data);
+  var data_to_send = <%= raw @scopedsearch_b %>;
+  var hash_body_id = "<%= @bodyidentifier %>";
+  data_array[hash_body_id] = data_to_send;
   $("#<%= @bodyidentifier -%> .panel-heading .widgetname").prepend("Term Structure: ");
   $("#<%= @bodyidentifier -%> .panel-body").prepend('<div class="first" style="width:100%;height:76%;margin: 0 auto"></div><div class="second" style="width:100%;height: 10%;margin: 0 auto;position: absolute; bottom: 67px;right: 0px;padding-left: 10px;padding-right: 10px;"></div>');
   $("#<%= @bodyidentifier -%> .panel-body .first").html("<%= j render 'show_term_structure' %>");
-  $("#<%= @bodyidentifier -%> .panel-body .second").html("<%= j render 'show_term_structure_second' %>");
+  $("#<%= @bodyidentifier -%> .panel-body .second").html("<%= j render 'show_table_graph' %>");
 <% elsif @graphType == "show_datatable"%>
-  $("#<%= @bodyidentifier -%> .panel-heading .widgetname").html("<%= j render 'searchname' %>");
+  var data = <%= raw @scopedsearch_time %>
+  var data_to_send = <%= raw @scopedsearch_data %>
+  var hash_body_id = "<%= @bodyidentifier %>"
+  data_array[hash_body_id] = data_to_send;
   $("#<%= @bodyidentifier -%> .panel-body").prepend('<div class="first"></div><div class="second"></div>');
   $("#<%= @bodyidentifier -%> .panel-body .first").html("<%= j render 'show_data_table' %>");
-  $("#<%= @bodyidentifier -%> .panel-body .second").html("<%= j render 'show_datatable_graph' %>");
-<% elsif @graphType == "show_delta"%>
+  $("#<%= @bodyidentifier -%> .panel-body .second").html("<%= j render 'show_table_graph' %>");
+<% elsif (@graphType == "show_delta") || (@graphType == "show_spread_delta") %>
+  var data = <%= raw @scopedsearch_a %>;
+  var hash_body_id = "<%= @bodyidentifier %>"
+  var data_to_send = <%= raw @scopedsearch %>;
+  data_array[hash_body_id] = data_to_send;
+  <% if @graphType == "show_delta" %>
+    $("#<%= @bodyidentifier -%> .panel-heading .widgetname").prepend("Delta: ");
+  <% else %>
+    $("#<%= @bodyidentifier -%> .panel-heading .widgetname").prepend("Spread Delta: ");
+  <% end %>
   $("#<%= @bodyidentifier -%> .panel-body").prepend('<div class="first" style="width:100%;height:100%;margin: 0 auto"></div><div class="second" style="width:100%;height: 10%;margin: 0 auto;position: absolute; bottom: 10%;right: 0px;padding-left: 10px;padding-right: 10px;"></div>');
-  $("#<%= @bodyidentifier -%> .panel-heading .widgetname").html("<%= j render 'searchname' %>");
-  $("#<%= @bodyidentifier -%> .panel-heading .widgetname").prepend("Delta: ");
-  $("#<%= @bodyidentifier -%> .panel-body .second").html("<%= j render 'show_delta_graph' %>");
+  $("#<%= @bodyidentifier -%> .panel-body .second").html("<%= j render 'show_table_graph' %>");
   $("#<%= @bodyidentifier -%> .panel-body .first").html("<%= j render 'show_delta' %>");
   // $("#<%= @bodyidentifier -%>").parent().children().remove(".gridster-item-resizable-handler");
-toastr.info('Are you the 6 fingered man?');
-<% elsif @graphType == "show_spread_delta"%>
-  $("#<%= @bodyidentifier -%> .panel-body").prepend('<div class="first" style="width:100%;height:100%;margin: 0 auto"></div><div class="second" style="width:100%;height: 10%;margin: 0 auto;position: absolute; bottom: 10%;right: 0px;padding-left: 10px;padding-right: 10px;"></div>');
-  $("#<%= @bodyidentifier -%> .panel-heading .widgetname").html("<%= j render 'searchname' %>");
-  $("#<%= @bodyidentifier -%> .panel-heading .widgetname").prepend("Spread Delta: ");
-  $("#<%= @bodyidentifier -%> .panel-body .second").html("<%= j render 'show_delta_graph' %>");
-  $("#<%= @bodyidentifier -%> .panel-body .first").html("<%= j render 'show_delta' %>");
-  // $("#<%= @bodyidentifier -%>").parent().children().remove(".gridster-item-resizable-handler");
+  toastr.info('Are you the 6 fingered man?');
 <% elsif @graphType == "show_ois"%>
   $("#<%= @bodyidentifier -%> .panel-body").html("<%= j render 'show_ois' %>");
-  $("#<%= @bodyidentifier -%> .panel-heading .widgetname").html("<%= j render 'searchname' %>");
   $("#<%= @bodyidentifier -%> .panel-heading .widgetname").prepend("OIS: ");
 <% elsif @graphType == "show_ccy"%>
   $("#"+ droppableDiv +" .panel-body").html("<%= j render 'show_ccy' %>");
@@ -40,5 +47,4 @@ toastr.info('Are you the 6 fingered man?');
   $("#"+ droppableDiv +" .panel-heading .widgetname").prepend("CCY: ");
 <% elsif @graphType == "show_nodata"%>
   $("#<%= @bodyidentifier -%> .panel-body").html("<%= j render 'nodata' %>");
-  $("#<%= @bodyidentifier -%> .panel-heading .widgetname").html("<%= j render 'searchname' %>");
 <% end %>

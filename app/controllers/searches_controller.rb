@@ -55,7 +55,7 @@ class SearchesController < ApplicationController
   def termstructure_data
     @scopedsearch1 = @scopedsearch
     @scopedsearch2 = @scopedsearch.sort_by {|x| x.end_date}
-    @scopedsearch_a = @scopedsearch1.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, topdata: (((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0))}}.to_json
+    @scopedsearch_a = @scopedsearch1.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
     @scopedsearch_alter = @scopedsearch2.map {|a| {x:(((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0)), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, execution_timestamp: ((a.execution_timestamp)*1000)}}
     @scopedsearch_b = @scopedsearch_alter.to_json
   end
@@ -109,6 +109,9 @@ class SearchesController < ApplicationController
     @data_set = JSON.parse(params[:data_set]);
     min_execution_timestamp = (params[:min]).to_f;
     max_execution_timestamp = (params[:max]).to_f;
+    Rails.logger.info "MINIMUM IS #{min_execution_timestamp}"
+    Rails.logger.info "MAXIMUM IS #{max_execution_timestamp}"
+    # Rails.logger.info "DATA IS #{@data_set}"
     @body_id = params[:body_id]
     @modifiedseta = @data_set.delete_if {|x| ((x["execution_timestamp"] < min_execution_timestamp) || (x["execution_timestamp"]  > max_execution_timestamp))}
     @modifiedset = @modifiedseta.to_json
@@ -120,19 +123,18 @@ class SearchesController < ApplicationController
   def table_updater
     @bodyidentifier = params[:body_id]
     @data_set = JSON.parse(params[:data_set])
-    delta_type = params[:delta_type]
+    table_type = params[:table_type]
     min_execution_timestamp = (params[:min]).to_f;
     max_execution_timestamp = (params[:max]).to_f;
     Rails.logger.info "MINIMUM IS #{min_execution_timestamp}"
     Rails.logger.info "MAXIMUM IS #{max_execution_timestamp}"
     @body_id = params[:body_id]
     @scopedsearch = @data_set.delete_if {|x| ((x["execution_timestamp"]*1000) > max_execution_timestamp) || ((x["execution_timestamp"]*1000) < min_execution_timestamp)}
-    Rails.logger.info ">>#{@scopedsearch.first}<<"
-    if delta_type == "datatable"
+    if table_type == "datatable"
       @tablepage = "show_data_table"
     else
-      @tablepage = delta_type
-      detailparser(delta_type)
+      @tablepage = table_type
+      detailparser(table_type)
     end
     respond_to do |format|
       format.js
