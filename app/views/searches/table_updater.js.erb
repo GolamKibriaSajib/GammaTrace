@@ -1,2 +1,10 @@
 $("#<%= @bodyidentifier -%> .panel-body .first").empty();
-$("#<%= @bodyidentifier -%> .panel-body .first").html("<%= j render 'show_delta' %>");
+
+var table_type = "<%= @tablepage -%>"
+console.log(table_type);
+
+<% if @tablepage == "show_delta" || @tablepage == "show_spread_delta"%>
+  $("#<%= @bodyidentifier -%> .panel-body .first").html("<%= j render 'show_delta' %>");
+<% elsif @tablepage == "show_data_table" %>
+  $("#<%= @bodyidentifier -%> .panel-body .first").html("<%= j render 'show_data_table' %>");
+<% end %>

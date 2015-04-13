@@ -133,20 +133,9 @@ angular.module('Gammatrace')
 
     $scope.remove = function(widget) {
       $scope.dashboard.widgets.splice($scope.dashboard.widgets.indexOf(widget), 1);
+      console.log("Widget id is " + widget["randId"]);
     };
 
-    $scope.openSettings = function(widget) {
-      $modal.open({
-        scope: $scope,
-        templateUrl: 'demo/dashboard/widget_settings.html',
-        controller: 'WidgetSettingsCtrl',
-        resolve: {
-          widget: function() {
-            return widget;
-          }
-        }
-      });
-    };
 
   }
 ])

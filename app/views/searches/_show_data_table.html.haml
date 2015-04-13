@@ -9,8 +9,8 @@
   %tbody
     - @scopedsearch.each do |s|
       %tr
-        %td=s.dissemination_id
-        %td.clicker.hint#tooler{"data-hint" => "Dissemination_id: #{s.dissemination_id}\nCleared: #{s.cleared}\nIndication of Collateralization: #{s.indication_of_collateralization}\nIndication of End User Exception: #{s.indication_of_end_user_exception}\nSEF?: #{s.execution_venue}\nEffective date: #{Time.at(s.effective_date)}\nEnd date: #{Time.at(s.end_date)}\nCurrency: #{s.settlement_currency}\nRounded Notional Amount: #{s.rounded_notional_amount_1}\nCommon Fixed Fair Rate: #{s.common_fixed_fair_rate}\nEffective Date Fixed Fair Rate: #{s.effective_date_fixed_fair_rate}\nEnd Date Fixed Fair Rate: #{s.end_date_fixed_fair_rate}"}= Time.at(s.effective_date)
+        %td=s["dissemination_id"]
+        %td.clicker.hint#tooler{"data-hint" => "Dissemination_id: #{s['dissemination_id']}\nCleared: #{s["cleared"]}\nIndication of Collateralization: #{s['indication_of_collateralization']}\nIndication of End User Exception: #{s['indication_of_end_user_exception']}\nSEF?: #{s['execution_venue']}\nEffective date: #{Time.at(s['effective_date'])}\nEnd date: #{Time.at(s['end_date'])}\nCurrency: #{s['settlement_currency']}\nRounded Notional Amount: #{s['rounded_notional_amount_1']}\nCommon Fixed Fair Rate: #{s['common_fixed_fair_rate']}\nEffective Date Fixed Fair Rate: #{s['effective_date_fixed_fair_rate']}\nEnd Date Fixed Fair Rate: #{s['end_date_fixed_fair_rate']}"}= Time.at(s['effective_date'])
         %td
         %td
 

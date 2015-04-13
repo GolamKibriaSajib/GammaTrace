@@ -16,43 +16,44 @@ class SearchesController < ApplicationController
 
 
   def show_chart
-    graphType = "show_".concat(params[:graph_type])
+    @graphType = "show_".concat(params[:graph_type])
     @bodyidentifier = params[:bodyid]
     gon.searchName = "FA"
     @searchid = @search.id
     @scopedsearch = @search.scopingsearch
     @scopedsearch = @scopedsearch.reject {|i|  i.common_fixed_fair_rate == nil}
-    if graphType == "show_termstructure"
+    @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
+    if @graphType == "show_termstructure"
       termstructure_data
-    elsif graphType == "show_datatable" || graphType == "show_timeseries"
+    elsif @graphType == "show_datatable" || @graphType == "show_timeseries"
       execution_time_sorted_data
-    elsif graphType == "show_delta" || graphType == "show_spread_delta"
-      delta_data(graphType)
-      @delta_type = graphType
+    elsif @graphType == "show_delta" || @graphType == "show_spread_delta"
+      delta_data(@graphType)
+      @delta_type = @graphType
     else
-      @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
       @scopedsearch = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
     end
-
     respond_to do |format|
       if @scopedsearch.length == 0
+        @graphType = "show_nodata"
         format.js { render "searches/show_nodata" }
       else
-        format.js { render "searches/#{graphType}"}
+        format.js { render "searches/populate_widget"}
       end
     end
   end
 
+
   def execution_time_sorted_data
-    @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
     @scopedsearch_time = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
+    @scopedsearch_data = @scopedsearch.to_json
   end
 
   def data_preprocessor
   end
 
   def termstructure_data
-    @scopedsearch1 = @scopedsearch.sort_by {|x| x.execution_timestamp}
+    @scopedsearch1 = @scopedsearch
     @scopedsearch2 = @scopedsearch.sort_by {|x| x.end_date}
     @scopedsearch_a = @scopedsearch1.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, topdata: (((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0))}}.to_json
     @scopedsearch_alter = @scopedsearch2.map {|a| {x:(((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0)), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, execution_timestamp: ((a.execution_timestamp)*1000)}}
@@ -64,7 +65,6 @@ class SearchesController < ApplicationController
   end
 
   def delta_data(deltatype)
-    @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
     @scopedsearch_a = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, topdata: (((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0))}}.to_json
     detailparser(deltatype)
     @scopedsearch = @scopedsearch.to_json
@@ -127,7 +127,13 @@ class SearchesController < ApplicationController
     Rails.logger.info "MAXIMUM IS #{max_execution_timestamp}"
     @body_id = params[:body_id]
     @scopedsearch = @data_set.delete_if {|x| ((x["execution_timestamp"]*1000) > max_execution_timestamp) || ((x["execution_timestamp"]*1000) < min_execution_timestamp)}
-    detailparser(delta_type)
+    Rails.logger.info ">>#{@scopedsearch.first}<<"
+    if delta_type == "datatable"
+      @tablepage = "show_data_table"
+    else
+      @tablepage = delta_type
+      detailparser(delta_type)
+    end
     respond_to do |format|
       format.js
     end
