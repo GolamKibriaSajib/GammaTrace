@@ -25,16 +25,12 @@ function dataPush() {
 
 function table_typecheck(table_type){
   if (table_type == "delta") {
-    console.log('Type is delta');
     return "show_delta"
   } else if (table_type == "sprea"){
-    console.log('Type is spread');
     return "show_spread_delta"
   } else if (table_type == "datat") {
-    console.log('Type is data');
     return "datatable"
   } else if(table_type == "terms"){
-    console.log('Type is data');
     return "term_structure"
   }
 }

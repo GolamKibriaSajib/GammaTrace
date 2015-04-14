@@ -1,88 +1,12 @@
 :javascript   
-  $(function () {
-    var data = #{@scopedsearch_time};
-    chartid = chance.hash();
-    $("##{@bodyidentifier} .panel-body").highcharts('StockChart', {
-        credits: {
-          enabled: false
-        },
-        title: {
-          style: {
-            color: 'black',
-            fontSize: '12px',
-            display: 'none'
-          },
-          text: "Term Structure: #{@search.name}"
-        },
-        chart: {
-          zoomType: 'x',
-          events : {
-              load : function () {
-                  // set up the updating of the chart each second
-                  var series = this.series[0];
-                  globalarray.push(series);
-                  intervalArr.push(setInterval(function () {
-                      var chart =  $("#"+ droppableDiv +" .panel-body").highcharts();
-                      var x = (new Date()).getTime();
-                      var y = randomFloatBetween(1.7,1.85,4);
-                      var dissId= 12343;
-                      series.addPoint({x: x, y: y, dissId: dissId}, true, true, false);
-                  }, 30000));
-              }
-          },
-          animation: false
-        },
-        navigator: {
-            maskFill: 'rgba(209, 74, 0, 0.5)',
-            series: {
-                color: 'rgba(209, 74, 0, 0.5)',
-                lineColor: "orange"
-            }
-        },
-        rangeSelector: {
-            enabled : false,
-            selected : 1,
-            inputEnabled: $("#"+ droppableDiv +"").width() > 480
-        },
-        xAxis: {        
-            type: 'datetime',
-            labels: {
-                formatter: function() {
-                    var dayStr = Highcharts.dateFormat('%d', this.value);
-                    var yearStr = Highcharts.dateFormat('%y', this.value);
-                    var monthStr = Highcharts.dateFormat('%b', this.value);
-                    return monthStr + " " + dayStr + ", " + yearStr;
-                }
-            }
-        },
-        plotOptions: {
-          series: {
-            stickyTracking: true,
-            animation: false,
-          },
-          spline: {
-            lineWidth: 0
-          }
-        },
-        tooltip: {
-            formatter: function() {
-                    var s = "";
-                    var d = new Date(0);
-                    $.each(this.points, function(i, point) {
-                      s += 'Dissemination id: ' + point.point.dissId +"<br/>" + 'Common fixed fair rate: ' + point.point.y + "%" + "<br/>" + "Execution timestamp: " + new Date(point.point.x);
-               });
-               return s;
-            }
-        },
-        series: [{
-            data: data,
-            lineWidth : 0,
-            turboThreshold: 10000,
-            marker : {
-              enabled : true,
-              radius : 2
-            },
-            color : "orange"
-            }]
-          });
+  var data = #{@scopedsearch_time};
+  chartid = chance.hash();
+  $("##{@bodyidentifier} .panel-body").highcharts('StockChart', {
+      title: title_style,
+      chart: chart_type,
+      rangeSelector: rangesel_def,
+      xAxis: xaxis_type,
+      plotOptions: plot_options,
+      tooltip: tooltip_type,
+      series: [series_gen(data)]
         });

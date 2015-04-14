@@ -29,60 +29,10 @@
         // },
         animation: false
       },
-      scrollbar : {
-        enabled : true
-      },
-      navigator: {
-          maskFill: 'rgba(209, 74, 0, 0.5)',
-          series: {
-              color: 'rgba(209, 74, 0, 0.5)',
-              lineColor: "orange"
-          }
-      },
-      rangeSelector: {
-          enabled : false
-      },
-      xAxis: {        
-        type: "datetime",
-        lineWidth: 0,
-        minorGridLineWidth: 0,
-        lineColor: 'rgba(0, 0, 0, 0)',
-        labels: {
-            enabled: false
-        },
-        minorTickLength: 0,
-        tickLength: 0,
-        events: {
-              afterSetExtremes: function (e) {
-                if( !down ){
-
-                  var body_id = $(this).attr("chart");
-                  body_id = body_id["container"];
-                  body_id = body_id["id"]
-                  body_id = $("#"+body_id).parent().parent().parent().attr("id");
-                  var table_type = body_id.slice(0,5)
-                  var searchId = $("#"+body_id).children(".panel-heading").attr("id")
-                  console.log("Search id is "+searchId);
-                  console.log("Table type is is "+table_type);
-                  table_type = table_typecheck(table_type);
-                  console.log("Table type is is "+table_type);
-                  var chart1 = $("#"+body_id+" .panel-body .second").highcharts();
-                  var max = chart1.xAxis[0].getExtremes().max;
-                  var min = chart1.xAxis[0].getExtremes().min;
-                  var data_to_send = data_array[body_id]
-                  var datatosend = {"body_id" : body_id, "data_set" : JSON.stringify(data_to_send), "max": max, "min": min, "table_type": table_type};
-                  ajax_caller(table_type, datatosend, searchId)
-                }
-              }
-          }
-      },
-      yAxis: {
-        height: 0,
-        gridLineWidth: 0,
-        labels: {
-            enabled: false
-        }
-      },
+      scrollbar : { enabled : true },
+      rangeSelector: { enabled : false },
+      xAxis: xaxis_navtype,
+      yAxis: yaxis_navtype,
       tooltip: {
         enabled: false
       },

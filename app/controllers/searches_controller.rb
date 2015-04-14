@@ -45,7 +45,7 @@ class SearchesController < ApplicationController
 
 
   def execution_time_sorted_data
-    @scopedsearch_time = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
+    navigator_graph_data
     @scopedsearch_data = @scopedsearch.to_json
   end
 
@@ -53,10 +53,9 @@ class SearchesController < ApplicationController
   end
 
   def termstructure_data
-    @scopedsearch1 = @scopedsearch
-    @scopedsearch2 = @scopedsearch.sort_by {|x| x.end_date}
-    @scopedsearch_a = @scopedsearch1.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
-    @scopedsearch_alter = @scopedsearch2.map {|a| {x:(((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0)), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, execution_timestamp: ((a.execution_timestamp)*1000)}}
+    @scopedsearch_end_sorted = @scopedsearch.sort_by {|x| x.end_date}
+    navigator_graph_data
+    @scopedsearch_alter = @scopedsearch_end_sorted.map {|a| {x:(((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0)), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, execution_timestamp: ((a.execution_timestamp)*1000)}}
     @scopedsearch_b = @scopedsearch_alter.to_json
   end
 
@@ -65,7 +64,7 @@ class SearchesController < ApplicationController
   end
 
   def delta_data(deltatype)
-    @scopedsearch_a = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, topdata: (((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0))}}.to_json
+    navigator_graph_data
     detailparser(deltatype)
     @scopedsearch = @scopedsearch.to_json
   end
@@ -111,7 +110,6 @@ class SearchesController < ApplicationController
     max_execution_timestamp = (params[:max]).to_f;
     Rails.logger.info "MINIMUM IS #{min_execution_timestamp}"
     Rails.logger.info "MAXIMUM IS #{max_execution_timestamp}"
-    # Rails.logger.info "DATA IS #{@data_set}"
     @body_id = params[:body_id]
     @modifiedseta = @data_set.delete_if {|x| ((x["execution_timestamp"] < min_execution_timestamp) || (x["execution_timestamp"]  > max_execution_timestamp))}
     @modifiedset = @modifiedseta.to_json
@@ -201,6 +199,10 @@ class SearchesController < ApplicationController
 
 
   private
+
+  def navigator_graph_data
+    @scopedsearch_time = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
+  end
 
     # Use callbacks to share common setup or constraints between actions.
   def set_search

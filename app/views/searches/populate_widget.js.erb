@@ -2,11 +2,12 @@ $("#<%= @bodyidentifier -%> .panel-heading .widgetname").empty();
 $("#<%= @bodyidentifier -%> .panel-heading .widgetname").html("<%= j render 'searchname' %>");
 $("#<%= @bodyidentifier -%> .panel-body").empty();
 <% if @graphType == "show_timeseries" %>
+  var data = <%= raw @scopedsearch_time %>;
   $("#<%= @bodyidentifier -%> .panel-body").html("<%= j render 'show_time_series' %>");
   $("#<%= @bodyidentifier -%> .panel-heading .widgetname").html("<%= j render 'searchname' %>");
   $("#<%= @bodyidentifier -%> .panel-heading .widgetname").prepend("Time Series: ");
 <% elsif @graphType == "show_termstructure"%>
-  var data = <%= raw @scopedsearch_a %>;
+  var data = <%= raw @scopedsearch_time %>;
   console.log(data);
   var data_to_send = <%= raw @scopedsearch_b %>;
   var hash_body_id = "<%= @bodyidentifier %>";
@@ -24,7 +25,7 @@ $("#<%= @bodyidentifier -%> .panel-body").empty();
   $("#<%= @bodyidentifier -%> .panel-body .first").html("<%= j render 'show_data_table' %>");
   $("#<%= @bodyidentifier -%> .panel-body .second").html("<%= j render 'show_table_graph' %>");
 <% elsif (@graphType == "show_delta") || (@graphType == "show_spread_delta") %>
-  var data = <%= raw @scopedsearch_a %>;
+  var data = <%= raw @scopedsearch_time %>;
   var hash_body_id = "<%= @bodyidentifier %>"
   var data_to_send = <%= raw @scopedsearch %>;
   data_array[hash_body_id] = data_to_send;
