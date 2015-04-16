@@ -7,6 +7,7 @@ gem 'rails'
 gem 'pg' # Use postgres as the database for Active Record
 gem "haml-rails"
 gem "quiet_assets"
+gem 'spinjs-rails'
 gem 'sass-rails'# Use SCSS for stylesheets
 gem 'uglifier' # Use Uglifier as compressor for JavaScript assets
 gem 'coffee-rails' # Use CoffeeScript for .js.coffee assets and views

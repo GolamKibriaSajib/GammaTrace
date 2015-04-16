@@ -207,6 +207,7 @@ class SearchesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
   def set_search
     @search = Search.find(params[:id])
+    Rails.logger.info ">>>>>#{@search}<<<<<"
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

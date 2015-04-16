@@ -35,6 +35,7 @@
           var bodydiv = widgetdiv.find(".panel-body")
           var firstdiv = bodydiv.find(".first")
           var seconddiv = bodydiv.find(".second")
+          bodydiv.addClass("hidediv")
           if (firstdiv != []){
             firstdiv.addClass("hidediv")
             seconddiv.addClass("hidediv")
@@ -51,13 +52,20 @@
           var bodydiv = widgetdiv.find(".panel-body")
           var firstdiv = bodydiv.find(".first")
           var seconddiv = bodydiv.find(".second")
-          widgetdiv.removeClass("resizing")
-          bodydiv.removeClass("resizing");
-          if (firstdiv != []){
-            firstdiv.removeClass("hidediv")
-            seconddiv.removeClass("hidediv")
-          }
-          setTimeout(function(){window.dispatchEvent(new Event("resize"))}, 300)
+          setTimeout(function(){
+            window.dispatchEvent(new Event("resize"))
+            setTimeout(function(){
+                bodydiv.removeClass("hidediv")
+                widgetdiv.removeClass("resizing")
+                bodydiv.removeClass("resizing");
+                if (firstdiv != []){
+                  firstdiv.removeClass("hidediv")
+                  seconddiv.removeClass("hidediv")
+                }
+              }, 200)
+          }, 200)
+  
+
       }
     },
     draggable: { // options to pass to draggable handler
