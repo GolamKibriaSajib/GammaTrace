@@ -277,3 +277,11 @@ label {
     -webkit-transform: scaleY(1.0);
   }
 }
+
+.hidediv {
+  display: none;
+}
+
+.resizing {
+  background-color: orange !important;
+}

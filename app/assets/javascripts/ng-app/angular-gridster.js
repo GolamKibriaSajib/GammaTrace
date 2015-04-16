@@ -31,12 +31,32 @@
       enabled: true,
       handles: ['s', 'se', 'e', 'n', 'w', 'ne', 'sw', 'nw'],
       start: function(e, t, n) {
+          var widgetdiv = angular.element("#"+ n["graphType"] + n["randId"])
+          var bodydiv = widgetdiv.find(".panel-body")
+          var firstdiv = bodydiv.find(".first")
+          var seconddiv = bodydiv.find(".second")
+          if (firstdiv != []){
+            firstdiv.addClass("hidediv")
+            seconddiv.addClass("hidediv")
+          }
+          widgetdiv.addClass("resizing")
+          bodydiv.addClass("resizing");
           window.dispatchEvent(new Event("resize"))
       },
       resize: function(e, t, n) {
-          window.dispatchEvent(new Event("resize"))
+        window.dispatchEvent(new Event("resize"))
       },
       stop: function(e, t, n) {
+          var widgetdiv = angular.element("#"+ n["graphType"] + n["randId"])
+          var bodydiv = widgetdiv.find(".panel-body")
+          var firstdiv = bodydiv.find(".first")
+          var seconddiv = bodydiv.find(".second")
+          widgetdiv.removeClass("resizing")
+          bodydiv.removeClass("resizing");
+          if (firstdiv != []){
+            firstdiv.removeClass("hidediv")
+            seconddiv.removeClass("hidediv")
+          }
           setTimeout(function(){window.dispatchEvent(new Event("resize"))}, 300)
       }
     },
