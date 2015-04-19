@@ -23,6 +23,7 @@ class SearchesController < ApplicationController
     @scopedsearch = @search.scopingsearch
     @scopedsearch = @scopedsearch.reject {|i|  i.common_fixed_fair_rate == nil}
     @scopedsearch = @scopedsearch.sort_by {|x| x.execution_timestamp}
+    navigator_graph_data
     if @graphType == "show_termstructure"
       termstructure_data
     elsif @graphType == "show_datatable" || @graphType == "show_timeseries"
@@ -30,6 +31,8 @@ class SearchesController < ApplicationController
     elsif @graphType == "show_delta" || @graphType == "show_spread_delta"
       delta_data(@graphType)
       @delta_type = @graphType
+    elsif @graphType == "show_vega"
+      vega_data
     else
       @scopedsearch = @scopedsearch.map {|a| {x:((a.execution_timestamp)*1000), y:a.common_fixed_fair_rate, dissId: a.dissemination_id}}.to_json
     end
@@ -45,7 +48,6 @@ class SearchesController < ApplicationController
 
 
   def execution_time_sorted_data
-    navigator_graph_data
     @scopedsearch_data = @scopedsearch.to_json
   end
 
@@ -54,7 +56,6 @@ class SearchesController < ApplicationController
 
   def termstructure_data
     @scopedsearch_end_sorted = @scopedsearch.sort_by {|x| x.end_date}
-    navigator_graph_data
     @scopedsearch_alter = @scopedsearch_end_sorted.map {|a| {x:(((a.end_date - Date.today.to_time.to_i)*1000)/(31556926.0*1000.0)), y:a.common_fixed_fair_rate, dissId: a.dissemination_id, execution_timestamp: ((a.execution_timestamp)*1000)}}
     @scopedsearch_b = @scopedsearch_alter.to_json
   end
@@ -64,7 +65,6 @@ class SearchesController < ApplicationController
   end
 
   def delta_data(deltatype)
-    navigator_graph_data
     detailparser(deltatype)
     @scopedsearch = @scopedsearch.to_json
   end

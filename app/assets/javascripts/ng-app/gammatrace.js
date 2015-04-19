@@ -78,7 +78,7 @@ angular.module('Gammatrace')
       });
     };
 
-    $scope.addCcyDeltaWidget = function() {
+    $scope.addCCYDeltaWidget = function() {
       randId = chance.hash();
       $scope.dashboard.widgets.push({
         name: "New Widget",
@@ -86,6 +86,18 @@ angular.module('Gammatrace')
         sizeY: 3,
         graphType: "ccydelta",
         gTypeName: "CCY Delta",
+        randId: randId
+      });
+    };
+
+    $scope.addVegaWidget = function() {
+      randId = chance.hash();
+      $scope.dashboard.widgets.push({
+        name: "New Widget",
+        sizeX: 5,
+        sizeY: 3,
+        graphType: "vega",
+        gTypeName: "Vega",
         randId: randId
       });
     };

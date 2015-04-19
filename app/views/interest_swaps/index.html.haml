@@ -5,14 +5,14 @@
   %div{:gridster => "gridsterOptions"}
     %ul
       %li.droppable.panel.panel-default{"gridster-item" => "widget", "ng-repeat" => "widget in dashboard.widgets"}
-        %div.widgetholder{"ng-controller" => "CustomWidgetCtrl", "ng-attr-id" =>"{{ widget.graphType+widget.randId }}"}
+        %div.widgetholder.default{"ng-controller" => "CustomWidgetCtrl", "ng-attr-id" =>"{{ widget.graphType+widget.randId }}"}
           #searchname{"ng-attr-class" =>"panel-heading dragDiv {{ widget.graphType }}"}
             .btn-group.pull-right
               %a{"ng-click" => "remove(widget)"} 
                 %i.fa.fa-times
             .widgetname
               {{ widget.gTypeName }}
-          .panel-body{:style => "width:100%;height:88%;margin: 0 auto"}
+          .panel-body.showdiv{:style => "width:100%;height:88%;margin: 0 auto"}
             Drop a search in
 
 

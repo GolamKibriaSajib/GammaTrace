@@ -13,7 +13,7 @@ $("#<%= @bodyidentifier -%> .panel-body").empty();
   var hash_body_id = "<%= @bodyidentifier %>";
   data_array[hash_body_id] = data_to_send;
   $("#<%= @bodyidentifier -%> .panel-heading .widgetname").prepend("Term Structure: ");
-  $("#<%= @bodyidentifier -%> .panel-body").prepend('<div class="first" style="width:100%;height:76%;margin: 0 auto"></div><div class="second" style="width:100%;height: 10%;margin: 0 auto;position: absolute; bottom: 67px;right: 0px;padding-left: 10px;padding-right: 10px;"></div>');
+  $("#<%= @bodyidentifier -%> .panel-body").prepend('<div class="first showdiv" style="width:100%;height:76%;margin: 0 auto"></div><div class="second showdiv" style="width:100%;height: 10%;margin: 0 auto;position: absolute; bottom: 67px;right: 0px;padding-left: 10px;padding-right: 10px;"></div>');
   $("#<%= @bodyidentifier -%> .panel-body .first").html("<%= j render 'show_term_structure' %>");
   $("#<%= @bodyidentifier -%> .panel-body .second").html("<%= j render 'show_table_graph' %>");
 <% elsif @graphType == "show_datatable"%>
@@ -21,7 +21,7 @@ $("#<%= @bodyidentifier -%> .panel-body").empty();
   var data_to_send = <%= raw @scopedsearch_data %>
   var hash_body_id = "<%= @bodyidentifier %>"
   data_array[hash_body_id] = data_to_send;
-  $("#<%= @bodyidentifier -%> .panel-body").prepend('<div class="first"></div><div class="second"></div>');
+  $("#<%= @bodyidentifier -%> .panel-body").prepend('<div class="first showdiv"></div><div class="second showdiv"></div>');
   $("#<%= @bodyidentifier -%> .panel-body .first").html("<%= j render 'show_data_table' %>");
   $("#<%= @bodyidentifier -%> .panel-body .second").html("<%= j render 'show_table_graph' %>");
 <% elsif (@graphType == "show_delta") || (@graphType == "show_spread_delta") %>
@@ -34,15 +34,17 @@ $("#<%= @bodyidentifier -%> .panel-body").empty();
   <% else %>
     $("#<%= @bodyidentifier -%> .panel-heading .widgetname").prepend("Spread Delta: ");
   <% end %>
-  $("#<%= @bodyidentifier -%> .panel-body").prepend('<div class="first" style="width:100%;height:100%;margin: 0 auto"></div><div class="second" style="width:100%;height: 10%;margin: 0 auto;position: absolute; bottom: 10%;right: 0px;padding-left: 10px;padding-right: 10px;"></div>');
+  $("#<%= @bodyidentifier -%> .panel-body").prepend('<div class="first showdiv" style="width:100%;height:100%;margin: 0 auto"></div><div class="second showdiv" style="width:100%;height: 10%;margin: 0 auto;position: absolute; bottom: 10%;right: 0px;padding-left: 10px;padding-right: 10px;"></div>');
   $("#<%= @bodyidentifier -%> .panel-body .second").html("<%= j render 'show_table_graph' %>");
   $("#<%= @bodyidentifier -%> .panel-body .first").html("<%= j render 'show_delta' %>");
   // $("#<%= @bodyidentifier -%>").parent().children().remove(".gridster-item-resizable-handler");
   toastr.info('Are you the 6 fingered man?');
-<% elsif @graphType == "show_ois"%>
-  $("#<%= @bodyidentifier -%> .panel-body").html("<%= j render 'show_ois' %>");
-  $("#<%= @bodyidentifier -%> .panel-heading .widgetname").prepend("OIS: ");
-<% elsif @graphType == "show_ccy"%>
+<% elsif @graphType == "show_vega"%>
+  $("#<%= @bodyidentifier -%> .panel-heading .widgetname").prepend("Vega: ");
+  $("#<%= @bodyidentifier -%> .panel-body").prepend('<div class="first showdiv" style="width:100%;height:100%;margin: 0 auto"></div><div class="second showdiv" style="width:100%;height: 10%;margin: 0 auto;position: absolute; bottom: 10%;right: 0px;padding-left: 10px;padding-right: 10px;"></div>');
+  $("#<%= @bodyidentifier -%> .panel-body .first").html("<%= j render 'show_vega' %>");
+  $("#<%= @bodyidentifier -%> .panel-body .second").html("<%= j render 'show_table_graph' %>");
+<% elsif @graphType == "show_ccydelta"%>
   $("#"+ droppableDiv +" .panel-body").html("<%= j render 'show_ccy' %>");
   $("#"+ droppableDiv +" .panel-heading .widgetname").html("<%= j render 'searchname' %>");
   $("#"+ droppableDiv +" .panel-heading .widgetname").prepend("CCY: ");

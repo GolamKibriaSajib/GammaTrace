@@ -1,10 +1,10 @@
 :javascript  
   var gtype = "#{@graphType}";
-  // console.log('HAHA');
-  // if (gtype == "show_termstructure"){
-  //    console.log("GOING IN");
-  //    data = #{@scopedsearch_a};
-  // }
+  console.log(gtype);
+  if (gtype == "show_termstructure"){
+      console.log("GOING IN");
+      data = #{@scopedsearch_time};
+  }
   $("##{@bodyidentifier} .panel-body .second").highcharts('StockChart', {
       credits: {
         enabled: false

@@ -35,13 +35,13 @@
           var bodydiv = widgetdiv.find(".panel-body")
           var firstdiv = bodydiv.find(".first")
           var seconddiv = bodydiv.find(".second")
-          bodydiv.addClass("hidediv")
+          bodydiv.toggleClass("showdiv hidediv")
           if (firstdiv != []){
-            firstdiv.addClass("hidediv")
-            seconddiv.addClass("hidediv")
+            firstdiv.toggleClass("showdiv hidediv")
+            seconddiv.toggleClass("showdiv hidediv")
           }
-          widgetdiv.addClass("resizing")
-          bodydiv.addClass("resizing");
+          widgetdiv.toggleClass("default resizing")
+          bodydiv.addClass("bodyresizing");
           window.dispatchEvent(new Event("resize"))
       },
       resize: function(e, t, n) {
@@ -55,12 +55,12 @@
           setTimeout(function(){
             window.dispatchEvent(new Event("resize"))
             setTimeout(function(){
-                bodydiv.removeClass("hidediv")
-                widgetdiv.removeClass("resizing")
-                bodydiv.removeClass("resizing");
+                widgetdiv.toggleClass("default resizing")
+                bodydiv.toggleClass("showdiv hidediv")
+                bodydiv.removeClass("bodyresizing");
                 if (firstdiv != []){
-                  firstdiv.removeClass("hidediv")
-                  seconddiv.removeClass("hidediv")
+                  firstdiv.toggleClass("showdiv hidediv")
+                  seconddiv.toggleClass("showdiv hidediv")
                 }
               }, 200)
           }, 200)
