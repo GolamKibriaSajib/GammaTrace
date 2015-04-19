@@ -29,7 +29,7 @@
 
 
 
-var chartLister = ["timeseries","termstructure","datatable","details", "delta", "spread_delta", "ccydelta", "vega"];
+var chartLister = ["timeseries","termstructure","datatable","details", "delta", "spread_delta", "xccy_delta", "vega"];
 var opts = {
   lines: 17, // The number of lines to draw
   length: 0, // The length of each line

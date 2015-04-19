@@ -84,7 +84,7 @@ angular.module('Gammatrace')
         name: "New Widget",
         sizeX: 5,
         sizeY: 3,
-        graphType: "ccydelta",
+        graphType: "xccy_delta",
         gTypeName: "CCY Delta",
         randId: randId
       });

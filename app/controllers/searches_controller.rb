@@ -77,8 +77,10 @@ class SearchesController < ApplicationController
     @scopedsearch.each do |item|
       if deltatype == "show_delta"
         delta = JSON.parse(item["fixed_delta"])
-      else
+      elsif deltatype == "show_spread_delta"
         delta = JSON.parse(item["spread_delta"])
+      elsif deltatype == "show_xccy_delta"
+        delta = JSON.parse(item["xccy_delta"])
       end
       deltaperiodmanager = deltaperiodmanager | delta["periods"]
       @deltahasharray["periods"] = deltaperiodmanager
