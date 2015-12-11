@@ -1,1 +1,1 @@
-Copyright (C) 2014-15 by Abrar Musa. All rights reserved.
+== Prototype for Interest Rate Swap Data Analytics Web App for GammaTrace. Uses Highcharts, Angular, GridsterJS
